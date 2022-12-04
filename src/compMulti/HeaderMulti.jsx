@@ -46,7 +46,6 @@ const HeaderMulti = () => {
 
   const handlerDataGame = () => {
     let auxTime = dataServer.timeShowShadow - secondsRemaining
-    console.log(dataServer.timeShowShadow, secondsRemaining, " = ", auxTime);
     if (auxTime < dataGame.bestTime) {
       switch (dataServer.myNumber) {
         case 1:
@@ -177,9 +176,7 @@ const HeaderMulti = () => {
     () => {
       if (secondsRemaining > 0) {
         setSecondsRemaining(secondsRemaining - 1);
-        console.log(secondsRemaining);
       } else {
-        console.log("termino");
         dispatch(NOCORRECT(true));
         handleReset()
       }
