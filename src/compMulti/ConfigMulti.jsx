@@ -240,7 +240,6 @@ const ConfigMulti = () => {
   };
 
   const keyUp = (e) => {
-    console.log(e.keyCode);
     if (e.keyCode >= 65 && e.keyCode <= 90) {
       let auxStr = auxInput + e.key;
       setAuxInput(auxStr);
@@ -755,7 +754,6 @@ const ConfigMulti = () => {
       }
       max = min + arrGeneration[auxNumArra];
       let auxNum = Math.floor(Math.random() * (max - min + 1) + min);
-      console.log(auxNum);
       loadselect(auxNum);
       auxNumSend = auxNum;
     }
@@ -850,7 +848,6 @@ const ConfigMulti = () => {
 
   useInterval(
     () => {
-      console.log(secondsRemaining);
       if (secondsRemaining > 0) {
         setSecondsRemaining(secondsRemaining - 1);
       } else {
@@ -926,7 +923,6 @@ const ConfigMulti = () => {
     });
 
     socket.on("dataGameMember", (dataGameMember) => {
-      console.log("dataMember: ", dataGameMember);
       handlerDataGameFinal(dataGameMember);
     });
   }, [socket]);
@@ -980,7 +976,6 @@ const ConfigMulti = () => {
       ) {
         //se terminaron las rondas
         handlerDataGame(1);
-        console.log("acabo el juego");
       } else {
         if (dataServer.hitCounter === dataServer.countMembers) {
           handlerDataGame(0);
@@ -1005,7 +1000,6 @@ const ConfigMulti = () => {
         );
       }
       if (countPokemonsSelect < dataGame.attempts) {
-        console.log("El ultimo resultado es el mejor");
         dispatch(
           DATA_GAME({
             name: dataServer.name,
@@ -1013,7 +1007,6 @@ const ConfigMulti = () => {
           })
         );
       } else {
-        console.log("El ultimo resultado no es el mejor");
         socket.emit("dataGameMember", {
           name: dataGame.name,
           bestTime: dataGame.bestTime,
@@ -1028,12 +1021,6 @@ const ConfigMulti = () => {
 
     if (aux === 0) {
       if (countPokemonsSelect < dataGame.attempts) {
-        console.log(
-          "length: ",
-          arrPokemons.length,
-          "attempts: ",
-          dataGame.attempts
-        );
         dispatch(
           DATA_GAME({
             name: dataServer.name,
@@ -1050,7 +1037,6 @@ const ConfigMulti = () => {
       dataServer.round === dataServer.numberGames &&
       dataServer.hitCounter === dataServer.countMembers
     ) {
-      console.log("es el ultimo");
       if (dataGame.attempts > 0) {
         socket.emit("dataGameMember", {
           name: dataGame.name,
@@ -1115,7 +1101,6 @@ const ConfigMulti = () => {
     //escuchando el tiempo de partida para terminar la partida
     if (showCorrect === false) {
       if (noCorrect === true) {
-        console.log("no correct effect");
         handleSubmit();
         setDisableBtn(true);
         dispatch(DATA_SERVER({ hitCounter: dataServer.countMembers }));
@@ -1124,7 +1109,6 @@ const ConfigMulti = () => {
     }
     if (showCorrect === true) {
       if (noCorrect === true) {
-        console.log("no correct effect");
         dispatch(DATA_SERVER({ hitCounter: dataServer.countMembers }));
         dispatch(COUNTDOWN(false));
         dispatch(NOCORRECT(false));
@@ -1168,14 +1152,12 @@ const ConfigMulti = () => {
   useEffect(() => {
     //escuchando reset Game
     if (showConfig === "return") {
-      console.log("oyendo");
       handleReset(); //reset contador antes de la partida
       restartGame();
       dispatch(SHOW_MENU(false));
       dispatch(PRACTICE({ active: true }));
     }
     if (showConfig === true) {
-      console.log("oyendo");
       dispatch(PRACTICE({ active: true }));
     }
   }, [showConfig]);
@@ -1962,7 +1944,9 @@ const ConfigMulti = () => {
                 <input
                   type="text"
                   name="busqueda"
+                  value={busquedaPokemon}
                   placeholder="Name"
+                  onChange={handleBusquedaPokemons}
                   id="buscador"
                   disabled="on"
                 />

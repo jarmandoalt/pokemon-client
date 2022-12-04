@@ -3,7 +3,6 @@ import Axios from "axios";
 const baseUrl = "https://pokeapi.co/api/v2/";
 
 export async function getPokemon(number) {
-  console.log(number);
   try {
     const response = await Axios({
       method: "GET",

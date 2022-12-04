@@ -26,8 +26,6 @@ const ShowMenu = () => {
     refDivMenu = createRef();
 
   const exitServer = async (e) => {
-    console.log(e.target.slot);
-    console.log("sale admin");
     await deleteServer(dataServer.nameServer);
     dispatch(DELETE_DATA_SERVER());
     dispatch(DELETE_ALL_DATA())
@@ -49,8 +47,6 @@ const ShowMenu = () => {
 
   const exitServerForAdmin = async (deleteMember) => {
     //exit member
-    console.log( deleteMember.idServer);
-    console.log( typeof (deleteMember.countMembers - 1), typeof 1);
     dispatch(HIDEPANEL(false))
     let arrayNamesAux = dataServer.namesMembers
     arrayNamesAux = arrayNamesAux.filter(function(item) {
@@ -90,18 +86,13 @@ const ShowMenu = () => {
   useEffect(() => {
     //Admin conection
     socket.on("deleteMember", (deleteMember) => {
-      console.log("te oi");
-      console.log(dataServer.name, deleteMember.numberMember);
       if (dataServer.name === deleteMember.numberMember) {
-        console.log("detro name");
         exitServerForAdmin(deleteMember);
       }
     });
 
     socket.on("deleteAdmin", (deleteAdmin) => {
-      console.log(deleteAdmin);
       if (dataServer.id != dataServer.idServer) {
-        console.log("no admin");
         exitServerAdmin();
       }
     });

@@ -129,7 +129,6 @@ const WaitMember = () => {
   }, [noRepeat]);
 
   const loadPokemon1 = async () => {
-    console.log("auxPokemonList", auxPokemonList);
     if (auxPokemonList.length === 1) {
       const response = await getPokemonList(auxPokemonList[0]);
       if (response.status === 200) {
@@ -228,7 +227,6 @@ const WaitMember = () => {
   };
 
   const keyUp = (e) => {
-    console.log(e.keyCode);
     if (e.keyCode >= 65 && e.keyCode <= 90) {
       let auxStr = auxInput + e.key;
       setAuxInput(auxStr);
@@ -877,7 +875,6 @@ const WaitMember = () => {
   useEffect(() => {
     socket.on("startGame", (startGame) => {
       dispatch(GAME_STARTED(false));
-      console.log(startGame);
       dispatch(
         DATA_SERVER({
           hitCounter: 0,
@@ -895,14 +892,12 @@ const WaitMember = () => {
     });
 
     socket.on("returnGame", () => {
-        console.log("is false");
         dispatch(SHOW_CONFIG("return"));
         dispatch(COUNTDOWN(false));
         handleReset()
     });
 
     socket.on("dataGameMember", (dataGameMember) => {
-      console.log("dataMember: ", dataGameMember);
       handlerDataGameFinal(dataGameMember);
     });
   }, [socket]);
@@ -949,14 +944,12 @@ const WaitMember = () => {
 
   useEffect(() => {
     if (showConfig === "return") {
-      console.log("oyendo");
       handleReset();
       restartGame();
       dispatch(SHOW_MENU(false));
       dispatch(PRACTICE({ active: true }));
     }
     if (showConfig === true) {
-      console.log("oyendo");
       dispatch(PRACTICE({ active: true }));
     }
   }, [showConfig]);
@@ -1089,7 +1082,6 @@ const WaitMember = () => {
             break;
         }
       } else {
-        console.log("no es el ultimo");
         switch (dataServer.myNumber) {
           case 2:
             socket.emit("dataGameMember", {
@@ -1162,7 +1154,6 @@ const WaitMember = () => {
       dataServer.round === dataServer.numberGames &&
       dataServer.hitCounter === dataServer.countMembers
     ) {
-      console.log("es el ultimo");
       if (dataGame.attempts > 0) {
         switch (dataServer.myNumber) {
           case 2:
@@ -1348,7 +1339,6 @@ const WaitMember = () => {
 
   useInterval(
     () => {
-      console.log(secondsRemaining);
       if (secondsRemaining > 0) {
         setSecondsRemaining(secondsRemaining - 1);
       } else {
@@ -1383,7 +1373,6 @@ const WaitMember = () => {
     //escuchando el seacabo el tiempo para desabilitar el juego
     if (showCorrect === false) {
       if (noCorrect === true) {
-        console.log("no correct effect");
         handleSubmit();
         setDisableBtn(true);
         dispatch(DATA_SERVER({ hitCounter: dataServer.countMembers }));
@@ -1392,7 +1381,6 @@ const WaitMember = () => {
       }
     } else {
       if (noCorrect === true) {
-        console.log("no correct effect");
         dispatch(DATA_SERVER({ hitCounter: dataServer.countMembers }));
         setNoRepeat(false);
         dispatch(COUNTDOWN(false));

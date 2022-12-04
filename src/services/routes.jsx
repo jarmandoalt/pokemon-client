@@ -1,7 +1,7 @@
 import socket from "../socket/socket";
 import Axios from "axios";
 
-const baseUrl = "http://localhost:5052/v1";
+const baseUrl = "https://server-who-is-this-pokmeon.onrender.com/v1";
 
 export async function getServer() {
   try {
@@ -32,7 +32,6 @@ export async function getServerName(name) {
 }
 
 export async function updateCountMembers(id, nomMember, nameMember) {
-  console.log(id, nomMember, nameMember);
     try {
       const response = await Axios({
         url: `${baseUrl}/serverUpdate`,
@@ -81,7 +80,6 @@ export async function deleteServer(name) {
 }
 
 export async function saveServer(productData) {
-  console.log(productData);
   try {
     const response = await Axios({
       url: `${baseUrl}/server`,
