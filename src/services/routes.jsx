@@ -1,8 +1,8 @@
 import socket from "../socket/socket";
 import Axios from "axios";
 
-//const baseUrl = "https://server-who-is-this-pokmeon.onrender.com/v1";
-const baseUrl = "http://localhost:5052/v1";
+const baseUrl = "https://server-who-is-this-pokmeon.onrender.com/v1";
+//const baseUrl = "http://localhost:5052/v1";
 
 export async function getServer() {
   try {
