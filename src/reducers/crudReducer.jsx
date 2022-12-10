@@ -34,8 +34,10 @@ export const initialState = {
   dataGame: {
     name: "",
     bestTime: 1000,
-    attempts: 1000
+    attempts: 1000,
   },
+  dataAttempts: [],
+  dataBestTime: [],
   hidePanelConfig: true,
   gameStarted: false,
   practice : {
@@ -100,6 +102,8 @@ const crudReducer = createSlice({
         timeSec: 0,
         namesMembers: []
       };
+      state.dataBestTime = []
+      state.dataAttempts = []
     },
     SHOW_CONFIG: (state, action) => {
       state.showConfig = action.payload;
@@ -125,6 +129,18 @@ const crudReducer = createSlice({
     PRACTICE: (state, action) => {
       state.practice =Object.assign(state.practice, action.payload);
     },
+    DATA_ATTEMPTS: (state, action) => {
+      state.dataAttempts.push(action.payload)
+    },
+    DATA_ATTEMPTS_DELETE: (state, action) => {
+      state.dataAttempts = []
+    },
+    DATA_ROUND_TIME: (state, action) => {
+      state.dataBestTime.push(action.payload)
+    },
+    DATA_ROUND_DELETE: (state, action) => {
+      state.dataBestTime = []
+  },
   },
 });
 
@@ -143,7 +159,11 @@ export const {
   HIDEPANEL,
   GAME_STARTED,
   PRACTICE,
-  DELETE_LIST_POKEMON
+  DATA_ATTEMPTS,
+  DELETE_LIST_POKEMON,
+  DATA_ROUND_TIME,
+  DATA_ATTEMPTS_DELETE,
+  DATA_ROUND_DELETE
 } = crudReducer.actions;
 
 export default crudReducer.reducer;

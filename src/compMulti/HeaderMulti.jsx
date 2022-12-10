@@ -1,6 +1,10 @@
 import { useEffect, useState, createRef, useRef, useInterval } from "react";
 import { useSelector, useDispatch } from "react-redux";
-  import { NOCORRECT, DATA_GAME } from "../reducers/crudReducer.jsx";
+import {
+  NOCORRECT,
+  DATA_GAME,
+  DATA_ROUND_TIME,
+} from "../reducers/crudReducer.jsx";
 
 const HeaderMulti = () => {
   const dbPokemon1 = useSelector((state) => state.dbPokemon1),
@@ -31,90 +35,106 @@ const HeaderMulti = () => {
       handleStart();
     }
     if (countdown === false) {
-     handlerDataGame() 
+      handlerDataGame();
     }
   }, [countdown]);
 
   useEffect(() => {
     //Escuchando cuando acaben todos los miembros
-      if (
-        dataServer.hitCounter === dataServer.countMembers
-      ) {
-      handleReset()
-      }
+    if (dataServer.hitCounter === dataServer.countMembers) {
+      handleReset();
+    }
   }, [dataServer.hitCounter]);
 
   const handlerDataGame = () => {
-    let auxTime = dataServer.timeShowShadow - secondsRemaining
+    let auxTime = dataServer.timeShowShadow - secondsRemaining;
+    dispatch(DATA_ROUND_TIME(auxTime));
     if (auxTime < dataGame.bestTime) {
       switch (dataServer.myNumber) {
         case 1:
-          dispatch(DATA_GAME({
-            name: dataServer.name,
-            bestTime: auxTime
-          }))
+          dispatch(
+            DATA_GAME({
+              name: dataServer.name,
+              bestTime: auxTime,
+            })
+          );
           break;
-          case 2:
-          dispatch(DATA_GAME({
-            name: dataServer.name,
-            bestTimeMember2: auxTime,
-            bestTime: auxTime
-          }))
+        case 2:
+          dispatch(
+            DATA_GAME({
+              name: dataServer.name,
+              bestTimeMember2: auxTime,
+              bestTime: auxTime,
+            })
+          );
           break;
-          case 3:
-          dispatch(DATA_GAME({
-            name: dataServer.name,
-            bestTimeMember3: auxTime,
-            bestTime: auxTime
-          }))
+        case 3:
+          dispatch(
+            DATA_GAME({
+              name: dataServer.name,
+              bestTimeMember3: auxTime,
+              bestTime: auxTime,
+            })
+          );
           break;
-          case 4:
-          dispatch(DATA_GAME({
-            name: dataServer.name,
-            bestTimeMember4: auxTime,
-            bestTime: auxTime
-          }))
+        case 4:
+          dispatch(
+            DATA_GAME({
+              name: dataServer.name,
+              bestTimeMember4: auxTime,
+              bestTime: auxTime,
+            })
+          );
           break;
-      
+
         default:
           break;
       }
-      dispatch(DATA_GAME({
-        name: dataServer.name,
-        bestTime: auxTime
-      }))
+      dispatch(
+        DATA_GAME({
+          name: dataServer.name,
+          bestTime: auxTime,
+        })
+      );
     } else {
-
       if (dataGame.bestTime === 1000 || dataGame.bestTime === 0) {
         switch (dataServer.myNumber) {
           case 1:
-            dispatch(DATA_GAME({
-              name: dataServer.name,
-              bestTime: dataServer.timeShowShadow
-            }))
+            dispatch(
+              DATA_GAME({
+                name: dataServer.name,
+                bestTime: dataServer.timeShowShadow,
+              })
+            );
             break;
-            case 2:
-            dispatch(DATA_GAME({
-              name: dataServer.name,
-              bestTimeMember2: dataServer.timeShowShadow,
-              bestTime: dataServer.timeShowShadow
-            }))
+          case 2:
+            dispatch(
+              DATA_GAME({
+                name: dataServer.name,
+                bestTimeMember2: dataServer.timeShowShadow,
+                bestTime: dataServer.timeShowShadow,
+              })
+            );
             break;
-            case 3:
-            dispatch(DATA_GAME({
-              name: dataServer.name,
-              bestTimeMember3: dataServer.timeShowShadow,
-              bestTime: dataServer.timeShowShadow
-            }))
+          case 3:
+            dispatch(
+              DATA_GAME({
+                name: dataServer.name,
+                bestTimeMember3: dataServer.timeShowShadow,
+                bestTime: dataServer.timeShowShadow,
+              })
+            );
             break;
-            case 4:
-            dispatch(DATA_GAME({
-              name: dataServer.name,
-              bestTimeMember4: dataServer.timeShowShadow,
-              bestTime: dataServer.timeShowShadow
-            }))
+          case 4:
+            dispatch(
+              DATA_GAME({
+                name: dataServer.name,
+                bestTimeMember4: dataServer.timeShowShadow,
+                bestTime: dataServer.timeShowShadow,
+              })
+            );
             break;
-        
+
           default:
             break;
         }
@@ -178,7 +198,7 @@ const HeaderMulti = () => {
         setSecondsRemaining(secondsRemaining - 1);
       } else {
         dispatch(NOCORRECT(true));
-        handleReset()
+        handleReset();
       }
     },
     status === STATUS.STARTED ? 1000 : null

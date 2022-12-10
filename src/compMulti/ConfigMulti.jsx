@@ -11,6 +11,9 @@ import {
   SHOW_MENU,
   NOCORRECT,
   DATA_GAME,
+  DATA_ATTEMPTS,
+  DATA_ATTEMPTS_DELETE,
+  DATA_ROUND_DELETE,
   PRACTICE,
 } from "../reducers/crudReducer.jsx";
 import {
@@ -40,13 +43,19 @@ const ConfigMulti = () => {
     dbPokemon1 = useSelector((state) => state.dbPokemon1),
     dbPokemonSelect = useSelector((state) => state.dbPokemonSelect),
     dataServer = useSelector((state) => state.dataServer),
+    dataAttempts = useSelector((state) => state.dataAttempts),
     showConfig = useSelector((state) => state.showConfig),
     noCorrect = useSelector((state) => state.noCorrect),
     practice = useSelector((state) => state.practice),
+    dataBestTime = useSelector((state) => state.dataBestTime),
     hidePanelConfig = useSelector((state) => state.hidePanelConfig),
     dataGame = useSelector((state) => state.dataGame),
     countdown = useSelector((state) => state.countdown),
     dispatch = useDispatch(),
+    STATUS = {
+      STARTED: "Started",
+      STOPPED: "Stopped",
+    },
     [pokeballReady, setPokeballReady] = useLocalStorage("pokeballReady", false),
     [showImg, setShowImg] = useLocalStorage("showImg", false),
     [auxInput, setAuxInput] = useLocalStorage("auxInput", ""),
@@ -79,10 +88,12 @@ const ConfigMulti = () => {
     [arrPokemonsUse, setArrPokemonsUse] = useLocalStorage("arrPokemonUse", []),
     [arrPokemons, setArrPokemons] = useLocalStorage("arrPokemons", []),
     [disableBtn, setDisableBtn] = useLocalStorage("disableBtn", false),
+    [secondsRemaining, setSecondsRemaining] = useLocalStorage("secondsRemaining", 9),
+    [status, setStatus] = useLocalStorage("status", STATUS.STOPPED),
     refResults = useRef(),
     refPanel = useRef(),
     refListPokemon = useRef(),
-    refPanelPokeball = useRef();
+    refPanelPokeball = useRef()
 
   function useLocalStorage(key, initialValue) {
     // State to store our value
@@ -150,6 +161,8 @@ const ConfigMulti = () => {
     }
   }); */
 
+
+  //Poner focus en input
   const moveCursorToEnd = () => {
     let el = document.getElementById("buscador");
     el.focus();
@@ -162,6 +175,8 @@ const ConfigMulti = () => {
     }
   };
 
+
+  //Cambio de color en botones de generacion
   const handleBtnGeneration = (e) => {
     new Audio(click).play();
     if (arrGeneration.includes(Number(e.target.slot))) {
@@ -176,7 +191,8 @@ const ConfigMulti = () => {
       setArrGeneration([...arrGeneration, Number(e.target.slot)]);
     }
   };
-
+  
+  //Pedir a pokeapi el pokemon selecto
   const loadPokemon1 = async (num) => {
     const response = await getPokemonList(num);
     if (response.status === 200) {
@@ -189,17 +205,7 @@ const ConfigMulti = () => {
     }
   };
 
-  useEffect(() => {
-    if (hidePanelConfig === true) {
-      refPanel.current.classList.add("is-active");
-      refPanelPokeball.current.classList.add("is-multi");
-    }
-    if (hidePanelConfig === false) {
-      refPanel.current.classList.remove("is-active");
-      refPanelPokeball.current.classList.remove("is-multi");
-    }
-  }, [hidePanelConfig]);
-
+  //Pedir a pokeapi las generaciones
   const loadselect = async (num) => {
     const response = await getPokemon(num);
     if (response.status === 200) {
@@ -220,6 +226,20 @@ const ConfigMulti = () => {
     new Audio(waitPokeball).play();
   };
 
+  //Escuchando cuando se regresa al menu
+  useEffect(() => {
+    if (hidePanelConfig === true) {
+      refPanel.current.classList.add("is-active");
+      refPanelPokeball.current.classList.add("is-multi");
+    }
+    if (hidePanelConfig === false) {
+      refPanel.current.classList.remove("is-active");
+      refPanelPokeball.current.classList.remove("is-multi");
+    }
+  }, [hidePanelConfig]);
+
+
+  //Filtro de busqueda del input
   const filterPokemon = (terminoBusqueda) => {
     let resultFilter = dbPokemon1.filter((element) => {
       if (
@@ -239,6 +259,7 @@ const ConfigMulti = () => {
     setNamePokemonSelect(result);
   };
 
+  //Manejador de input para que no acepte esos valores
   const keyUp = (e) => {
     if (e.keyCode >= 65 && e.keyCode <= 90) {
       let auxStr = auxInput + e.key;
@@ -272,7 +293,7 @@ const ConfigMulti = () => {
       if (countShowPokemon === 3) {
         //Atajo de teclado para ver la sombre del pokemon
         setShowImg(true);
-        new Audio(showShadow).play()
+        new Audio(showShadow).play();
       }
       if (countShowPokemon === 0 && practice.active === true) {
         //Atajo de teclado para ver la sombre del pokemon
@@ -308,41 +329,15 @@ const ConfigMulti = () => {
   };
 
   const handleBusquedaPokemons = (e) => {
-    console.log("holas");
   };
 
-  const control = (e) => {
-    switch (e.keyCode) {
-      case 39:
-        focusSelect.nextElementSibling.focus();
-        setFocus(focusSelect.nextElementSibling);
-        break;
-      case 37:
-        focusSelect.previousElementSibling.focus();
-        setFocus(focusSelect.previousElementSibling);
-        break;
-      case 17:
-        if (focusSelect.nextElementSibling === null) {
-          focusSelect.previousElementSibling.focus();
-          setFocus(focusSelect.previousElementSibling);
-        }
-        if (focusSelect.previousElementSibling === null) {
-          focusSelect.nextElementSibling.focus();
-          setFocus(focusSelect.nextElementSibling);
-        }
-        selectNamePokemon(e);
-        break;
-      default:
-        break;
-    }
-    moveCursorToEnd();
-  };
-
+  //Reproducir audio y subir contador de pokemons
   const playAudioAcert = () => {
     new Audio(keyArcert).play();
     setCountShowPokemon(countShowPokemon + 1);
   };
 
+  //Pedir a pokeapi el pokemon seleccionado y comprobando los aciertos en generacion o tipos
   const pokemonSelect = async (name) => {
     const response = await getPokemonSelect(name);
     if (response.status === 200) {
@@ -362,33 +357,25 @@ const ConfigMulti = () => {
             dbPokemonSelect.types[0].type.name ===
             response.data.types[0].type.name
           ) {
-            countShowPokemon < 3
-              ? playAudioAcert()
-              : null;
+            countShowPokemon < 3 ? playAudioAcert() : null;
           } else {
             if (
               dbPokemonSelect.types[0].type.name ===
               response.data.types[1].type.name
             ) {
-              countShowPokemon < 3
-                ? playAudioAcert()
-                : null;
+              countShowPokemon < 3 ? playAudioAcert() : null;
             } else {
               if (
                 dbPokemonSelect.types[1].type.name ===
                 response.data.types[0].type.name
               ) {
-                countShowPokemon < 3
-                  ? playAudioAcert()
-                  : null;
+                countShowPokemon < 3 ? playAudioAcert() : null;
               } else {
                 if (
                   dbPokemonSelect.types[1].type.name ===
                   response.data.types[1].type.name
                 ) {
-                  countShowPokemon < 3
-                    ? playAudioAcert()
-                    : null;
+                  countShowPokemon < 3 ? playAudioAcert() : null;
                 }
               }
             }
@@ -398,17 +385,13 @@ const ConfigMulti = () => {
             dbPokemonSelect.types[0].type.name ===
             response.data.types[0].type.name
           ) {
-            countShowPokemon < 3
-              ? playAudioAcert()
-              : null;
+            countShowPokemon < 3 ? playAudioAcert() : null;
           } else {
             if (
               dbPokemonSelect.types[0].type.name ===
               response.data.types[1].type.name
             ) {
-              countShowPokemon < 3
-                ? playAudioAcert()
-                : null;
+              countShowPokemon < 3 ? playAudioAcert() : null;
             }
           }
         }
@@ -431,17 +414,13 @@ const ConfigMulti = () => {
             dbPokemonSelect.types[0].type.name ===
             response.data.types[0].type.name
           ) {
-            countShowPokemon < 3
-              ? playAudioAcert()
-              : null;
+            countShowPokemon < 3 ? playAudioAcert() : null;
           } else {
             if (
               dbPokemonSelect.types[1].type.name ===
               response.data.types[0].type.name
             ) {
-              countShowPokemon < 3
-                ? playAudioAcert()
-                : null;
+              countShowPokemon < 3 ? playAudioAcert() : null;
             }
           }
         } else {
@@ -449,9 +428,7 @@ const ConfigMulti = () => {
             dbPokemonSelect.types[0].type.name ===
             response.data.types[0].type.name
           ) {
-            countShowPokemon < 3
-              ? playAudioAcert()
-              : null;
+            countShowPokemon < 3 ? playAudioAcert() : null;
           }
         }
 
@@ -470,12 +447,14 @@ const ConfigMulti = () => {
     }
   };
 
+  //Manejador de rendicion
   const handleSubmit = () => {
     pokemonSelect(dbPokemonSelect.name);
     setDisableBtn(true);
     dispatch(NOCORRECT(false));
   };
 
+  //manejador de botones y comprobador de acierto de pokemon selecto asi como emicion de socket y asignacion de puntos
   const selectNamePokemon = async (e) => {
     e.preventDefault();
     setCountPokemonsSelect(countPokemonsSelect + 1);
@@ -573,6 +552,7 @@ const ConfigMulti = () => {
     }, 300);
   };
 
+  //manejador de teclas y comprobador de acierto de pokemon selecto asi como emicion de socket y asignacion de puntos
   const selectNamePokemonKey = async (key) => {
     setCountPokemonsSelect(countPokemonsSelect + 1);
     if (key === dbPokemonSelect.name) {
@@ -667,6 +647,7 @@ const ConfigMulti = () => {
     }, 300);
   };
 
+  //Reiniciar datos de partida y mandar socket de comienzo de partida en equipo
   const handleSend = async (aux) => {
     dispatch(DELETE_ALL_DATA());
     setBusquedaPokemon("");
@@ -769,7 +750,7 @@ const ConfigMulti = () => {
     setTimeout(() => {
       dispatch(DATA_SERVER({ round: dataServer.round + 1 }));
     }, 200);
-    handleStart(); //comenzar countdown
+    handleTimeStart(); //comenzar countdown
 
     socket.emit("startGame", {
       nameServer: dataServer.nameServer,
@@ -786,6 +767,7 @@ const ConfigMulti = () => {
     refPanelPokeball.current.classList.add("is-multi");
   };
 
+  //Manejar el comienzo de juego en modo practica
   const handlePractice = async (aux) => {
     dispatch(DELETE_ALL_DATA());
     setBusquedaPokemon("");
@@ -809,14 +791,6 @@ const ConfigMulti = () => {
     refPanelPokeball.current.classList.add("is-multi");
   };
 
-  const STATUS = {
-    STARTED: "Started",
-    STOPPED: "Stopped",
-  };
-
-  const [secondsRemaining, setSecondsRemaining] = useState(9);
-  const [status, setStatus] = useState(STATUS.STOPPED);
-
   function useInterval(callback, delay) {
     const savedCallback = useRef();
 
@@ -837,21 +811,22 @@ const ConfigMulti = () => {
     }, [delay]);
   }
 
-  const handleStart = () => {
+  const handleTimeStart = () => {
     setStatus(STATUS.STARTED);
   };
 
-  const handleReset = () => {
+  const handleTimeReset = () => {
     setStatus(STATUS.STOPPED);
     setSecondsRemaining(9);
   };
 
+  //Intervalo de manejo de tiempo antes de empezar
   useInterval(
     () => {
       if (secondsRemaining > 0) {
         setSecondsRemaining(secondsRemaining - 1);
       } else {
-        handleReset();
+        handleTimeReset();
         setShowCountdown(true);
         dispatch(COUNTDOWN(true));
         setAuxInput("");
@@ -866,6 +841,7 @@ const ConfigMulti = () => {
     // passing null stops the interval
   );
 
+  //Desactivar configuraciones cuando se esta en el home 
   useEffect(() => {
     if (hidePanel === true) {
       setShowCorrect(false);
@@ -876,19 +852,8 @@ const ConfigMulti = () => {
     }
   }, [hidePanel]);
 
-  const controlInput = (e) => {
-    let $divBtn = document.getElementById("divBtnOpc");
 
-    switch (e.keyCode) {
-      case 40:
-        $divBtn.firstElementChild.focus();
-        setFocus($divBtn.firstElementChild);
-        break;
-      default:
-        break;
-    }
-  };
-
+  //manejador del tiempo para comenzar en  
   const handlerTime = () => {
     let min = Math.floor(dataServer.timeShowShadow / 60),
       seg = dataServer.timeShowShadow % 60;
@@ -905,18 +870,19 @@ const ConfigMulti = () => {
     );
   };
 
+  //Manejando el juego de practica y activando en el home
   useEffect(() => {
     if (practice.click === true) {
       handlePractice();
       dispatch(PRACTICE({ click: false }));
       setTimeout(() => {
-        moveCursorToEnd()
+        moveCursorToEnd();
       }, 1000);
     }
   }, [practice]);
 
+  //Escuchador de sockets
   useEffect(() => {
-    //Escuchador de sockets
     socket.on("correct", (correct) => {
       handlerPoints(correct);
       setCorrectCounter(correct.numAcert);
@@ -927,6 +893,7 @@ const ConfigMulti = () => {
     });
   }, [socket]);
 
+  //Manejando Attempts y BestTime de miembros
   const handlerDataGameFinal = (dataGameMember) => {
     switch (dataGameMember.numberMember) {
       case 1:
@@ -967,15 +934,18 @@ const ConfigMulti = () => {
     setShowResults(true);
   };
 
+  //Escuchando cuando acaben todos los miembros
   useEffect(() => {
-    //Escuchando cuando acaben todos los miembros
     setTimeout(() => {
+      //Comprobando si se acabo la partida
       if (
         dataServer.round === dataServer.numberGames &&
         dataServer.hitCounter === dataServer.countMembers
       ) {
         //se terminaron las rondas
         handlerDataGame(1);
+        dispatch(DATA_ATTEMPTS_DELETE());
+        dispatch(DATA_ROUND_DELETE());
       } else {
         if (dataServer.hitCounter === dataServer.countMembers) {
           handlerDataGame(0);
@@ -989,7 +959,11 @@ const ConfigMulti = () => {
     }, 3000);
   }, [dataServer.hitCounter]);
 
+  //Manejando los attepts 
   const handlerDataGame = async (aux) => {
+    //Mandar todos los attempts al array
+    dispatch(DATA_ATTEMPTS(countPokemonsSelect));
+    //Manejando al mejor Attempts de las rondas
     if (aux === 1) {
       if (dataGame.attempts === 1000) {
         dispatch(
@@ -1032,6 +1006,7 @@ const ConfigMulti = () => {
     setCountPokemonsSelect(0);
   };
 
+  //Escuachando cuando cambia el mejor attept para mandar el socket a members
   useEffect(() => {
     if (
       dataServer.round === dataServer.numberGames &&
@@ -1056,9 +1031,8 @@ const ConfigMulti = () => {
     }
   }, [dataGame.attempts]);
 
+  //Guardando los puntos en el dataServer
   const handlerPoints = (correct) => {
-    //manejador de puntos
-
     switch (correct.number) {
       case 1:
         dispatch(
@@ -1097,14 +1071,16 @@ const ConfigMulti = () => {
     }
   };
 
+  //Escuchando el tiempo de partida para terminar la partida
   useEffect(() => {
-    //escuchando el tiempo de partida para terminar la partida
     if (showCorrect === false) {
       if (noCorrect === true) {
         handleSubmit();
         setDisableBtn(true);
         dispatch(DATA_SERVER({ hitCounter: dataServer.countMembers }));
         dispatch(COUNTDOWN(false));
+        setDisableBtn(true)
+        setShowImg(true)
       }
     }
     if (showCorrect === true) {
@@ -1112,12 +1088,18 @@ const ConfigMulti = () => {
         dispatch(DATA_SERVER({ hitCounter: dataServer.countMembers }));
         dispatch(COUNTDOWN(false));
         dispatch(NOCORRECT(false));
+        setDisableBtn(true)
+        setShowImg(true)
+
       }
     }
   }, [noCorrect]);
 
+  //Reseteo de partida
   const restartGame = () => {
     dispatch(DELETE_ALL_DATA());
+    dispatch(DATA_ATTEMPTS_DELETE());
+    dispatch(DATA_ROUND_DELETE());
     dispatch(READ_ALL_DATA_2({}));
     dispatch(
       DATA_SERVER({
@@ -1149,10 +1131,10 @@ const ConfigMulti = () => {
     setArrPokemons([]);
   };
 
+  //escuchando reset Game
   useEffect(() => {
-    //escuchando reset Game
     if (showConfig === "return") {
-      handleReset(); //reset contador antes de la partida
+      handleTimeReset(); //reset contador antes de la partida
       restartGame();
       dispatch(SHOW_MENU(false));
       dispatch(PRACTICE({ active: true }));
@@ -1166,128 +1148,128 @@ const ConfigMulti = () => {
     <div>
       {showConfig ? (
         <div id="configMulti" ref={refPanel}>
-          <div>
-            <h1>Configure the game</h1>
-          </div>
-          <div id="numberGames">
-            <h2>Number of rounds </h2>
-            <div>
-              <button
-                onClick={() => {
-    new Audio(click).play();
-
-                  dataServer.numberGames === 1
-                    ? null
-                    : dispatch(
-                        DATA_SERVER({ numberGames: dataServer.numberGames - 1 })
-                      );
-                }}
-              >
-                {" "}
-                -{" "}
-              </button>
-              <h2>{dataServer.numberGames}</h2>
-              <button
-                onClick={() => {
-    new Audio(click).play();
-
-                  dataServer.numberGames === 10
-                    ? null
-                    : dispatch(
-                        DATA_SERVER({ numberGames: dataServer.numberGames + 1 })
-                      );
-                }}
-              >
-                {" "}
-                +{" "}
-              </button>
+              <div>
+                <h1>Configure the game</h1>
+              </div>
+              <div id="numberGames">
+                <h2>Number of rounds </h2>
+                <div>
+                  <button
+                    onClick={() => {
+                      new Audio(click).play();
+    
+                      dataServer.numberGames === 1
+                        ? null
+                        : dispatch(
+                            DATA_SERVER({ numberGames: dataServer.numberGames - 1 })
+                          );
+                    }}
+                  >
+                    {" "}
+                    -{" "}
+                  </button>
+                  <h2>{dataServer.numberGames}</h2>
+                  <button
+                    onClick={() => {
+                      new Audio(click).play();
+    
+                      dataServer.numberGames === 10
+                        ? null
+                        : dispatch(
+                            DATA_SERVER({ numberGames: dataServer.numberGames + 1 })
+                          );
+                    }}
+                  >
+                    {" "}
+                    +{" "}
+                  </button>
+                </div>
+              </div>
+              <div id="timeShadow">
+                <h2>Time for each game</h2>
+                <div>
+                  <button
+                    onClick={() => {
+                      new Audio(click).play();
+    
+                      dataServer.timeShowShadow === 15
+                        ? null
+                        : dispatch(
+                            DATA_SERVER({
+                              timeShowShadow: dataServer.timeShowShadow - 15,
+                            })
+                          );
+                    }}
+                  >
+                    {" "}
+                    -{" "}
+                  </button>
+                  {dataServer.timeShowShadow > 50 ? (
+                    handlerTime()
+                  ) : (
+                    <h2>{dataServer.timeShowShadow}s</h2>
+                  )}
+                  <button
+                    onClick={() => {
+                      new Audio(click).play();
+    
+                      dataServer.timeShowShadow === 300
+                        ? null
+                        : dispatch(
+                            DATA_SERVER({
+                              timeShowShadow: dataServer.timeShowShadow + 15,
+                            })
+                          );
+                    }}
+                  >
+                    {" "}
+                    +{" "}
+                  </button>
+                </div>
+              </div>
+              <div>
+                <div>
+                  <h2>Select the generations you will play with</h2>
+                </div>
+                <div>
+                  <button slot="151" onClick={handleBtnGeneration}>
+                    {" "}
+                    1° Generation{" "}
+                  </button>
+                  <button slot="100" onClick={handleBtnGeneration}>
+                    {" "}
+                    2° Generation{" "}
+                  </button>
+                  <button slot="135" onClick={handleBtnGeneration}>
+                    {" "}
+                    3° Generation{" "}
+                  </button>
+                  <button slot="107" onClick={handleBtnGeneration}>
+                    {" "}
+                    4° Generation{" "}
+                  </button>
+                  <button slot="156" onClick={handleBtnGeneration}>
+                    {" "}
+                    5° Generation{" "}
+                  </button>
+                  <button slot="72" onClick={handleBtnGeneration}>
+                    {" "}
+                    6° Generation{" "}
+                  </button>
+                  <button slot="88" onClick={handleBtnGeneration}>
+                    {" "}
+                    7° Generation{" "}
+                  </button>
+                  <button slot="89" onClick={handleBtnGeneration}>
+                    {" "}
+                    8° Generation{" "}
+                  </button>
+                </div>
+                <div>
+                  <button onClick={handleSend}>START</button>
+                </div>
+              </div>
             </div>
-          </div>
-          <div id="timeShadow">
-            <h2>Time for each game</h2>
-            <div>
-              <button
-                onClick={() => {
-    new Audio(click).play();
-
-                  dataServer.timeShowShadow === 15
-                    ? null
-                    : dispatch(
-                        DATA_SERVER({
-                          timeShowShadow: dataServer.timeShowShadow - 15,
-                        })
-                      );
-                }}
-              >
-                {" "}
-                -{" "}
-              </button>
-              {dataServer.timeShowShadow > 50 ? (
-                handlerTime()
-              ) : (
-                <h2>{dataServer.timeShowShadow}s</h2>
-              )}
-              <button
-                onClick={() => {
-    new Audio(click).play();
-
-                  dataServer.timeShowShadow === 300
-                    ? null
-                    : dispatch(
-                        DATA_SERVER({
-                          timeShowShadow: dataServer.timeShowShadow + 15,
-                        })
-                      );
-                }}
-              >
-                {" "}
-                +{" "}
-              </button>
-            </div>
-          </div>
-          <div>
-            <div>
-              <h2>Select the generations you will play with</h2>
-            </div>
-            <div>
-              <button slot="151" onClick={handleBtnGeneration}>
-                {" "}
-                1° Generation{" "}
-              </button>
-              <button slot="100" onClick={handleBtnGeneration}>
-                {" "}
-                2° Generation{" "}
-              </button>
-              <button slot="135" onClick={handleBtnGeneration}>
-                {" "}
-                3° Generation{" "}
-              </button>
-              <button slot="107" onClick={handleBtnGeneration}>
-                {" "}
-                4° Generation{" "}
-              </button>
-              <button slot="156" onClick={handleBtnGeneration}>
-                {" "}
-                5° Generation{" "}
-              </button>
-              <button slot="72" onClick={handleBtnGeneration}>
-                {" "}
-                6° Generation{" "}
-              </button>
-              <button slot="88" onClick={handleBtnGeneration}>
-                {" "}
-                7° Generation{" "}
-              </button>
-              <button slot="89" onClick={handleBtnGeneration}>
-                {" "}
-                8° Generation{" "}
-              </button>
-            </div>
-            <div>
-              <button onClick={handleSend}>START</button>
-            </div>
-          </div>
-        </div>
       ) : showCountdown ? (
         showResults ? (
           <div id="panelResults" ref={refPanel}>
@@ -1559,15 +1541,122 @@ const ConfigMulti = () => {
           </div>
         ) : (
           <div id="infPanel" ref={refPanel}>
-            Hola
+          <div>
+            <h2>Round {dataServer.round}</h2>
+            <img src={pokeball} alt="" />
+          </div>
+          <div>
+            <div>
+              <h1>Attempts: {countPokemonsSelect}</h1>
+            </div>
+            <div>
+              {dataAttempts.map((attempts, index) => (
+                dataBestTime[index] < dataServer.timeShowShadow ?
+                <div className="green">
+                  <h1 key={attempts}>Round {index + 1}</h1>
+                  <div>
+                  <h2>
+                    {" "}
+                    attempts: {attempts}{" "}
+                  </h2>
+                  {
+                    dataBestTime[index] < 60 ?
+                  <h2>
+                    {" "}
+                    time: {dataBestTime[index]}s{" "}
+                  </h2>: 
+                  <h2>
+                  {" "}
+                  time: {Math.floor(dataBestTime[index] / 60) }m {dataBestTime[index] % 60 }s {" "}
+                </h2>
+                  }
+                  </div>
+                </div> :
+                <div className="red">
+                  <h1 key={attempts}>Round {index + 1}</h1>
+                  <div>
+
+                  <h2>
+                    {" "}
+                    attempts: {attempts}
+                  </h2>
+                  {
+                    dataBestTime[index] < 60 ?
+                  <h2>
+                    {" "}
+                    time: {dataBestTime[index]}s{" "}
+                  </h2>: 
+                  <h2>
+                  {" "}
+                  time: {Math.floor(dataBestTime[index] / 60) }m {dataBestTime[index] % 60 }s {" "}
+                </h2>
+                  }
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
           </div>
         )
       ) : (
-        <div id="waitMulti" ref={refPanel}>
-          <h2>Round {dataServer.round} will start in:</h2>
-          <h2>{secondsRemaining}s</h2>
-          <img src={pokeball} alt="" />
-        </div>
+        <div id="infPanel" ref={refPanel}>
+          <div>
+            <h2>Round {dataServer.round} will start in:</h2>
+            <h2>{secondsRemaining}s</h2>
+            <img src={pokeball} alt="" />
+          </div>
+          <div>
+            <div>
+              <h1>Attempts: {countPokemonsSelect}</h1>
+            </div>
+            <div>
+              {dataAttempts.map((attempts, index) => (
+                dataBestTime[index] < dataServer.timeShowShadow ?
+                <div className="green">
+                  <h1 key={attempts}>Round {index + 1}</h1>
+                  <div>
+                  <h2>
+                    {" "}
+                    attempts: {attempts}{" "}
+                  </h2>
+                  {
+                    dataBestTime[index] < 60 ?
+                  <h2>
+                    {" "}
+                    time: {dataBestTime[index]}s{" "}
+                  </h2>: 
+                  <h2>
+                  {" "}
+                  time: {Math.floor(dataBestTime[index] / 60) }m {dataBestTime[index] % 60 }s {" "}
+                </h2>
+                  }
+                  </div>
+                </div> :
+                <div className="red">
+                  <h1 key={attempts}>Round {index + 1}</h1>
+                  <div>
+
+                  <h2>
+                    {" "}
+                    attempts: {attempts}
+                  </h2>
+                  {
+                    dataBestTime[index] < 60 ?
+                  <h2>
+                    {" "}
+                    time: {dataBestTime[index]}s{" "}
+                  </h2>: 
+                  <h2>
+                  {" "}
+                  time: {Math.floor(dataBestTime[index] / 60) }m {dataBestTime[index] % 60 }s {" "}
+                </h2>
+                  }
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          </div>
       )}
       <div id="divPokemonSingle" ref={refPanelPokeball}>
         <div id="divImgPokemons">
@@ -1658,12 +1747,19 @@ const ConfigMulti = () => {
                 <div id="divInicioPokeball">
                   <div>
                     {" "}
-                    <button onClick={() => {setShowImg(true)
-    new Audio(showShadow).play()
-  }}> Ctrl </button>
                     <button
-                      onClick={() => {setShowImg(true)
-    new Audio(showShadow).play()
+                      onClick={() => {
+                        setShowImg(true);
+                        new Audio(showShadow).play();
+                      }}
+                    >
+                      {" "}
+                      Ctrl{" "}
+                    </button>
+                    <button
+                      onClick={() => {
+                        setShowImg(true);
+                        new Audio(showShadow).play();
                       }}
                       style={{ backgroundColor: "rgb(125, 60, 152)" }}
                     >
@@ -1917,7 +2013,7 @@ const ConfigMulti = () => {
         </div>
         <div id="divBuscadorPokemon">
           <div>
-            <h2 htmlFor="text">Who is this Pokemon? {countPokemonsSelect}</h2>
+            <h2 htmlFor="text">Who is this Pokemon?</h2>
           </div>
           <div id="divBuscadorPokemons">
             <div>

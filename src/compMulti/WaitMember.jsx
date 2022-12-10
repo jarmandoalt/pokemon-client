@@ -14,6 +14,9 @@ import {
   SHOW_MENU,
   PRACTICE,
   NOCORRECT,
+  DATA_ATTEMPTS,
+  DATA_ATTEMPTS_DELETE,
+  DATA_ROUND_DELETE,
   GAME_STARTED,
 } from "../reducers/crudReducer.jsx";
 import {
@@ -37,12 +40,18 @@ const WaitMember = () => {
     dbPokemonSelect = useSelector((state) => state.dbPokemonSelect),
     dataServer = useSelector((state) => state.dataServer),
     showConfig = useSelector((state) => state.showConfig),
+    dataAttempts = useSelector((state) => state.dataAttempts),
     noCorrect = useSelector((state) => state.noCorrect),
     practice = useSelector((state) => state.practice),
+    dataBestTime = useSelector((state) => state.dataBestTime),
     dataGame = useSelector((state) => state.dataGame),
     hidePanelConfig = useSelector((state) => state.hidePanelConfig),
     countdown = useSelector((state) => state.countdown),
     dispatch = useDispatch(),
+    STATUS = {
+      STARTED: "Started",
+      STOPPED: "Stopped",
+    },
     [pokeballReady, setPokeballReady] = useLocalStorage("pokeballReady", false),
     [showImg, setShowImg] = useLocalStorage("showImg", false),
     [noRepeat, setNoRepeat] = useLocalStorage("noRepeat", false),
@@ -75,10 +84,12 @@ const WaitMember = () => {
     [arrPokemonsUse, setArrPokemonsUse] = useLocalStorage("arrPokemonsUse", []),
     [arrPokemons, setArrPokemons] = useLocalStorage("arrPokemons", []),
     [disableBtn, setDisableBtn] = useLocalStorage("disableBtn", false),
+    [secondsRemaining, setSecondsRemaining] = useLocalStorage("secondsRemaining", 9),
+    [status, setStatus] = useLocalStorage("status", STATUS.STOPPED),
     refListPokemon = useRef(),
     refResults = useRef(),
     refPanel = useRef(),
-    refPanelPokeball = useRef();
+    refPanelPokeball = useRef()
 
   function useLocalStorage(key, initialValue) {
     // State to store our value
@@ -223,7 +234,7 @@ const WaitMember = () => {
   };
 
   const handleBusquedaPokemons = (e) => {
-    console.log("holas");
+    
   };
 
   const keyUp = (e) => {
@@ -291,33 +302,6 @@ const WaitMember = () => {
       if (namePokemonSelect.length > 4) {
         selectNamePokemonKey(namePokemonSelect[4].name);
       }
-    }
-  };
-
-  const control = (e) => {
-    switch (e.keyCode) {
-      case 39:
-        focusSelect.nextElementSibling.focus();
-        setFocus(focusSelect.nextElementSibling);
-        break;
-      case 37:
-        focusSelect.previousElementSibling.focus();
-        setFocus(focusSelect.previousElementSibling);
-        break;
-      case 13:
-        if (focusSelect.nextElementSibling === null) {
-          focusSelect.previousElementSibling.focus();
-          setFocus(focusSelect.previousElementSibling);
-        }
-        if (focusSelect.previousElementSibling === null) {
-          focusSelect.nextElementSibling.focus();
-          setFocus(focusSelect.nextElementSibling);
-        }
-        selectNamePokemon(e);
-        break;
-      default:
-        moveCursorToEnd();
-        break;
     }
   };
 
@@ -956,6 +940,8 @@ const WaitMember = () => {
 
   const restartGame = () => {
     //iniciar partida
+    dispatch(DATA_ATTEMPTS_DELETE());
+    dispatch(DATA_ROUND_DELETE());
     dispatch(DELETE_ALL_DATA());
     dispatch(
       DATA_SERVER({
@@ -999,6 +985,8 @@ const WaitMember = () => {
         dataServer.hitCounter === dataServer.countMembers
       ) {
         handlerDataGame(1);
+        dispatch(DATA_ATTEMPTS_DELETE());
+        dispatch(DATA_ROUND_DELETE());
       } else {
         if (dataServer.hitCounter === dataServer.countMembers) {
           //resetGame()
@@ -1015,6 +1003,7 @@ const WaitMember = () => {
   }, [dataServer.hitCounter]);
 
   const handlerDataGame = async (aux) => {
+    dispatch(DATA_ATTEMPTS(countPokemonsSelect));
     if (aux === 1) {
       if (dataGame.attempts === 1000) {
         switch (dataServer.myNumber) {
@@ -1234,21 +1223,22 @@ const WaitMember = () => {
     }
   };
 
-  const timeStartGame = (startGame) => {
+  const timeStartGame = (startGames) => {
     dispatch(
       DATA_SERVER({
-        timeShowShadow: startGame.timeShowShadow,
-        numberGames: startGame.numberGames,
+        timeShowShadow: startGames.timeShowShadow,
+        numberGames: startGames.numberGames,
       })
     );
     setCountShowPokemon(0);
-    setStartGame(startGame);
     handleStart();
-    initGame(startGame);
+    initGame(startGames);
   };
 
   const initGame = (startGame) => {
     dispatch(DELETE_ALL_DATA());
+    setNoRepeat(true);
+    dispatch(PRACTICE({ active: "disable" }));
     setBusquedaPokemon("");
     setNamePokemonSelect([]);
     setShowCorrect(false);
@@ -1257,11 +1247,9 @@ const WaitMember = () => {
     setShowResults(false);
     setPokeballReady(false);
     setShowImg(false);
-    dispatch(PRACTICE({ active: "disable" }));
     setArrPokemons([]);
     setAuxPokemonList(startGame.arrGeneration);
     loadselect(startGame.numPokemon);
-    setNoRepeat(true);
     setCountShowPokemon(0);
     //dispatch(SHOW_CONFIG(true)) solo cuando se acaben los
   };
@@ -1298,15 +1286,6 @@ const WaitMember = () => {
     setDisableBtn(false);
     refPanelPokeball.current.classList.add("is-multi");
   };
-
-  const STATUS = {
-    STARTED: "Started",
-    STOPPED: "Stopped",
-  };
-
-  const [secondsRemaining, setSecondsRemaining] = useState(9);
-  const [startGame, setStartGame] = useState();
-  const [status, setStatus] = useState(STATUS.STOPPED);
 
   function useInterval(callback, delay) {
     const savedCallback = useRef();
@@ -1378,6 +1357,8 @@ const WaitMember = () => {
         dispatch(DATA_SERVER({ hitCounter: dataServer.countMembers }));
         setNoRepeat(false);
         dispatch(COUNTDOWN(false));
+        setDisableBtn(true)
+        setShowImg(true)
       }
     } else {
       if (noCorrect === true) {
@@ -1385,6 +1366,8 @@ const WaitMember = () => {
         setNoRepeat(false);
         dispatch(COUNTDOWN(false));
         dispatch(NOCORRECT(false));
+        setDisableBtn(true)
+        setShowImg(true)
       }
     }
   }, [noCorrect]);
@@ -1393,10 +1376,63 @@ const WaitMember = () => {
     <div>
       {showConfig ? (
         showCountdown ? (
-          <div id="waitMulti" ref={refPanel}>
+          <div id="infPanel" ref={refPanel}>
+          <div>
             <h2>Round {dataServer.round} will start in:</h2>
             <h2>{secondsRemaining}s</h2>
             <img src={pokeball} alt="" />
+          </div>
+          <div>
+            <div>
+              <h1>Attempts: {countPokemonsSelect}</h1>
+            </div>
+            <div>
+              {dataAttempts.map((attempts, index) => (
+                dataBestTime[index] < dataServer.timeShowShadow ?
+                <div key={index} className="green">
+                  <h1 >Round {index + 1}</h1>
+                  <div>
+                  <h2>
+                    {" "}
+                    attempts: {attempts}{" "}
+                  </h2>
+                  {
+                    dataBestTime[index] < 60 ?
+                  <h2>
+                    {" "}
+                    time: {dataBestTime[index]}s{" "}
+                  </h2>: 
+                  <h2>
+                  {" "}
+                  time: {Math.floor(dataBestTime[index] / 60) }m {dataBestTime[index] % 60 }s {" "}
+                </h2>
+                  }
+                  </div>
+                </div> :
+                <div key={index} className="red">
+                  <h1 >Round {index + 1}</h1>
+                  <div>
+
+                  <h2>
+                    {" "}
+                    attempts: {attempts}
+                  </h2>
+                  {
+                    dataBestTime[index] < 60 ?
+                  <h2>
+                    {" "}
+                    time: {dataBestTime[index]}s{" "}
+                  </h2>: 
+                  <h2>
+                  {" "}
+                  time: {Math.floor(dataBestTime[index] / 60) }m {dataBestTime[index] % 60 }s {" "}
+                </h2>
+                  }
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
           </div>
         ) : (
           <div id="waitMulti" ref={refPanel}>
@@ -1671,7 +1707,63 @@ const WaitMember = () => {
           <div id="panelAux"></div>
         </div>
       ) : (
-        <div ref={refPanel}>hola</div>
+        <div id="infPanel" ref={refPanel}>
+          <div>
+            <h2>Round {dataServer.round}</h2>
+            <img src={pokeball} alt="" />
+          </div>
+          <div>
+            <div>
+              <h1>Attempts: {countPokemonsSelect}</h1>
+            </div>
+            <div>
+              {dataAttempts.map((attempts, index) => (
+                dataBestTime[index] < dataServer.timeShowShadow ?
+                <div key={index} className="green">
+                  <h1>Round {index + 1}</h1>
+                  <div>
+                  <h2>
+                    {" "}
+                    attempts: {attempts}{" "}
+                  </h2>
+                  {
+                    dataBestTime[index] < 60 ?
+                  <h2>
+                    {" "}
+                    time: {dataBestTime[index]}s{" "}
+                  </h2>: 
+                  <h2>
+                  {" "}
+                  time: {Math.floor(dataBestTime[index] / 60) }m {dataBestTime[index] % 60 }s {" "}
+                </h2>
+                  }
+                  </div>
+                </div> :
+                <div key={index} className="red">
+                  <h1 >Round {index + 1}</h1>
+                  <div>
+
+                  <h2>
+                    {" "}
+                    attempts: {attempts}
+                  </h2>
+                  {
+                    dataBestTime[index] < 60 ?
+                  <h2>
+                    {" "}
+                    time: {dataBestTime[index]}s{" "}
+                  </h2>: 
+                  <h2>
+                  {" "}
+                  time: {Math.floor(dataBestTime[index] / 60) }m {dataBestTime[index] % 60 }s {" "}
+                </h2>
+                  }
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          </div>
       )}
       <div id="divPokemonSingle" className="pc" ref={refPanelPokeball}>
         <div id="divImgPokemons">
@@ -1688,12 +1780,6 @@ const WaitMember = () => {
                         onClick={() => {
                           dispatch(PRACTICE({ active: true, click: true }));
                           dispatch(DELETE_ALL_DATA());
-                          setAuxInput("");
-                          setBusquedaPokemon("");
-                          filterPokemon("");
-                          setTimeout(() => {
-                            moveCursorToEnd();
-                          }, 1000);
                         }}
                       >
                         Ctrl
@@ -1706,12 +1792,6 @@ const WaitMember = () => {
                         onClick={() => {
                           dispatch(PRACTICE({ active: true, click: true }));
                           dispatch(DELETE_ALL_DATA());
-                          setAuxInput("");
-                          setBusquedaPokemon("");
-                          filterPokemon("");
-                          setTimeout(() => {
-                            moveCursorToEnd();
-                          }, 1000);
                         }}
                       >
                         RELOAD
@@ -1737,7 +1817,7 @@ const WaitMember = () => {
                           color: "white",
                         }}
                       >
-                        Nose
+                        Waiting
                       </button>
                     </div>
                   ) : (
@@ -2040,10 +2120,10 @@ const WaitMember = () => {
         </div>
         <div id="divBuscadorPokemon">
           <div>
-            <h2 htmlFor="text">Who is this Pokemon? {countPokemonsSelect}</h2>
+            <h2 htmlFor="text">Who is this Pokemon?</h2>
           </div>
           <div id="divBuscadorPokemons">
-            <div>
+            <div>  
               {showCorrect ? (
                 <div id="divCorrect">
                   <h2>WIN</h2>
@@ -2061,10 +2141,13 @@ const WaitMember = () => {
                 />
               ) : (
                 <input
-                  type="text"
-                  name="busqueda"
-                  id="buscador"
-                  placeholder="Name"
+                type="text"
+                name="busqueda"
+                placeholder="Name"
+                value={busquedaPokemon}
+                onKeyUp={keyUp}
+                id="buscador"
+                onChange={handleBusquedaPokemons}
                   disabled="on"
                 />
               )}

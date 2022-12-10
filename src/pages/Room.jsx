@@ -179,6 +179,7 @@ const Room = () => {
   /* Escuchando cuando se une el Admin */
   const adminConnection = (tagName) => {
     dispatch(DATA_SERVER({ nameAdmin: tagName }));
+    dispatch(HIDEPANEL(false))
   };
 
   /* Escuchando cuando se une un Miembro y actualizando los datos de Admin */
