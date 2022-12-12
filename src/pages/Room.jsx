@@ -44,6 +44,7 @@ const Room = () => {
 
     //Update data members
     socket.on("updateData", (updateData) => {
+      console.log("udate: ", updateData);
       if (!nameServer) {
         setNameServer(updateData.nameServer);
       } 

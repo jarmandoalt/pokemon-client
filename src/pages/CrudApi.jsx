@@ -109,6 +109,7 @@ const CrudApi = () => {
     document.write("You are using a Mobile Device");
   }
 
+  /////////////////////////////////////////////////////// UseEffect para acomodar los menus al salir de un servidor
   const returnAdmin = async () => {
     await deleteServer(dataServer.nameServer);
     socket.emit("returnGame", {
@@ -873,7 +874,432 @@ const CrudApi = () => {
 
   return (
     <div id="divPage">
+      {isMobileDevice ? 
       <div id="divPokemonSingle" ref={refPanelPokeball}>
+      <div id="divImgPokemons">
+        {pokeballReady ? (
+          <div>
+            {showImg ? (
+              <div
+                id="divImgPokemonShow"
+                style={{ display: "flex", flexDirection: "column" }}
+              >
+                {disableBtn ? (
+                  <div>
+                    <button
+                      style={{
+                        color: "rgb(61, 91, 126)",
+                        backgroundColor: "rgb(197, 213, 226)",
+                      }}
+                      onClick={handleReload}
+                    >
+                      RELOAD
+                    </button>
+                  </div>
+                ) : (
+                  <div>
+                    <button
+                      style={{
+                        color: "white",
+                        cursor: "pointer",
+                        backgroundColor: "rgb(203, 192, 206)",
+                      }}
+                      onClick={handleSubmit}
+                    >
+                      Surrender
+                    </button>
+                  </div>
+                )}
+                {disableBtn ? (
+                  <img
+                    id="imgPokemon"
+                    style={{ filter: "brightness(100%)" }}
+                    src={dbPokemonSelect.sprites.front_default}
+                    alt="pokemon65"
+                  />
+                ) : (
+                  <img
+                    id="imgPokemon"
+                    style={{ filter: "brightness(0%)" }}
+                    src={dbPokemonSelect.sprites.front_default}
+                    alt="pokemon65"
+                  />
+                )}
+              </div>
+            ) : countShowPokemon === 3 ? ( //cuando son tres llaves las obtenidas
+              <div id="divInicioPokeball">
+                <div>
+                  {" "}
+                  <button
+                    onClick={() => {
+                      setShowImg(true);
+                      new Audio(showShadow).play();
+                    }}
+                    style={{ backgroundColor: "rgb(125, 60, 152)" }}
+                  >
+                    Show Shadow
+                    <br />
+                    <img className="is-active key" src={llave} alt="key1" />
+                    <img className="is-active key" src={llave} alt="key2" />
+                    <img className="is-active key" src={llave} alt="key3" />
+                  </button>
+                </div>
+                <img
+                  id="imgPokeballShow"
+                  src={pokeball}
+                  width="20vw"
+                  alt=""
+                />
+                <div id="divCircle"></div>
+              </div>
+            ) : countShowPokemon === 2 ? ( //cuando son dos llaves las obtenidas
+              <div id="divInicioPokeball">
+                <div>
+                  <button
+                    disabled
+                    style={{
+                      color: "white",
+                      cursor: "not-allowed",
+                      backgroundColor: "rgb(203, 192, 206)",
+                    }}
+                  >
+                    Show Shadow
+                    <br />
+                    <img className="is-active key" src={llave} alt="key1" />
+                    <img className="is-active key" src={llave} alt="key2" />
+                    <img
+                      className="key"
+                      style={{
+                        filter: "brightness(50%)",
+                      }}
+                      src={llave}
+                      alt="key3"
+                    />
+                  </button>{" "}
+                </div>
+                <img
+                  id="imgPokeballShow"
+                  src={pokeball}
+                  width="20vw"
+                  alt=""
+                />
+                <div id="divCircle"></div>
+              </div>
+            ) : countShowPokemon === 1 ? ( //cuando es una llave las obtenida
+              <div id="divInicioPokeball">
+                <div>
+                  <button
+                    disabled
+                    style={{
+                      color: "white",
+                      cursor: "not-allowed",
+                      backgroundColor: "rgb(203, 192, 206)",
+                    }}
+                  >
+                    Show Shadow
+                    <br />
+                    <img className="is-active key" src={llave} alt="key1" />
+                    <img
+                      className="key"
+                      style={{
+                        filter: "brightness(50%)",
+                      }}
+                      src={llave}
+                      alt="key"
+                    />
+                    <img
+                      className="key"
+                      style={{
+                        filter: "brightness(50%)",
+                      }}
+                      src={llave}
+                      alt="key3"
+                    />
+                  </button>{" "}
+                </div>
+                <img
+                  id="imgPokeballShow"
+                  src={pokeball}
+                  width="20vw"
+                  alt=""
+                />
+                <div id="divCircle"></div>
+              </div>
+            ) : (
+              <div id="divInicioPokeball">
+                <div>
+                  {" "}
+                  <button
+                    disabled
+                    style={{
+                      color: "white",
+                      cursor: "not-allowed",
+                      backgroundColor: "rgb(203, 192, 206)",
+                    }}
+                  >
+                    Show Shadow
+                    <br />
+                    <img
+                      className="key"
+                      style={{
+                        filter: "brightness(50%)",
+                      }}
+                      src={llave}
+                      alt="key1"
+                    />
+                    <img
+                      className="key"
+                      style={{
+                        filter: "brightness(50%)",
+                      }}
+                      src={llave}
+                      alt="key2"
+                    />
+                    <img
+                      className="key"
+                      style={{
+                        filter: "brightness(50%)",
+                      }}
+                      src={llave}
+                      alt="key3"
+                    />
+                  </button>
+                </div>
+                <img
+                  id="imgPokeballShow"
+                  src={pokeball}
+                  width="20vw"
+                  alt=""
+                />
+                <div id="divCircle"></div>
+              </div>
+            )}
+          </div>
+        ) : (
+          <div id="divInicioPokeball">
+            <div>
+              {" "}
+                  <button
+                    disabled
+                    style={{
+                      color: "white",
+                      cursor: "not-allowed",
+                      backgroundColor: "rgb(203, 192, 206)",
+                    }}
+                  >
+                    Show Shadow
+                    <br />
+                    <img
+                      className="key"
+                      style={{
+                        filter: "brightness(50%)",
+                      }}
+                      src={llave}
+                      alt="key1"
+                    />
+                    <img
+                      className="key"
+                      style={{
+                        filter: "brightness(50%)",
+                      }}
+                      src={llave}
+                      alt="key2"
+                    />
+                    <img
+                      className="key"
+                      style={{
+                        filter: "brightness(50%)",
+                      }}
+                      src={llave}
+                      alt="key3"
+                    />
+              </button>
+            </div>
+            <img src={pokeball} alt="" />
+          </div>
+        )}
+      </div>
+      <div id="divBuscadorPokemon">
+        <div id="whoIsThis">
+          <h2 htmlFor="text">Who is this Pokemon?</h2>
+        </div>
+        <div id="divBuscadorPokemons">
+          <div>
+            {showCorrect ? (
+              <div id="divCorrect">
+                <h2>WIN</h2>
+              </div>
+            ) : disableBtn ? (
+              <div id="divLost">
+                <h2>LOST</h2>
+              </div>
+            ) : (
+              <input
+                type="text"
+                name="busqueda"
+                placeholder="Name"
+                ref={refInputPokemon}
+                value={busquedaPokemon}
+                id="buscador"
+                onKeyUp={keyUp}
+                onChange={handleBusquedaPokemons}
+                autoComplete="off"
+              />
+            )}
+          </div>
+          <div id="divBtnOpc">
+            {namePokemonSelect.map(({ name }, index) =>
+              disableBtn ? (
+                <div key={name}></div>
+              ) : (
+                <div key={name}>
+                  <button
+                    translate="no"
+                    value={name}
+                    slot={name}
+                    onClick={selectNamePokemon}
+                  >
+                    {" "}
+                    {name}{" "}
+                  </button>
+                </div>
+              )
+            )}
+          </div>
+        </div>
+        <div id="listPokemons" ref={refListPokemon}>
+          {arrPokemons.map(({ name, gen, img, type1, type2, id }) =>
+            name === dbPokemonSelect.name ? (
+              <div className="true" key={id}>
+                <div>
+                  {gen > pokemonGen ? (
+                    <h1>
+                      {gen}
+                      <img src={arrowDown} alt="" />
+                    </h1>
+                  ) : gen < pokemonGen ? (
+                    <h1>
+                      {gen}
+                      <img src={arrowUp} alt="" />
+                    </h1>
+                  ) : (
+                    <h1 className="is-true">{gen}</h1>
+                  )}
+                </div>
+                <div>
+                  <img src={img} alt="" />
+                </div>
+                <div translate="no">
+                  <h1
+                    value={name}
+                    slot={name}
+                    translate="no"
+                    onClick={selectNamePokemon}
+                  >
+                    {name}
+                  </h1>
+                </div>
+                <div>
+                  {dbPokemonSelect.types.length === 2 ? (
+                    type1 === dbPokemonSelect.types[0].type.name ? (
+                      <h2 className={type1}>{type1}</h2>
+                    ) : type1 === dbPokemonSelect.types[1].type.name ? (
+                      <h2 className={type1}>{type1}</h2>
+                    ) : (
+                      <h2 className="false">{type1}</h2>
+                    )
+                  ) : type1 === dbPokemonSelect.types[0].type.name ? (
+                    <h2 className={type1}>{type1}</h2>
+                  ) : (
+                    <h2 className="false"> {type1}</h2>
+                  )}
+                </div>
+                <div>
+                  {type2 == null ? (
+                    <div></div>
+                  ) : dbPokemonSelect.types.length === 2 ? (
+                    type2 === dbPokemonSelect.types[0].type.name ? (
+                      <h2 className={type2}>{type2}</h2>
+                    ) : type2 === dbPokemonSelect.types[1].type.name ? (
+                      <h2 className={type2}>{type2}</h2>
+                    ) : (
+                      <h2 className="false">{type2}</h2>
+                    )
+                  ) : type2 === dbPokemonSelect.types[0].type.name ? (
+                    <h2 className={type2}>{type2}</h2>
+                  ) : (
+                    <h2 className="false"> {type2}</h2>
+                  )}
+                </div>
+              </div>
+            ) : (
+              <div key={name}>
+                <div>
+                  {gen > pokemonGen ? (
+                    <h1>
+                      {gen}
+                      <img src={arrowDown} alt="" />
+                    </h1>
+                  ) : gen < pokemonGen ? (
+                    <h1>
+                      {gen}
+                      <img src={arrowUp} alt="" />
+                    </h1>
+                  ) : (
+                    <h1 className="is-true">{gen}</h1>
+                  )}
+                </div>
+                <div>
+                  <img src={img} alt="" />
+                </div>
+                <div>
+                  <h1
+                    value={name}
+                    slot={name}
+                    translate="no"
+                    onClick={selectNamePokemon}
+                  >
+                    {name}
+                  </h1>
+                </div>
+                <div>
+                  {dbPokemonSelect.types.length === 2 ? (
+                    type1 === dbPokemonSelect.types[0].type.name ? (
+                      <h2 className={type1}>{type1}</h2>
+                    ) : type1 === dbPokemonSelect.types[1].type.name ? (
+                      <h2 className={type1}>{type1}</h2>
+                    ) : (
+                      <h2 className="false">{type1}</h2>
+                    )
+                  ) : type1 === dbPokemonSelect.types[0].type.name ? (
+                    <h2 className={type1}>{type1}</h2>
+                  ) : (
+                    <h2 className="false"> {type1}</h2>
+                  )}
+                </div>
+                <div>
+                  {type2 == null ? (
+                    <div></div>
+                  ) : dbPokemonSelect.types.length === 2 ? (
+                    type2 === dbPokemonSelect.types[0].type.name ? (
+                      <h2 className={type2}>{type2}</h2>
+                    ) : type2 === dbPokemonSelect.types[1].type.name ? (
+                      <h2 className={type2}>{type2}</h2>
+                    ) : (
+                      <h2 className="false">{type2}</h2>
+                    )
+                  ) : type2 === dbPokemonSelect.types[0].type.name ? (
+                    <h2 className={type2}>{type2}</h2>
+                  ) : (
+                    <h2 className="false"> {type2}</h2>
+                  )}
+                </div>
+              </div>
+            )
+          )}
+        </div>
+      </div>
+    </div> : <div id="divPokemonSingle" ref={refPanelPokeball}>
         <div id="divImgPokemons">
           {pokeballReady ? (
             <div>
@@ -1370,7 +1796,8 @@ const CrudApi = () => {
             <div></div>
           )}
         </div>
-      </div>
+      </div>  
+    }
       <div id="divBtnHide">
         <div>
           {hidePanel ? (

@@ -6,7 +6,7 @@ import {
   DELETE_DATA_SERVER,
   SHOW_CONFIG,
   DELETE_ALL_DATA,
-  HIDEPANEL
+  HIDEPANEL,
 } from "../reducers/crudReducer";
 import { deleteServer, updateCountMembers } from "../services/routes";
 import click from "../assets/click.mp3";
@@ -28,30 +28,32 @@ const ShowMenu = () => {
   const exitServer = async (e) => {
     await deleteServer(dataServer.nameServer);
     dispatch(DELETE_DATA_SERVER());
-    dispatch(DELETE_ALL_DATA())
-    dispatch(SHOW_CONFIG("return"));
-    dispatch(HIDEPANEL(false))
-    socket.emit("returnGame", {
+    dispatch(DELETE_ALL_DATA());
+    dispatch(HIDEPANEL(false));
+    await socket.emit("returnGame", {
       showConfig: true,
       countdown: false,
     });
     await socket.emit("deleteAdmin", {
-      nameServer: "exit",
+      nameServer: dataServer.nameServer
+    });
+    await socket.emit("deleteAllMember", {
+      nameServer: dataServer.nameServer
     });
     setTimeout(() => {
-      navigate("/home");
       dispatch(SHOW_CONFIG("return"));
-      dispatch(COUNTDOWN(false))
-    }, 2000);
+      dispatch(COUNTDOWN(false));
+    navigate("/home"); //Return menu
+    }, 1500);
   };
 
   const exitServerForAdmin = async (deleteMember) => {
     //exit member
-    dispatch(HIDEPANEL(false))
-    let arrayNamesAux = dataServer.namesMembers
-    arrayNamesAux = arrayNamesAux.filter(function(item) {
-      return item !== dataServer.name
-  });
+    dispatch(HIDEPANEL(false));
+    let arrayNamesAux = dataServer.namesMembers;
+    arrayNamesAux = arrayNamesAux.filter(function (item) {
+      return item !== dataServer.name;
+    });
     //////////////////////////////////////// Falta mandar esta cadena a los demas compañeros
     await updateCountMembers(
       deleteMember.idServer,
@@ -69,18 +71,12 @@ const ShowMenu = () => {
       scoreMember3: deleteMember.scoreMember3,
       countMembers: deleteMember.countMembers - 1,
       myNumber: deleteMember.numMember,
-      namesMembers: arrayNamesAux
+      namesMembers: arrayNamesAux,
     });
     navigate("/home"); //Return menu
     setTimeout(() => {
       dispatch(DELETE_DATA_SERVER()); //delete data server
     }, 500);
-  };
-
-  const exitServerAdmin = async (e) => {
-    //exit member
-    dispatch(DELETE_DATA_SERVER()); //delete data server
-    navigate("/home"); //Return menu
   };
 
   useEffect(() => {
@@ -90,13 +86,24 @@ const ShowMenu = () => {
         exitServerForAdmin(deleteMember);
       }
     });
-
-    socket.on("deleteAdmin", (deleteAdmin) => {
-      if (dataServer.id != dataServer.idServer) {
-        exitServerAdmin();
-      }
+    socket.on("deleteAllMember", (deleteMember) => {
+        exitAllMembers(deleteMember);
     });
   }, [socket]);
+
+  const exitAllMembers = async (deleteMember) => {
+    dispatch(DELETE_DATA_SERVER());
+    dispatch(DELETE_ALL_DATA());
+    dispatch(HIDEPANEL(false));
+    await socket.emit("leaveRoomMember", {
+      nameServer: deleteMember.nameServer
+    });
+    setTimeout(() => {
+      dispatch(SHOW_CONFIG("return"));
+      dispatch(COUNTDOWN(false));
+      navigate("/home"); //Return menu
+    }, 1500);
+  };
 
   useEffect(() => {
     showMenu === true
@@ -120,7 +127,6 @@ const ShowMenu = () => {
 
   const deleteMembers = (e) => {
     new Audio(click).play();
-
     if (dataServer.id == dataServer.adminId) {
       socket.emit("deleteMember", {
         nameServer: dataServer.nameServer,
@@ -148,7 +154,7 @@ const ShowMenu = () => {
         nameMember3: dataServer.nameMember3,
         scoreMember3: dataServer.scoreMember3,
         countMembers: dataServer.countMembers,
-        namesMembers: dataServer.namesMemebers
+        namesMembers: dataServer.namesMemebers,
       });
     }
   };
@@ -163,8 +169,7 @@ const ShowMenu = () => {
                 <button
                   onClick={() => {
                     setMenuMember(false);
-    new Audio(click).play();
-
+                    new Audio(click).play();
                   }}
                 >
                   Members
