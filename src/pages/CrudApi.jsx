@@ -105,10 +105,6 @@ const CrudApi = () => {
         it returns boolean value*/
   let isMobileDevice = regexp.test(details);
 
-  if (isMobileDevice) {
-    document.write("You are using a Mobile Device");
-  }
-
   /////////////////////////////////////////////////////// UseEffect para acomodar los menus al salir de un servidor
   const returnAdmin = async () => {
     await deleteServer(dataServer.nameServer);
