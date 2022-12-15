@@ -78,6 +78,7 @@ img {
 
   #divPage > div:last-child.is-hidePanel > div > div:last-child {
     transform: translate(150%, 0%);
+    z-index: -1;
   }
   #divPage > div:last-child > div > div:last-child {
     display: flex;
@@ -268,7 +269,7 @@ img {
     height: 20vh;
     margin: auto;
     width: 10vw;
-    z-index: 2;
+    z-index: 85;
   }
 
   #divBtnHide > div {
@@ -338,63 +339,188 @@ img {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 100vw;
+    width: 95vw !important;
+    margin-top: 13.5vh;
+    margin-left: 2.5vw !important;
     z-index: -1;
-    margin: auto;
   }
 
   #divPokemonSingle.is-hidePanel {
-    z-index: 2;
-  }
-
-  #divPokemonSingle.multi {
-    z-index: 2;
+    z-index: 10;
   }
 
   #divPokemonSingle.is-multi {
-    z-index: -2;
+    z-index: -5;
   }
 
   #divPokemonSingle > div:first-child {
-    position: fixed;
-    top: 13vh;
+    margin: auto;
     display: flex;
     flex-direction: column;
     height: 22vh;
   }
 
+  /*pokeball inicio*/
   #divPokemonSingle > div > div > img {
     width: 35vw;
     margin: auto;
-    margin-top: 2vh;
+    margin-top: -3vh;
     height: 35vw;
   }
 
-  /*pokeball antes de comenzar*/
+  /*pokeball after */
   #divPokemonSingle > div > div > div > img {
     width: 35vw;
     margin: auto;
-    margin-top: 2vh;
+    margin-top: -3vh;
     height: 35vw;
   }
 
-  #divPokemonSingle > div > div > button {
-    /*****show pokemon antes de comenzar******/
-    width: 40vw;
-    margin: auto;
+  /*** Banner Y pokeball antes de empezar el juego***/
+  #divInicioPokeball {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #divInicioPokeball > div:first-child  {
+    display: flex;
+    flex-direction: column;
+    height: 12vh;
+  }
+
+  #divInicioPokeball > div:first-child > button:first-child {
+    position: absolute;
+    width: 10vw;
+    height: 4vh;
+    color: whitesmoke;
+    border-radius: 3px;
+    background-color: #b3b3db;
+    border-style: solid;
+    border-color: black;
+    border-width: 0;
+    border-bottom-width: 2px;
+    border-right-width: 1px;
+    margin-left: 15vw;
+    margin-bottom: 4vh;
+  }
+  
+  #divInicioPokeball > div:first-child > button:last-child {
     border: none;
+    margin: auto;
+    width: 40vw;
     height: 6vh;
-    background-color: rgb(203, 192, 206);
-    border-radius: 4px;
+    background-color: rgb(193, 138, 207);
+    border-radius: 10px;
     color: whitesmoke;
   }
 
-  #btn {
+  #divInicioPokeball > div:first-child > button:last-child.is-mobile {
+    border: none;
+    margin: auto;
+    width: 40vw;
+    height: 6vh;
+    margin-left: -2vw;
+    margin-top: 2.5vh;
+    background-color: rgb(193, 138, 207);
+    border-radius: 10px;
+    color: whitesmoke;
+  }
+
+  /*Despues de las tres llaves, la sombra y el reload */
+
+  #divImgPokemonShow > div {
+    display: flex;
+    flex-direction: column;
+    height: 13vh;
+  }
+
+  #divImgPokemonShow > div > button:first-child {
+    position: absolute;
+    width: 13vw;
+    height: 4vh;
+    color: whitesmoke;
+    border-radius: 3px;
+    background-color: #b3b3db;
+    border-style: solid;
+    border-color: black;
+    border-width: 0;
+    border-right-width: 1px;
+    border-bottom-width: 2px;
+    margin-bottom: 4vh;
+    margin-left: 15vw;
+
+  }
+
+  #divImgPokemonShow > div > button:last-child {
+    border: none;
+    margin: auto;
+    width: 40vw;
+    height: 6vh;
+    background-color: rgb(193, 138, 207);
+    border-radius: 10px;
+    color: whitesmoke;
+  }
+
+
+  /*Cuando inicia el juego las 3 etapas de las llaves*/
+
+  /* #divPokemonSingle > div > div > div.single {
+    /* show pokemon antes de empezar 
+    border: none;
+    width: 15vw;
+    height: 8.5vh;
+    font-size: 1.7vw;
+    background-color: #b3b3db;
+    border-radius: 10px;
+  } */
+
+  /* #divPokemonSingle > div > div > div {
+    /* show pokemon antes de empezar o practice en multijugador 
+    border: none;
+    width: 15vw;
+    height: 8.5vh;
+    font-size: 1.7vw;
+    border-radius: 15px;
+    display: flex;
+    margin: auto;
+    flex-direction: column;
+    justify-content: center;
+  } */
+
+  /* #divPokemonSingle > div > div > button > div {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  } */
+
+  /* #divPokemonSingle > div > div > div > div > button:first-child {
+    /* show pokemon antes de empezar 
+    width: 4vw;
+    height: 1.8vw;
+    color: whitesmoke;
+    font-size: 1.2vw;
+    border-radius: 10px;
+    background-color: #b3b3db;
+    border-style: solid;
+    border-color: black;
+    border-width: 0;
+    border-bottom-width: 3px;
     margin: auto;
   }
 
+  #divPokemonSingle > div > div > div > div > button:last-child {
+    border: none;
+    margin: auto;
+    width: 15vw;
+    height: 10vh;
+    font-size: 1.5vw;
+    background-color: rgb(193, 138, 207);
+    border-radius: 15px;
+    color: whitesmoke;
+  } */
+
   #divCorrect {
-    width: 90vw;
+    width: 50vw;
     margin: auto;
   }
 
@@ -403,7 +529,7 @@ img {
     text-align: center;
     font-size: 90vw;
     color: rgb(44, 155, 44);
-    font-size: 8vw;
+    font-size: 7vw;
   }
 
   #divLost {
@@ -415,82 +541,23 @@ img {
     margin: auto;
     text-align: center;
     font-size: 90vw;
-    color: rgb(206, 72, 32);
-    font-size: 8vw;
-  }
-
-  #divLost {
-    width: 90vw;
-    margin: auto;
-  }
-
-  #divLost > h2 {
-    margin: auto;
-    text-align: center;
-    font-size: 90vw;
-    color: rgb(182, 83, 37);
-    font-size: 8vw;
+    color: rgb(204, 84, 29);
+    font-size: 7vw;
   }
 
   #imgPokemon {
-    width: 20vw;
+    width: 13vw;
   }
 
-  #divImgShow {
-    /*banner "show pokemon" durante el juego*/
-    width: 50vw;
-    display: flex;
-    flex-direction: column;
-  }
-
-  #divImgShow > button {
-    margin: auto;
-    border: none;
-    width: 40vw;
-    height: 6vh;
-    font-size: 4vw;
-    background-color: rgb(193, 138, 207);
-    border-radius: 10px;
-    color: whitesmoke;
-  }
-
-  #divImgShow > button > img {
-    width: 5vw;
-    margin-top: 0.5vh;
-  }
-
-  #divImgShow > button > img.is-active {
-    width: 5vw;
-    animation: pulseKey 2s infinite;
-  }
-
-  #divInicioPokeball > button > img {
-    width: 5vw;
-    margin-top: 0.5vh;
-  } 
-
-
-  @keyframes pulseKey {
-    50% {
-      opacity: 100%;
-    }
-    100% {
-      opacity: 50%;
-    }
-  }
-
-  #divImgPokemonShow > button {
-    border: none;
-    width: 40vw;
-    height: 6vh;
-    border-radius: 10px;
+  #divImgPokemonShow > img {
+    filter: brightness(0%);
   }
 
   #imgPokeballShow {
     margin: auto;
     position: relative;
-    width: 10vw;
-    height: 10vw;
+    width: 8vw;
+    height: 8vw;
     animation: pokeball 3s infinite linear;
   }
 
@@ -523,7 +590,19 @@ img {
     background-color: red;
     z-index: 1;
     top: -21.3vw;
-    left: 21.8vw;
+    left: 16.7vw;
+    border-radius: 50%;
+    width: 6.8vw;
+    height: 6.8vw;
+    animation: pulse 3s infinite linear;
+  }
+
+  #divCircle.is-mobile {
+    position: relative;
+    background-color: red;
+    z-index: 1;
+    top: -21.3vw;
+    left: 14vw;
     border-radius: 50%;
     width: 6.8vw;
     height: 6.8vw;
@@ -563,7 +642,7 @@ img {
 
   #divBuscadorPokemon {
     position: fixed;
-    top: 35.5vh;
+    top: 37.5vh;
     width: 95vw;
     height: auto;
   }
@@ -582,56 +661,33 @@ img {
 
   #divBuscadorPokemons {
     width: 95vw;
-    left: 10vw;
   }
 
   #divBuscadorPokemons > div > input {
     position: fixed;
-    top: 40vh;
-    left: 20vw;
+    top: 43vh;
+    left: 18vw;
     margin: auto;
     border: none;
     width: 60vw;
     text-align: center;
     height: 5vh;
     margin: auto;
-    font-size: 4vw;
     border-radius: 3px;
-  }
-
-  #divBtnOpc {
-    position: fixed;
-    top: 46vh;
-    width: 100vw;
-    margin: auto;
-    margin-left: 2.5vw;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-  }
-
-  #divBtnOpc > button {
-    width: 26vw;
-    color: whitesmoke;
-    margin-top: 1vh;
-    height: 4vh;
-    font-size: 4vw;
-    border-radius: 10px;
-    background-color: rgba(121, 95, 122, 0.63);
-    border: none;
   }
 
   #divBuscadorPokemons > div {
     display: flex;
+    margin: auto;
     flex-direction: row;
   }
 
   #divBuscadorPokemons > div:last-child {
-    width: 90vw;
+    width: 60vw;
+    margin: auto;
   }
 
   #divBuscadorPokemons > div > div > button {
-    background-color: rgb(138, 154, 156);
     border-radius: 3px;
     border: none;
     font-size: 1.1vw;
@@ -639,18 +695,70 @@ img {
     cursor: pointer;
   }
 
+  #divBtnOpc {
+    width: 95vw !important;
+    margin-top: 5vh !important;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+
+  #divBtnOpc > div {
+    margin-right: 0.2vw;
+    height: 3vh;
+    width: 26vw;
+    margin-top: 4vh;
+  }
+
+  #divBtnOpc > div > button:first-child {
+    position: absolute;
+    width: 6vw;
+    height: 6vw;
+    color: whitesmoke;
+    border-radius: 3px;
+    font-size: 3vw;
+    background-color: #aaaac7;
+    border-style: solid;
+    border-color: black;
+    border-width: 0;
+    border-bottom-width: 3px;
+    border-right-width: 2px;
+    margin-left: 11vw;
+    margin-top: -2vh;
+  }
+
+  #divBtnOpc > div > button:last-child {
+    color: whitesmoke;
+    background-color: #b3b3db;
+    width: 28vw;
+    border-radius: 10px;
+    height: 4vh;
+    font-size: 4vw;
+    margin-left: 0vw;
+    border: none;
+  }
+  
   #listPokemons {
     position: fixed;
     display: flex;
-    margin-top: 15.3vh;
-    width: 95vw;
+    top: 65vh;
+    width: 98vw;
+    margin-left: -1.5vw;
     overflow: auto;
     scroll-behavior: smooth;
+    scrollbar-color: #b3b3db rgb(227, 232, 233);
+    scrollbar-width: thin;
     min-height: 10vh;
-    max-height: 40vh;
+    max-height: 38vh;
     flex-direction: column-reverse;
     z-index: -1;
   }
+
+
+ #listPokemons::-webkit-scrollbar-track {
+    border-radius: 10px;  
+}
 
   #listPokemons > div {
     display: flex;
@@ -658,12 +766,16 @@ img {
     flex-direction: row;
     background-color: rgb(213, 219, 219);
     height: 8vh;
-    margin: auto;
-    margin-bottom: 0.4vh;
-    width: 90vw;
-    justify-content: space-around;
+    margin-top: 1vh;
+    width: 98vw;
+    justify-content: space-evenly;
     border-radius: 5px;
   }
+
+  #divInicioPokeball > button > img {
+    width: 2vw;
+    margin-top: 0.5vh;
+  } 
 
   #listPokemons > div.true {
     background-color: rgb(214, 241, 198);
@@ -672,9 +784,9 @@ img {
   #listPokemons > div > div:first-child {
     display: flex;
     border: rgb(133, 139, 138) solid 1px;
-    width: 7vw;
+    width: 8vw;
     border-radius: 50%;
-    height: 7vw;
+    height: 8vw;
     align-items: center;
   }
 
@@ -689,18 +801,41 @@ img {
   }
 
   #listPokemons > div > div:first-child > h1 > img {
-    width: 2.5vw;
+    width: 2vw;
   }
 
   #listPokemons > div > div > h1 {
-    font-size: 4vw;
-    color: rgb(142, 119, 151);
-    margin-left: -3vw;
+    font-size: 4.5vw;
+    color: rgb(112, 107, 114);
   }
 
-  #listPokemons > div > div > img {
-    width: 30vw;
-    margin-left: -3vw;
+  #keyArrow {
+    position: fixed;
+    display: flex;
+    top: 68vh;
+    flex-direction: column;
+    margin-left: -53vw;
+    height: 30vh;
+    width: 3vw;
+    justify-content: space-between;
+  }
+
+  #keyArrow > h1 {
+    width: 1.7vw;
+    height: 1.7vw;
+    color: whitesmoke;
+    font-size: 1.3vw;
+    border-radius: 3px;
+    background-color: #b3b3db;
+    border-style: solid;
+    border-color: black;
+    border-width: 0;
+    border-bottom-width: 3px;
+    display: flex;
+  }
+
+  #keyArrow > h1 > img {
+    margin: auto;
   }
 
   /******** Styles Types *********/
@@ -915,12 +1050,22 @@ img {
     text-decoration: line-through;
   }
 
+  #room {
+    width: .5vw;
+    height: .5vh;
+  }
+
+  #panelPrincipal {
+    width: 1vw;
+  }
+
   /*********** Multijugador **************/
   #header {
+    position: absolute;
     background-color: rgba(52, 66, 90, 0.781);
     width: 90vw;
     margin-left: 5vw;
-    margin-top: 3vh;
+    top: 1vh;
     border-radius: 5px;
   }
 
@@ -938,20 +1083,20 @@ img {
     flex-direction: column;
     justify-content: center;
     background-color: rgba(180, 163, 199, 0.568);
-    margin-bottom: 0.5vh;
-    margin-top: 0.5vh;
+    margin-bottom: 0.3vh;
+    margin-top: 0.3vh;
     border-radius: 3px;
   }
 
   #headerMulti > div > h1 {
-    font-size: 4vw;
+    font-size: 3.5vw;
     margin: auto;
     color: lavender;
   }
 
   /******** Menu Exit ********/
   #divMenu {
-    position: fixed;
+    position: absolute;
     width: 50vw;
     top: 52vh;
     background-color: rgba(162, 167, 180, 0.87);
@@ -1007,8 +1152,9 @@ img {
 
   /****** Configuracion Multijugador *********/
   #configMulti {
+    position: absolute;
     width: 80vw;
-    margin-top: 2vh;
+    top: 12vh;
     background-color: rgba(52, 66, 90, 0.781);
     margin-left: 10vw;
     border-radius: 5px;
@@ -1209,35 +1355,6 @@ img {
     height: 5.5vh;
     font-size: 3vw;
     border: none;
-  }
-
-  /*   Esperando a Admin */
-  #waitMulti {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 70vw;
-    margin-left: 15vw;
-    background-color: rgba(52, 66, 90, 0.781);
-    border-radius: 5px;
-    height: 40vw;
-    transform: translate(100vw, 0);
-    transition: transform 0.5s ease;
-    margin-top: 30vh;
-  }
-
-  #waitMulti.is-active {
-    transform: translate(0, 0);
-    z-index: -1;
-    transition: transform 0.5s ease;
-  }
-
-  #waitMulti > h2 {
-    text-align: center;
-    font-size: 4vw;
-    margin: auto;
-    animation: pulse 3s infinite linear;
-    color: whitesmoke;
   }
 
   @keyframes pulse {
@@ -1473,6 +1590,246 @@ img {
   #results > div > div > div:first-child > div > h2 {
     color: rgb(187, 169, 186);
   }
+
+  #infPanel {
+    position: absolute;
+    width: 96vw;
+    left: 2vw;
+    top: 13vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  #infPanel.is-active {
+    transform: translate(180%, 0);
+    z-index: -1;
+    transition: transform 0.5s ease;
+  }
+
+  #infPanel > div {
+    margin: auto;
+    position: relative;
+  }
+
+
+/*   Esperando a Admin */
+#infPanel > div:first-child {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 96vw;
+  background-color: rgba(52, 66, 90, 0.781);
+  border-radius: 5px;
+  height: 30vw;
+}
+
+#infPanel > div:first-child > h2 {
+  text-align: center;
+  font-size: 4vw;
+  margin: auto;
+  animation: pulse 3s infinite linear;
+  color: whitesmoke;
+}
+
+@keyframes pulse {
+  10% {
+    opacity: 10%;
+  }
+  21% {
+    opacity: 21%;
+  }
+  32% {
+    opacity: 32%;
+  }
+  45% {
+    opacity: 55%;
+  }
+  55% {
+    opacity: 75%;
+  }
+  65% {
+    opacity: 100%;
+  }
+  85% {
+    opacity: 100%;
+  }
+  100% {
+    opacity: 100%;
+  }
+}
+
+#infPanel > div:first-child > img {
+  width: 15vw;
+  margin: auto;
+  animation: rotar 3s infinite linear;
+}
+
+#infPanel > div:last-child {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 1.5vh;
+  background-color: rgba(52, 66, 90, 0.781);
+  width: 96vw;
+  border-radius: 5px;
+}
+
+#infPanel > div:last-child > div {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/*"RESUME"*/
+#infPanel > div:last-child > div > h1 {
+  margin: auto;
+  padding: 1vh;
+  font-size: 6vw;
+}
+
+#infPanel > div:last-child > div:first-child {
+  margin: auto;
+  margin-top: 3vh;
+  height: 3vh;
+}
+
+#infPanel > div:last-child > div:first-child > h1 {
+  color: whitesmoke;
+  font-size: 5vw;
+}
+
+#infPanel > div:last-child > div > div {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#infPanel > div:last-child > div:last-child {
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-top: 3vh;
+}
+
+#infPanel > div:last-child > div:last-child > div {
+  width: 30vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 1vh;
+  border-radius: 3px;
+}
+
+#infPanel > div:last-child > div > div.green > h1 {
+  font-size: 5vw;
+  color: whitesmoke;
+  width: 30vw;
+  background-color: #4b7458;
+  margin: auto;
+  text-align: center;
+  border-radius: 3px 3px 0 0 ;
+}
+
+#infPanel > div:last-child > div > div.red > h1 {
+  font-size: 4vw;
+  color: whitesmoke;
+  width: 30vw;
+  background-color: #ad9d9d;
+  margin: auto;
+  text-align: center;
+  border-radius: 3px 3px 0 0 ;
+}
+
+#infPanel > div:last-child > div > div.green > div {
+  background-color: rgba( 75, 116, 88, .5);
+  margin-top: .3vh;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0 0 3px 3px;
+}
+
+#infPanel > div:last-child > div > div.red > div {
+  background-color: rgba(140, 133, 133 , 0.2);
+  margin-top: .3vh;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0 0 3px 3px;
+}
+
+#infPanel > div:last-child > div > div.green > div > h2 {
+  margin: auto;
+  font-size: 3.5vw;
+  color: lavender;
+}
+
+#infPanel > div:last-child > div > div.red > div > h2 {
+  margin: auto;
+  font-size: 3.5vw;
+  color: lavender;
+}
+
+#waitMulti {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 96vw;
+  height: 40vw;
+  left: 2vw;
+  top: 13vh;
+  background-color: rgba(52, 66, 90, 0.781);
+  border-radius: 5px;
+  z-index: -1;
+  transform: translate(150%, 0);
+}
+
+#waitMulti.is-active {
+  transform: translate(0, 0);
+  z-index: 100;
+}
+
+#waitMulti > h2 {
+  text-align: center;
+  font-size: 4vw;
+  margin: auto;
+  animation: pulse 3s infinite linear;
+  color: whitesmoke;
+}
+
+@keyframes pulse {
+  10% {
+    opacity: 10%;
+  }
+  21% {
+    opacity: 21%;
+  }
+  32% {
+    opacity: 32%;
+  }
+  45% {
+    opacity: 55%;
+  }
+  55% {
+    opacity: 75%;
+  }
+  65% {
+    opacity: 100%;
+  }
+  85% {
+    opacity: 100%;
+  }
+  100% {
+    opacity: 100%;
+  }
+}
+
+#waitMulti > img {
+  width: 15vw;
+  margin: auto;
+  animation: rotar 3s infinite linear;
+}
+
 }
 
 @media screen and (min-width: 321px) and (max-width: 576px) {
@@ -5229,7 +5586,7 @@ img {
     position: absolute;
     width: 22vw;
     left: 76vw;
-    top: 12vh;
+    top: 18vh;
     display: flex;
     flex-direction: column;
   }

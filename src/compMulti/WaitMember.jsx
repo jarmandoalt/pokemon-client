@@ -84,12 +84,19 @@ const WaitMember = () => {
     [arrPokemonsUse, setArrPokemonsUse] = useLocalStorage("arrPokemonsUse", []),
     [arrPokemons, setArrPokemons] = useLocalStorage("arrPokemons", []),
     [disableBtn, setDisableBtn] = useLocalStorage("disableBtn", false),
-    [secondsRemaining, setSecondsRemaining] = useLocalStorage("secondsRemaining", 9),
+    [secondsRemaining, setSecondsRemaining] = useLocalStorage(
+      "secondsRemaining",
+      9
+    ),
     [status, setStatus] = useLocalStorage("status", STATUS.STOPPED),
     refListPokemon = useRef(),
     refResults = useRef(),
     refPanel = useRef(),
-    refPanelPokeball = useRef()
+    refPanelPokeball = useRef();
+
+  let details = navigator.userAgent;
+  let regexp = /android|iphone|kindle|ipad/i;
+  let isMobileDevice = regexp.test(details);
 
   function useLocalStorage(key, initialValue) {
     // State to store our value
@@ -233,9 +240,7 @@ const WaitMember = () => {
     setNamePokemonSelect(result);
   };
 
-  const handleBusquedaPokemons = (e) => {
-    
-  };
+  const handleBusquedaPokemons = (e) => {};
 
   const keyUp = (e) => {
     if (e.keyCode >= 65 && e.keyCode <= 90) {
@@ -876,9 +881,9 @@ const WaitMember = () => {
     });
 
     socket.on("returnGame", () => {
-        dispatch(SHOW_CONFIG("return"));
-        dispatch(COUNTDOWN(false));
-        handleReset()
+      dispatch(SHOW_CONFIG("return"));
+      dispatch(COUNTDOWN(false));
+      handleReset();
     });
 
     socket.on("dataGameMember", (dataGameMember) => {
@@ -1259,7 +1264,7 @@ const WaitMember = () => {
       handlePractice();
       dispatch(PRACTICE({ click: false }));
       setTimeout(() => {
-        moveCursorToEnd()
+        moveCursorToEnd();
       }, 1000);
     }
   }, [practice]);
@@ -1357,8 +1362,8 @@ const WaitMember = () => {
         dispatch(DATA_SERVER({ hitCounter: dataServer.countMembers }));
         setNoRepeat(false);
         dispatch(COUNTDOWN(false));
-        setDisableBtn(true)
-        setShowImg(true)
+        setDisableBtn(true);
+        setShowImg(true);
       }
     } else {
       if (noCorrect === true) {
@@ -1366,8 +1371,8 @@ const WaitMember = () => {
         setNoRepeat(false);
         dispatch(COUNTDOWN(false));
         dispatch(NOCORRECT(false));
-        setDisableBtn(true)
-        setShowImg(true)
+        setDisableBtn(true);
+        setShowImg(true);
       }
     }
   }, [noCorrect]);
@@ -1377,62 +1382,53 @@ const WaitMember = () => {
       {showConfig ? (
         showCountdown ? (
           <div id="infPanel" ref={refPanel}>
-          <div>
-            <h2>Round {dataServer.round} will start in:</h2>
-            <h2>{secondsRemaining}s</h2>
-            <img src={pokeball} alt="" />
-          </div>
-          <div>
             <div>
-              <h1>Attempts: {countPokemonsSelect}</h1>
+              <h2>Round {dataServer.round} will start in:</h2>
+              <h2>{secondsRemaining}s</h2>
+              <img src={pokeball} alt="" />
             </div>
             <div>
-              {dataAttempts.map((attempts, index) => (
-                dataBestTime[index] < dataServer.timeShowShadow ?
-                <div key={index} className="green">
-                  <h1 >Round {index + 1}</h1>
-                  <div>
-                  <h2>
-                    {" "}
-                    attempts: {attempts}{" "}
-                  </h2>
-                  {
-                    dataBestTime[index] < 60 ?
-                  <h2>
-                    {" "}
-                    time: {dataBestTime[index]}s{" "}
-                  </h2>: 
-                  <h2>
-                  {" "}
-                  time: {Math.floor(dataBestTime[index] / 60) }m {dataBestTime[index] % 60 }s {" "}
-                </h2>
-                  }
-                  </div>
-                </div> :
-                <div key={index} className="red">
-                  <h1 >Round {index + 1}</h1>
-                  <div>
-
-                  <h2>
-                    {" "}
-                    attempts: {attempts}
-                  </h2>
-                  {
-                    dataBestTime[index] < 60 ?
-                  <h2>
-                    {" "}
-                    time: {dataBestTime[index]}s{" "}
-                  </h2>: 
-                  <h2>
-                  {" "}
-                  time: {Math.floor(dataBestTime[index] / 60) }m {dataBestTime[index] % 60 }s {" "}
-                </h2>
-                  }
-                  </div>
-                </div>
-              ))}
+              <div>
+                <h1>Attempts: {countPokemonsSelect}</h1>
+              </div>
+              <div>
+                {dataAttempts.map((attempts, index) =>
+                  dataBestTime[index] < dataServer.timeShowShadow ? (
+                    <div key={index} className="green">
+                      <h1>Round {index + 1}</h1>
+                      <div>
+                        <h2> attempts: {attempts} </h2>
+                        {dataBestTime[index] < 60 ? (
+                          <h2> time: {dataBestTime[index]}s </h2>
+                        ) : (
+                          <h2>
+                            {" "}
+                            time: {Math.floor(dataBestTime[index] / 60)}m{" "}
+                            {dataBestTime[index] % 60}s{" "}
+                          </h2>
+                        )}
+                      </div>
+                    </div>
+                  ) : (
+                    <div key={index} className="red">
+                      <h1>Round {index + 1}</h1>
+                      <div>
+                        <h2> attempts: {attempts}</h2>
+                        {dataBestTime[index] < 60 ? (
+                          <h2> time: {dataBestTime[index]}s </h2>
+                        ) : (
+                          <h2>
+                            {" "}
+                            time: {Math.floor(dataBestTime[index] / 60)}m{" "}
+                            {dataBestTime[index] % 60}s{" "}
+                          </h2>
+                        )}
+                      </div>
+                    </div>
+                  )
+                )}
+              </div>
             </div>
-          </div>
           </div>
         ) : (
           <div id="waitMulti" ref={refPanel}>
@@ -1717,55 +1713,48 @@ const WaitMember = () => {
               <h1>Attempts: {countPokemonsSelect}</h1>
             </div>
             <div>
-              {dataAttempts.map((attempts, index) => (
-                dataBestTime[index] < dataServer.timeShowShadow ?
-                <div key={index} className="green">
-                  <h1>Round {index + 1}</h1>
-                  <div>
-                  <h2>
-                    {" "}
-                    attempts: {attempts}{" "}
-                  </h2>
-                  {
-                    dataBestTime[index] < 60 ?
-                  <h2>
-                    {" "}
-                    time: {dataBestTime[index]}s{" "}
-                  </h2>: 
-                  <h2>
-                  {" "}
-                  time: {Math.floor(dataBestTime[index] / 60) }m {dataBestTime[index] % 60 }s {" "}
-                </h2>
-                  }
+              {dataAttempts.map((attempts, index) =>
+                dataBestTime[index] < dataServer.timeShowShadow ? (
+                  <div key={index} className="green">
+                    <h1>Round {index + 1}</h1>
+                    <div>
+                      <h2> attempts: {attempts} </h2>
+                      {dataBestTime[index] < 60 ? (
+                        <h2> time: {dataBestTime[index]}s </h2>
+                      ) : (
+                        <h2>
+                          {" "}
+                          time: {Math.floor(dataBestTime[index] / 60)}m{" "}
+                          {dataBestTime[index] % 60}s{" "}
+                        </h2>
+                      )}
+                    </div>
                   </div>
-                </div> :
-                <div key={index} className="red">
-                  <h1 >Round {index + 1}</h1>
-                  <div>
-
-                  <h2>
-                    {" "}
-                    attempts: {attempts}
-                  </h2>
-                  {
-                    dataBestTime[index] < 60 ?
-                  <h2>
-                    {" "}
-                    time: {dataBestTime[index]}s{" "}
-                  </h2>: 
-                  <h2>
-                  {" "}
-                  time: {Math.floor(dataBestTime[index] / 60) }m {dataBestTime[index] % 60 }s {" "}
-                </h2>
-                  }
+                ) : (
+                  <div key={index} className="red">
+                    <h1>Round {index + 1}</h1>
+                    <div>
+                      <h2> attempts: {attempts}</h2>
+                      {dataBestTime[index] < 60 ? (
+                        <h2> time: {dataBestTime[index]}s </h2>
+                      ) : (
+                        <h2>
+                          {" "}
+                          time: {Math.floor(dataBestTime[index] / 60)}m{" "}
+                          {dataBestTime[index] % 60}s{" "}
+                        </h2>
+                      )}
+                    </div>
                   </div>
-                </div>
-              ))}
+                )
+              )}
             </div>
           </div>
-          </div>
+        </div>
       )}
-      <div id="divPokemonSingle" className="pc" ref={refPanelPokeball}>
+      {
+        isMobileDevice ?
+        <div id="divPokemonSingle" className="pc" ref={refPanelPokeball}>
         <div id="divImgPokemons">
           {pokeballReady ? (
             <div>
@@ -1777,14 +1766,7 @@ const WaitMember = () => {
                   {practice.active === true && disableBtn === true ? (
                     <div>
                       <button
-                        onClick={() => {
-                          dispatch(PRACTICE({ active: true, click: true }));
-                          dispatch(DELETE_ALL_DATA());
-                        }}
-                      >
-                        Ctrl
-                      </button>
-                      <button
+                      className="is-mobile"
                         style={{
                           backgroundColor: "rgba(197, 213, 226, 0.815)",
                           color: "rgb(61, 91, 126)",
@@ -1800,18 +1782,10 @@ const WaitMember = () => {
                   ) : disableBtn === true ? (
                     <div>
                       {" "}
+                      
                       <button
                         disabled
-                        style={{
-                          color: "white",
-                          cursor: "not-allowed",
-                          backgroundColor: "rgb(203, 192, 206)",
-                        }}
-                      >
-                        Ctrl
-                      </button>
-                      <button
-                        disabled
+                        className="is-mobile"
                         style={{
                           cursor: "not-allowed",
                           color: "white",
@@ -1823,11 +1797,12 @@ const WaitMember = () => {
                   ) : (
                     <div>
                       {" "}
-                      <button onClick={handleSubmit}>Ctrl</button>
+                      
                       <button
                         style={{
                           color: "white",
                         }}
+                        className="is-mobile"
                         onClick={handleSubmit}
                       >
                         Surrender
@@ -1859,15 +1834,7 @@ const WaitMember = () => {
                         setShowImg(true);
                         new Audio(showShadow).play();
                       }}
-                    >
-                      {" "}
-                      Ctrl{" "}
-                    </button>
-                    <button
-                      onClick={() => {
-                        setShowImg(true);
-                        new Audio(showShadow).play();
-                      }}
+                      className="is-mobile"
                       style={{ backgroundColor: "rgb(125, 60, 152)" }}
                     >
                       Show Shadow
@@ -1883,23 +1850,14 @@ const WaitMember = () => {
                     width="20vw"
                     alt=""
                   />
-                  <div id="divCircle"></div>
+                  <div id="divCircle" className="is-mobile"></div>
                 </div>
               ) : countShowPokemon === 2 ? ( //cuando son dos llaves las obtenidas
                 <div id="divInicioPokeball">
                   <div>
                     <button
                       disabled
-                      style={{
-                        cursor: "not-allowed",
-                        backgroundColor: "#d8d8f7",
-                      }}
-                    >
-                      {" "}
-                      Ctrl{" "}
-                    </button>
-                    <button
-                      disabled
+                      className="is-mobile"
                       style={{
                         color: "white",
                         cursor: "not-allowed",
@@ -1926,23 +1884,14 @@ const WaitMember = () => {
                     width="20vw"
                     alt=""
                   />
-                  <div id="divCircle"></div>
+                  <div id="divCircle" className="is-mobile"></div>
                 </div>
               ) : countShowPokemon === 1 ? ( //cuando es una llave las obtenida
                 <div id="divInicioPokeball">
                   <div>
                     <button
                       disabled
-                      style={{
-                        cursor: "not-allowed",
-                        backgroundColor: "#d8d8f7",
-                      }}
-                    >
-                      {" "}
-                      Ctrl{" "}
-                    </button>
-                    <button
-                      disabled
+                      className="is-mobile"
                       style={{
                         color: "white",
                         cursor: "not-allowed",
@@ -1969,7 +1918,7 @@ const WaitMember = () => {
                     width="20vw"
                     alt=""
                   />
-                  <div id="divCircle"></div>
+                  <div id="divCircle" className="is-mobile"></div>
                 </div>
               ) : (
                 <div id="divInicioPokeball">
@@ -1977,16 +1926,7 @@ const WaitMember = () => {
                     {" "}
                     <button
                       disabled
-                      style={{
-                        cursor: "not-allowed",
-                        backgroundColor: "#d8d8f7",
-                      }}
-                    >
-                      {" "}
-                      Ctrl{" "}
-                    </button>
-                    <button
-                      disabled
+                      className="is-mobile"
                       style={{
                         color: "white",
                         cursor: "not-allowed",
@@ -2027,7 +1967,7 @@ const WaitMember = () => {
                     width="20vw"
                     alt=""
                   />
-                  <div id="divCircle"></div>
+                  <div id="divCircle" className="is-mobile"></div>
                 </div>
               )}
             </div>
@@ -2039,24 +1979,11 @@ const WaitMember = () => {
               {practice.active === true ? (
                 <div>
                   <button
-                    onClick={() => {
-                      dispatch(PRACTICE({ active: true, click: true }));
-                      dispatch(DELETE_ALL_DATA());
-                      setAuxInput("");
-                      setBusquedaPokemon("");
-                      filterPokemon("");
-                      setTimeout(() => {
-                        moveCursorToEnd();
-                      }, 1000);
-                    }}
-                  >
-                    Ctrl
-                  </button>
-                  <button
                     style={{
                       backgroundColor: "rgba(197, 213, 226, 0.815)",
                       color: "rgb(61, 91, 126)",
                     }}
+                    className="is-mobile"
                     onClick={() => {
                       dispatch(PRACTICE({ active: true, click: true }));
                       dispatch(DELETE_ALL_DATA());
@@ -2074,13 +2001,6 @@ const WaitMember = () => {
               ) : (
                 <div>
                   {" "}
-                  <button
-                    style={{
-                      cursor: "not-allowed",
-                    }}
-                  >
-                    Ctrl
-                  </button>
                   <button
                     style={{
                       cursor: "not-allowed",
@@ -2123,7 +2043,7 @@ const WaitMember = () => {
             <h2 htmlFor="text">Who is this Pokemon?</h2>
           </div>
           <div id="divBuscadorPokemons">
-            <div>  
+            <div>
               {showCorrect ? (
                 <div id="divCorrect">
                   <h2>WIN</h2>
@@ -2141,13 +2061,13 @@ const WaitMember = () => {
                 />
               ) : (
                 <input
-                type="text"
-                name="busqueda"
-                placeholder="Name"
-                value={busquedaPokemon}
-                onKeyUp={keyUp}
-                id="buscador"
-                onChange={handleBusquedaPokemons}
+                  type="text"
+                  name="busqueda"
+                  placeholder="Name"
+                  value={busquedaPokemon}
+                  onKeyUp={keyUp}
+                  id="buscador"
+                  onChange={handleBusquedaPokemons}
                   disabled="on"
                 />
               )}
@@ -2162,14 +2082,6 @@ const WaitMember = () => {
                     <div key={name}></div>
                   ) : (
                     <div key={name}>
-                      <button
-                        slot={name}
-                        value={name}
-                        onClick={selectNamePokemon}
-                      >
-                        {" "}
-                        {index + 1}{" "}
-                      </button>
                       <button
                         slot={name}
                         value={name}
@@ -2316,7 +2228,560 @@ const WaitMember = () => {
             )}
           </div>
         </div>
+      </div> :
+      <div id="divPokemonSingle" className="pc" ref={refPanelPokeball}>
+      <div id="divImgPokemons">
+        {pokeballReady ? (
+          <div>
+            {showImg ? (
+              <div
+                id="divImgPokemonShow"
+                style={{ display: "flex", flexDirection: "column" }}
+              >
+                {practice.active === true && disableBtn === true ? (
+                  <div>
+                    <button
+                      onClick={() => {
+                        dispatch(PRACTICE({ active: true, click: true }));
+                        dispatch(DELETE_ALL_DATA());
+                      }}
+                    >
+                      Ctrl
+                    </button>
+                    <button
+                      style={{
+                        backgroundColor: "rgba(197, 213, 226, 0.815)",
+                        color: "rgb(61, 91, 126)",
+                      }}
+                      onClick={() => {
+                        dispatch(PRACTICE({ active: true, click: true }));
+                        dispatch(DELETE_ALL_DATA());
+                      }}
+                    >
+                      RELOAD
+                    </button>
+                  </div>
+                ) : disableBtn === true ? (
+                  <div>
+                    {" "}
+                    <button
+                      disabled
+                      style={{
+                        color: "white",
+                        cursor: "not-allowed",
+                        backgroundColor: "rgb(203, 192, 206)",
+                      }}
+                    >
+                      Ctrl
+                    </button>
+                    <button
+                      disabled
+                      style={{
+                        cursor: "not-allowed",
+                        color: "white",
+                      }}
+                    >
+                      Waiting
+                    </button>
+                  </div>
+                ) : (
+                  <div>
+                    {" "}
+                    <button onClick={handleSubmit}>Ctrl</button>
+                    <button
+                      style={{
+                        color: "white",
+                      }}
+                      onClick={handleSubmit}
+                    >
+                      Surrender
+                    </button>
+                  </div>
+                )}
+                {disableBtn ? (
+                  <img
+                    id="imgPokemon"
+                    style={{ filter: "brightness(100%)" }}
+                    src={dbPokemonSelect.sprites.front_default}
+                    alt=""
+                  />
+                ) : (
+                  <img
+                    id="imgPokemon"
+                    style={{ filter: "brightness(0%)" }}
+                    src={dbPokemonSelect.sprites.front_default}
+                    alt=""
+                  />
+                )}
+              </div>
+            ) : countShowPokemon === 3 ? ( //cuando son tres llaves las obtenidas
+              <div id="divInicioPokeball">
+                <div>
+                  {" "}
+                  <button
+                    onClick={() => {
+                      setShowImg(true);
+                      new Audio(showShadow).play();
+                    }}
+                  >
+                    {" "}
+                    Ctrl{" "}
+                  </button>
+                  <button
+                    onClick={() => {
+                      setShowImg(true);
+                      new Audio(showShadow).play();
+                    }}
+                    style={{ backgroundColor: "rgb(125, 60, 152)" }}
+                  >
+                    Show Shadow
+                    <br />
+                    <img className="is-active key" src={llave} alt="key1" />
+                    <img className="is-active key" src={llave} alt="key2" />
+                    <img className="is-active key" src={llave} alt="key3" />
+                  </button>
+                </div>
+                <img
+                  id="imgPokeballShow"
+                  src={pokeball}
+                  width="20vw"
+                  alt=""
+                />
+                <div id="divCircle"></div>
+              </div>
+            ) : countShowPokemon === 2 ? ( //cuando son dos llaves las obtenidas
+              <div id="divInicioPokeball">
+                <div>
+                  <button
+                    disabled
+                    style={{
+                      cursor: "not-allowed",
+                      backgroundColor: "#d8d8f7",
+                    }}
+                  >
+                    {" "}
+                    Ctrl{" "}
+                  </button>
+                  <button
+                    disabled
+                    style={{
+                      color: "white",
+                      cursor: "not-allowed",
+                      backgroundColor: "rgb(203, 192, 206)",
+                    }}
+                  >
+                    Show Shadow
+                    <br />
+                    <img className="is-active key" src={llave} alt="key1" />
+                    <img className="is-active key" src={llave} alt="key2" />
+                    <img
+                      className="key"
+                      style={{
+                        filter: "brightness(50%)",
+                      }}
+                      src={llave}
+                      alt="key3"
+                    />
+                  </button>{" "}
+                </div>
+                <img
+                  id="imgPokeballShow"
+                  src={pokeball}
+                  width="20vw"
+                  alt=""
+                />
+                <div id="divCircle"></div>
+              </div>
+            ) : countShowPokemon === 1 ? ( //cuando es una llave las obtenida
+              <div id="divInicioPokeball">
+                <div>
+                  <button
+                    disabled
+                    style={{
+                      cursor: "not-allowed",
+                      backgroundColor: "#d8d8f7",
+                    }}
+                  >
+                    {" "}
+                    Ctrl{" "}
+                  </button>
+                  <button
+                    disabled
+                    style={{
+                      color: "white",
+                      cursor: "not-allowed",
+                      backgroundColor: "rgb(203, 192, 206)",
+                    }}
+                  >
+                    Show Shadow
+                    <br />
+                    <img className="is-active key" src={llave} alt="key1" />
+                    <img className="is-active key" src={llave} alt="key2" />
+                    <img
+                      className="key"
+                      style={{
+                        filter: "brightness(50%)",
+                      }}
+                      src={llave}
+                      alt="key3"
+                    />
+                  </button>{" "}
+                </div>
+                <img
+                  id="imgPokeballShow"
+                  src={pokeball}
+                  width="20vw"
+                  alt=""
+                />
+                <div id="divCircle"></div>
+              </div>
+            ) : (
+              <div id="divInicioPokeball">
+                <div>
+                  {" "}
+                  <button
+                    disabled
+                    style={{
+                      cursor: "not-allowed",
+                      backgroundColor: "#d8d8f7",
+                    }}
+                  >
+                    {" "}
+                    Ctrl{" "}
+                  </button>
+                  <button
+                    disabled
+                    style={{
+                      color: "white",
+                      cursor: "not-allowed",
+                      backgroundColor: "rgb(203, 192, 206)",
+                    }}
+                  >
+                    Show Shadow
+                    <br />
+                    <img
+                      className="key"
+                      style={{
+                        filter: "brightness(50%)",
+                      }}
+                      src={llave}
+                      alt="key1"
+                    />
+                    <img
+                      className="key"
+                      style={{
+                        filter: "brightness(50%)",
+                      }}
+                      src={llave}
+                      alt="key2"
+                    />
+                    <img
+                      className="key"
+                      style={{
+                        filter: "brightness(50%)",
+                      }}
+                      src={llave}
+                      alt="key3"
+                    />
+                  </button>
+                </div>
+                <img
+                  id="imgPokeballShow"
+                  src={pokeball}
+                  width="20vw"
+                  alt=""
+                />
+                <div id="divCircle"></div>
+              </div>
+            )}
+          </div>
+        ) : (
+          <div
+            id="divInicioPokeball"
+            style={{ display: "flex", flexDirection: "column" }}
+          >
+            {practice.active === true ? (
+              <div>
+                <button
+                  onClick={() => {
+                    dispatch(PRACTICE({ active: true, click: true }));
+                    dispatch(DELETE_ALL_DATA());
+                    setAuxInput("");
+                    setBusquedaPokemon("");
+                    filterPokemon("");
+                    setTimeout(() => {
+                      moveCursorToEnd();
+                    }, 1000);
+                  }}
+                >
+                  Ctrl
+                </button>
+                <button
+                  style={{
+                    backgroundColor: "rgba(197, 213, 226, 0.815)",
+                    color: "rgb(61, 91, 126)",
+                  }}
+                  onClick={() => {
+                    dispatch(PRACTICE({ active: true, click: true }));
+                    dispatch(DELETE_ALL_DATA());
+                    setAuxInput("");
+                    setBusquedaPokemon("");
+                    filterPokemon("");
+                    setTimeout(() => {
+                      moveCursorToEnd();
+                    }, 1000);
+                  }}
+                >
+                  PRACTICE
+                </button>
+              </div>
+            ) : (
+              <div>
+                {" "}
+                <button
+                  style={{
+                    cursor: "not-allowed",
+                  }}
+                >
+                  Ctrl
+                </button>
+                <button
+                  style={{
+                    cursor: "not-allowed",
+                  }}
+                >
+                  Show Pokemon <br />{" "}
+                  <img
+                    className="key"
+                    style={{
+                      filter: "brightness(50%)",
+                    }}
+                    src={llave}
+                    alt="key1"
+                  />
+                  <img
+                    className="key"
+                    style={{
+                      filter: "brightness(50%)",
+                    }}
+                    src={llave}
+                    alt="key2"
+                  />
+                  <img
+                    className="key"
+                    style={{
+                      filter: "brightness(50%)",
+                    }}
+                    src={llave}
+                    alt="key3"
+                  />
+                </button>
+              </div>
+            )}
+            <img src={pokeball} alt="" />
+          </div>
+        )}
       </div>
+      <div id="divBuscadorPokemon">
+        <div>
+          <h2 htmlFor="text">Who is this Pokemon?</h2>
+        </div>
+        <div id="divBuscadorPokemons">
+          <div>
+            {showCorrect ? (
+              <div id="divCorrect">
+                <h2>WIN</h2>
+              </div>
+            ) : countdown || practice.active === true ? (
+              <input
+                type="text"
+                name="busqueda"
+                placeholder="Name"
+                value={busquedaPokemon}
+                onKeyUp={keyUp}
+                id="buscador"
+                onChange={handleBusquedaPokemons}
+                autoComplete="off"
+              />
+            ) : (
+              <input
+                type="text"
+                name="busqueda"
+                placeholder="Name"
+                value={busquedaPokemon}
+                onKeyUp={keyUp}
+                id="buscador"
+                onChange={handleBusquedaPokemons}
+                disabled="on"
+              />
+            )}
+          </div>
+          <div id="divBtnOpc">
+            {namePokemonSelect.map(
+              (
+                { name },
+                index //eliminar el reset de Admin
+              ) =>
+                disableBtn ? (
+                  <div key={name}></div>
+                ) : (
+                  <div key={name}>
+                    <button
+                      slot={name}
+                      value={name}
+                      onClick={selectNamePokemon}
+                    >
+                      {" "}
+                      {index + 1}{" "}
+                    </button>
+                    <button
+                      slot={name}
+                      value={name}
+                      translate="no"
+                      onClick={selectNamePokemon}
+                    >
+                      {" "}
+                      {name}{" "}
+                    </button>
+                  </div>
+                )
+            )}
+          </div>
+        </div>
+        <div id="listPokemons" ref={refListPokemon}>
+          {arrPokemons.map(({ name, gen, img, type1, type2, id }) =>
+            name === dbPokemonSelect.name ? (
+              <div className="true" key={id}>
+                <div>
+                  {gen > pokemonGen ? (
+                    <h1>
+                      {gen}
+                      <img src={arrowDown} alt="" />
+                    </h1>
+                  ) : gen < pokemonGen ? (
+                    <h1>
+                      {gen}
+                      <img src={arrowUp} alt="" />
+                    </h1>
+                  ) : (
+                    <h1 className="is-true">{gen}</h1>
+                  )}
+                </div>
+                <div>
+                  <img src={img} alt="" />
+                </div>
+                <div translate="no">
+                  <h1
+                    value={name}
+                    slot={name}
+                    translate="no"
+                    onClick={selectNamePokemon}
+                  >
+                    {name}
+                  </h1>
+                </div>
+                <div>
+                  {dbPokemonSelect.types.length === 2 ? (
+                    type1 === dbPokemonSelect.types[0].type.name ? (
+                      <h2 className={type1}>{type1}</h2>
+                    ) : type1 === dbPokemonSelect.types[1].type.name ? (
+                      <h2 className={type1}>{type1}</h2>
+                    ) : (
+                      <h2 className="false">{type1}</h2>
+                    )
+                  ) : type1 === dbPokemonSelect.types[0].type.name ? (
+                    <h2 className={type1}>{type1}</h2>
+                  ) : (
+                    <h2 className="false"> {type1}</h2>
+                  )}
+                </div>
+                <div>
+                  {type2 == null ? (
+                    <div></div>
+                  ) : dbPokemonSelect.types.length === 2 ? (
+                    type2 === dbPokemonSelect.types[0].type.name ? (
+                      <h2 className={type2}>{type2}</h2>
+                    ) : type2 === dbPokemonSelect.types[1].type.name ? (
+                      <h2 className={type2}>{type2}</h2>
+                    ) : (
+                      <h2 className="false">{type2}</h2>
+                    )
+                  ) : type2 === dbPokemonSelect.types[0].type.name ? (
+                    <h2 className={type2}>{type2}</h2>
+                  ) : (
+                    <h2 className="false"> {type2}</h2>
+                  )}
+                </div>
+              </div>
+            ) : (
+              <div key={name}>
+                <div>
+                  {gen > pokemonGen ? (
+                    <h1>
+                      {gen}
+                      <img src={arrowDown} alt="" />
+                    </h1>
+                  ) : gen < pokemonGen ? (
+                    <h1>
+                      {gen}
+                      <img src={arrowUp} alt="" />
+                    </h1>
+                  ) : (
+                    <h1 className="is-true">{gen}</h1>
+                  )}
+                </div>
+                <div>
+                  <img src={img} alt="" />
+                </div>
+                <div>
+                  <h1
+                    value={name}
+                    slot={name}
+                    translate="no"
+                    onClick={selectNamePokemon}
+                  >
+                    {name}
+                  </h1>
+                </div>
+                <div>
+                  {dbPokemonSelect.types.length === 2 ? (
+                    type1 === dbPokemonSelect.types[0].type.name ? (
+                      <h2 className={type1}>{type1}</h2>
+                    ) : type1 === dbPokemonSelect.types[1].type.name ? (
+                      <h2 className={type1}>{type1}</h2>
+                    ) : (
+                      <h2 className="false">{type1}</h2>
+                    )
+                  ) : type1 === dbPokemonSelect.types[0].type.name ? (
+                    <h2 className={type1}>{type1}</h2>
+                  ) : (
+                    <h2 className="false"> {type1}</h2>
+                  )}
+                </div>
+                <div>
+                  {type2 == null ? (
+                    <div></div>
+                  ) : dbPokemonSelect.types.length === 2 ? (
+                    type2 === dbPokemonSelect.types[0].type.name ? (
+                      <h2 className={type2}>{type2}</h2>
+                    ) : type2 === dbPokemonSelect.types[1].type.name ? (
+                      <h2 className={type2}>{type2}</h2>
+                    ) : (
+                      <h2 className="false">{type2}</h2>
+                    )
+                  ) : type2 === dbPokemonSelect.types[0].type.name ? (
+                    <h2 className={type2}>{type2}</h2>
+                  ) : (
+                    <h2 className="false"> {type2}</h2>
+                  )}
+                </div>
+              </div>
+            )
+          )}
+        </div>
+      </div>
+    </div>
+      }
     </div>
   );
 };

@@ -1,21 +1,28 @@
 import socket from "../socket/socket";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import { DATA_SERVER, SHOW_MENU, HIDEPANEL, GAME_STARTED, PRACTICE } from "../reducers/crudReducer";
+import {
+  DATA_SERVER,
+  SHOW_MENU,
+  HIDEPANEL,
+  GAME_STARTED,
+  TIME
+} from "../reducers/crudReducer";
 import HeaderMulti from "../compMulti/HeaderMulti";
 import ConfigMulti from "../compMulti/ConfigMulti";
 import WaitMember from "../compMulti/WaitMember";
 import ShowMenu from "../compMulti/ShowMenu";
 import click from "../assets/click.mp3";
+import moment from "moment";
 
 const Room = () => {
   const [nameServer, setNameServer] = useState(""),
     countdown = useSelector((state) => state.countdown),
     practice = useSelector((state) => state.practice),
     gameStarted = useSelector((state) => state.gameStarted),
-  dataServer = useSelector((state) => state.dataServer),
-  hidePanelConfig = useSelector((state) => state.hidePanelConfig),
-  showMenu = useSelector((state) => state.showMenu),
+    dataServer = useSelector((state) => state.dataServer),
+    hidePanelConfig = useSelector((state) => state.hidePanelConfig),
+    showMenu = useSelector((state) => state.showMenu),
     dispatch = useDispatch();
 
   //history.forward()//no retroceder
@@ -24,17 +31,19 @@ const Room = () => {
   useEffect(() => {
     //Admin conection
     socket.on("create", (create) => {
-      console.log(create);
       dispatch(DATA_SERVER({ idServer: create.create.idServer }));
       setNameServer(create.create.nameServer);
       adminConnection(create.create.tagName, create.create.nomMember);
     });
-    
+
     //Join member
     socket.on("join", (join) => {
-        console.log(join);
-        dispatch(DATA_SERVER({ idServer: join.join.idServer }));
-        memberConnection(join.join.tagName, join.join.nomMember, join.join.namesMembers);
+      dispatch(DATA_SERVER({ idServer: join.join.idServer }));
+      memberConnection(
+        join.join.tagName,
+        join.join.nomMember,
+        join.join.namesMembers
+      );
     });
 
     //Desconnection member
@@ -44,12 +53,10 @@ const Room = () => {
 
     //Update data members
     socket.on("updateData", (updateData) => {
-      console.log("udate: ", updateData);
       if (!nameServer) {
         setNameServer(updateData.nameServer);
-      } 
+      }
       if (updateData.nameServer === "") {
-        console.log("falta name server");
       } else {
         updateDataServer(updateData);
       }
@@ -63,9 +70,7 @@ const Room = () => {
 
   /*Actualizando datos internos de Admin despues de que sale un miembro */
   const updateLastExitMember = (dataExit) => {
-    console.log("exit");
     if (dataServer.id === dataServer.adminId) {
-      console.log("updateData");
       switch (dataExit.myNumber) {
         case 2:
           dispatch(
@@ -77,7 +82,7 @@ const Room = () => {
               nameMember3: "",
               scoreMember3: 0,
               countMembers: dataExit.countMembers,
-              namesMembers: dataExit.namesMembers
+              namesMembers: dataExit.namesMembers,
             })
           );
           break;
@@ -89,19 +94,18 @@ const Room = () => {
               nameMember3: "",
               scoreMember3: 0,
               countMembers: dataExit.countMembers,
-              namesMembers: dataExit.namesMembers
+              namesMembers: dataExit.namesMembers,
             })
           );
           break;
 
         case 4:
-          console.log("este por que");
           dispatch(
             DATA_SERVER({
               nameMember3: "",
               scoreMember3: 0,
               countMembers: dataExit.countMembers,
-              namesMembers: dataExit.namesMembers
+              namesMembers: dataExit.namesMembers,
             })
           );
           break;
@@ -115,8 +119,7 @@ const Room = () => {
   /* Actualizando los datos internos de los miembros */
   const updateDataServer = (dataServerAdmin) => {
     if (dataServer.id === dataServer.adminId) {
-      console.log("admin");
-      
+      dispatch(TIME(Number(moment().format("HH"))));
     } else {
       let auxmyNumber = 0;
       if (dataServerAdmin.nameMember1 == dataServer.name) {
@@ -130,8 +133,11 @@ const Room = () => {
           }
         }
       }
-      if (dataServerAdmin.round > 0 && auxmyNumber === dataServerAdmin.countMembers) {
-        dispatch(GAME_STARTED(true))
+      if (
+        dataServerAdmin.round > 0 &&
+        auxmyNumber === dataServerAdmin.countMembers
+      ) {
+        dispatch(GAME_STARTED(true));
       }
       dispatch(
         DATA_SERVER({
@@ -180,7 +186,7 @@ const Room = () => {
   /* Escuchando cuando se une el Admin */
   const adminConnection = (tagName) => {
     dispatch(DATA_SERVER({ nameAdmin: tagName }));
-    dispatch(HIDEPANEL(false))
+    dispatch(HIDEPANEL(false));
   };
 
   /* Escuchando cuando se une un Miembro y actualizando los datos de Admin */
@@ -188,13 +194,31 @@ const Room = () => {
     if (dataServer.round === 0) {
       switch (nomMember) {
         case 1:
-          dispatch(DATA_SERVER({ nameMember1: tagName, countMembers: 2, namesMembers: namesMembers }));
+          dispatch(
+            DATA_SERVER({
+              nameMember1: tagName,
+              countMembers: 2,
+              namesMembers: namesMembers,
+            })
+          );
           break;
         case 2:
-          dispatch(DATA_SERVER({ nameMember2: tagName, countMembers: 3, namesMembers: namesMembers }));
+          dispatch(
+            DATA_SERVER({
+              nameMember2: tagName,
+              countMembers: 3,
+              namesMembers: namesMembers,
+            })
+          );
           break;
         case 3:
-          dispatch(DATA_SERVER({ nameMember3: tagName, countMembers: 4, namesMembers: namesMembers }));
+          dispatch(
+            DATA_SERVER({
+              nameMember3: tagName,
+              countMembers: 4,
+              namesMembers: namesMembers,
+            })
+          );
           break;
         default:
           break;
@@ -205,43 +229,36 @@ const Room = () => {
   return (
     <div id="room">
       <HeaderMulti></HeaderMulti>
-      {
-        dataServer.id === dataServer.adminId ? (
-          <div id="panelPrincipal">
-            <ConfigMulti />
-            <ShowMenu />
-          </div>
-        ) : (
-          <div id="panelPrincipal">
-            {gameStarted ?
-            <h1>aun no</h1> :
-            <WaitMember />
-            }
-            <ShowMenu />
-          </div>
-        )
-        }
+      {dataServer.id === dataServer.adminId ? (
+        <div id="panelPrincipal">
+          <ConfigMulti />
+          <ShowMenu />
+        </div>
+      ) : (
+        <div id="panelPrincipal">
+          {gameStarted ? <h1>aun no</h1> : <WaitMember />}
+          <ShowMenu />
+        </div>
+      )}
 
       <div id="divBtnExit">
-      <button
+        <button
           name={dataServer.name}
           value={dataServer.id}
-    onClick={() => { new Audio(click).play(); 
-      showMenu ? dispatch(SHOW_MENU(false)): dispatch(SHOW_MENU(true)) }}
+          onClick={() => {
+            new Audio(click).play();
+            showMenu ? dispatch(SHOW_MENU(false)) : dispatch(SHOW_MENU(true));
+          }}
         >
           {" "}
           MENU
           {/* <img src={config} alt="" />{" "} */}
         </button>
-        {
-          hidePanelConfig ?
-          <button onClick={() => dispatch(HIDEPANEL(false))} >
-            SHOW
-          </button>:
-          <button onClick={() => dispatch(HIDEPANEL(true))} >
-            HIDE
-          </button>
-        }
+        {hidePanelConfig ? (
+          <button onClick={() => dispatch(HIDEPANEL(false))}>SHOW</button>
+        ) : (
+          <button onClick={() => dispatch(HIDEPANEL(true))}>HIDE</button>
+        )}
       </div>
     </div>
   );

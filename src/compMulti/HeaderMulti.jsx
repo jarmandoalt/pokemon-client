@@ -48,7 +48,11 @@ const HeaderMulti = () => {
 
   const handlerDataGame = () => {
     let auxTime = dataServer.timeShowShadow - secondsRemaining;
-    dispatch(DATA_ROUND_TIME(auxTime));
+    if (auxTime === 0) {
+      dispatch(DATA_ROUND_TIME(dataServer.timeShowShadow));
+    } else {
+      dispatch(DATA_ROUND_TIME(auxTime));
+    }
     if (auxTime < dataGame.bestTime) {
       switch (dataServer.myNumber) {
         case 1:

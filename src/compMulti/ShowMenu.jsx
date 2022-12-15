@@ -11,6 +11,7 @@ import {
 import { deleteServer, updateCountMembers } from "../services/routes";
 import click from "../assets/click.mp3";
 import { useNavigate } from "react-router-dom";
+import moment from "moment";
 
 const ShowMenu = () => {
   const navigate = useNavigate(),
@@ -21,9 +22,21 @@ const ShowMenu = () => {
     noCorrect = useSelector((state) => state.noCorrect),
     countdown = useSelector((state) => state.countdown),
     showMenu = useSelector((state) => state.showMenu),
+    time = useSelector((state) => state.time),
     [menuMember, setMenuMember] = useState(true),
     dispatch = useDispatch(),
     refDivMenu = createRef();
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const auxTime = Number(moment().format("HH")) - time;
+      
+      if (auxTime === 5) {
+        exitServer();
+      }
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   const exitServer = async (e) => {
     await deleteServer(dataServer.nameServer);
@@ -35,15 +48,15 @@ const ShowMenu = () => {
       countdown: false,
     });
     await socket.emit("deleteAdmin", {
-      nameServer: dataServer.nameServer
+      nameServer: dataServer.nameServer,
     });
     await socket.emit("deleteAllMember", {
-      nameServer: dataServer.nameServer
+      nameServer: dataServer.nameServer,
     });
     setTimeout(() => {
       dispatch(SHOW_CONFIG("return"));
       dispatch(COUNTDOWN(false));
-    navigate("/home"); //Return menu
+      navigate("/home"); //Return menu
     }, 1500);
   };
 
@@ -87,7 +100,7 @@ const ShowMenu = () => {
       }
     });
     socket.on("deleteAllMember", (deleteMember) => {
-        exitAllMembers(deleteMember);
+      exitAllMembers(deleteMember);
     });
   }, [socket]);
 
@@ -96,7 +109,7 @@ const ShowMenu = () => {
     dispatch(DELETE_ALL_DATA());
     dispatch(HIDEPANEL(false));
     await socket.emit("leaveRoomMember", {
-      nameServer: deleteMember.nameServer
+      nameServer: deleteMember.nameServer,
     });
     setTimeout(() => {
       dispatch(SHOW_CONFIG("return"));

@@ -15,6 +15,7 @@ import {
   DATA_ATTEMPTS_DELETE,
   DATA_ROUND_DELETE,
   PRACTICE,
+  TIME,
 } from "../reducers/crudReducer.jsx";
 import {
   getPokemonList,
@@ -35,6 +36,7 @@ import waitPokeball from "../assets/waitPokeball.mp3";
 import btnIncorrect from "../assets/btnIncorrect.mp3";
 import keyArcertAll from "../assets/acertAll.mp3";
 import battle from "../assets/battle.mp3";
+import moment from "moment";
 
 const ConfigMulti = () => {
   const [arrGeneration, setArrGeneration] = useLocalStorage("arrGeneration", [
@@ -51,6 +53,7 @@ const ConfigMulti = () => {
     hidePanelConfig = useSelector((state) => state.hidePanelConfig),
     dataGame = useSelector((state) => state.dataGame),
     countdown = useSelector((state) => state.countdown),
+    time = useSelector((state) => state.time),
     dispatch = useDispatch(),
     STATUS = {
       STARTED: "Started",
@@ -67,7 +70,6 @@ const ConfigMulti = () => {
     ),
     [showCountdown, setShowCountdown] = useLocalStorage("showCountdown", false),
     [numPokemon, setNumPokemon] = useLocalStorage("numPokemon", 0),
-    [counter, setCounter] = useLocalStorage("counter", 0),
     [showResults, setShowResults] = useLocalStorage("showResults", false),
     [correctCounter, setCorrectCounter] = useLocalStorage("correctCounter", 0),
     [countPokemonsSelect, setCountPokemonsSelect] = useLocalStorage(
@@ -88,12 +90,19 @@ const ConfigMulti = () => {
     [arrPokemonsUse, setArrPokemonsUse] = useLocalStorage("arrPokemonUse", []),
     [arrPokemons, setArrPokemons] = useLocalStorage("arrPokemons", []),
     [disableBtn, setDisableBtn] = useLocalStorage("disableBtn", false),
-    [secondsRemaining, setSecondsRemaining] = useLocalStorage("secondsRemaining", 9),
+    [secondsRemaining, setSecondsRemaining] = useLocalStorage(
+      "secondsRemaining",
+      9
+    ),
     [status, setStatus] = useLocalStorage("status", STATUS.STOPPED),
     refResults = useRef(),
     refPanel = useRef(),
     refListPokemon = useRef(),
-    refPanelPokeball = useRef()
+    refPanelPokeball = useRef();
+
+  let details = navigator.userAgent;
+  let regexp = /android|iphone|kindle|ipad/i;
+  let isMobileDevice = regexp.test(details);
 
   function useLocalStorage(key, initialValue) {
     // State to store our value
@@ -161,7 +170,6 @@ const ConfigMulti = () => {
     }
   }); */
 
-
   //Poner focus en input
   const moveCursorToEnd = () => {
     let el = document.getElementById("buscador");
@@ -174,7 +182,6 @@ const ConfigMulti = () => {
       range.select();
     }
   };
-
 
   //Cambio de color en botones de generacion
   const handleBtnGeneration = (e) => {
@@ -191,7 +198,7 @@ const ConfigMulti = () => {
       setArrGeneration([...arrGeneration, Number(e.target.slot)]);
     }
   };
-  
+
   //Pedir a pokeapi el pokemon selecto
   const loadPokemon1 = async (num) => {
     const response = await getPokemonList(num);
@@ -237,7 +244,6 @@ const ConfigMulti = () => {
       refPanelPokeball.current.classList.remove("is-multi");
     }
   }, [hidePanelConfig]);
-
 
   //Filtro de busqueda del input
   const filterPokemon = (terminoBusqueda) => {
@@ -328,8 +334,7 @@ const ConfigMulti = () => {
     }
   };
 
-  const handleBusquedaPokemons = (e) => {
-  };
+  const handleBusquedaPokemons = (e) => {};
 
   //Reproducir audio y subir contador de pokemons
   const playAudioAcert = () => {
@@ -649,6 +654,7 @@ const ConfigMulti = () => {
 
   //Reiniciar datos de partida y mandar socket de comienzo de partida en equipo
   const handleSend = async (aux) => {
+    dispatch(TIME(Number(moment().format("HH"))));
     dispatch(DELETE_ALL_DATA());
     setBusquedaPokemon("");
     setNamePokemonSelect([]);
@@ -841,7 +847,7 @@ const ConfigMulti = () => {
     // passing null stops the interval
   );
 
-  //Desactivar configuraciones cuando se esta en el home 
+  //Desactivar configuraciones cuando se esta en el home
   useEffect(() => {
     if (hidePanel === true) {
       setShowCorrect(false);
@@ -852,8 +858,7 @@ const ConfigMulti = () => {
     }
   }, [hidePanel]);
 
-
-  //manejador del tiempo para comenzar en  
+  //manejador del tiempo para comenzar en
   const handlerTime = () => {
     let min = Math.floor(dataServer.timeShowShadow / 60),
       seg = dataServer.timeShowShadow % 60;
@@ -959,7 +964,7 @@ const ConfigMulti = () => {
     }, 3000);
   }, [dataServer.hitCounter]);
 
-  //Manejando los attepts 
+  //Manejando los attepts
   const handlerDataGame = async (aux) => {
     //Mandar todos los attempts al array
     dispatch(DATA_ATTEMPTS(countPokemonsSelect));
@@ -1079,8 +1084,8 @@ const ConfigMulti = () => {
         setDisableBtn(true);
         dispatch(DATA_SERVER({ hitCounter: dataServer.countMembers }));
         dispatch(COUNTDOWN(false));
-        setDisableBtn(true)
-        setShowImg(true)
+        setDisableBtn(true);
+        setShowImg(true);
       }
     }
     if (showCorrect === true) {
@@ -1088,9 +1093,8 @@ const ConfigMulti = () => {
         dispatch(DATA_SERVER({ hitCounter: dataServer.countMembers }));
         dispatch(COUNTDOWN(false));
         dispatch(NOCORRECT(false));
-        setDisableBtn(true)
-        setShowImg(true)
-
+        setDisableBtn(true);
+        setShowImg(true);
       }
     }
   }, [noCorrect]);
@@ -1148,128 +1152,128 @@ const ConfigMulti = () => {
     <div>
       {showConfig ? (
         <div id="configMulti" ref={refPanel}>
-              <div>
-                <h1>Configure the game</h1>
-              </div>
-              <div id="numberGames">
-                <h2>Number of rounds </h2>
-                <div>
-                  <button
-                    onClick={() => {
-                      new Audio(click).play();
-    
-                      dataServer.numberGames === 1
-                        ? null
-                        : dispatch(
-                            DATA_SERVER({ numberGames: dataServer.numberGames - 1 })
-                          );
-                    }}
-                  >
-                    {" "}
-                    -{" "}
-                  </button>
-                  <h2>{dataServer.numberGames}</h2>
-                  <button
-                    onClick={() => {
-                      new Audio(click).play();
-    
-                      dataServer.numberGames === 10
-                        ? null
-                        : dispatch(
-                            DATA_SERVER({ numberGames: dataServer.numberGames + 1 })
-                          );
-                    }}
-                  >
-                    {" "}
-                    +{" "}
-                  </button>
-                </div>
-              </div>
-              <div id="timeShadow">
-                <h2>Time for each game</h2>
-                <div>
-                  <button
-                    onClick={() => {
-                      new Audio(click).play();
-    
-                      dataServer.timeShowShadow === 15
-                        ? null
-                        : dispatch(
-                            DATA_SERVER({
-                              timeShowShadow: dataServer.timeShowShadow - 15,
-                            })
-                          );
-                    }}
-                  >
-                    {" "}
-                    -{" "}
-                  </button>
-                  {dataServer.timeShowShadow > 50 ? (
-                    handlerTime()
-                  ) : (
-                    <h2>{dataServer.timeShowShadow}s</h2>
-                  )}
-                  <button
-                    onClick={() => {
-                      new Audio(click).play();
-    
-                      dataServer.timeShowShadow === 300
-                        ? null
-                        : dispatch(
-                            DATA_SERVER({
-                              timeShowShadow: dataServer.timeShowShadow + 15,
-                            })
-                          );
-                    }}
-                  >
-                    {" "}
-                    +{" "}
-                  </button>
-                </div>
-              </div>
-              <div>
-                <div>
-                  <h2>Select the generations you will play with</h2>
-                </div>
-                <div>
-                  <button slot="151" onClick={handleBtnGeneration}>
-                    {" "}
-                    1° Generation{" "}
-                  </button>
-                  <button slot="100" onClick={handleBtnGeneration}>
-                    {" "}
-                    2° Generation{" "}
-                  </button>
-                  <button slot="135" onClick={handleBtnGeneration}>
-                    {" "}
-                    3° Generation{" "}
-                  </button>
-                  <button slot="107" onClick={handleBtnGeneration}>
-                    {" "}
-                    4° Generation{" "}
-                  </button>
-                  <button slot="156" onClick={handleBtnGeneration}>
-                    {" "}
-                    5° Generation{" "}
-                  </button>
-                  <button slot="72" onClick={handleBtnGeneration}>
-                    {" "}
-                    6° Generation{" "}
-                  </button>
-                  <button slot="88" onClick={handleBtnGeneration}>
-                    {" "}
-                    7° Generation{" "}
-                  </button>
-                  <button slot="89" onClick={handleBtnGeneration}>
-                    {" "}
-                    8° Generation{" "}
-                  </button>
-                </div>
-                <div>
-                  <button onClick={handleSend}>START</button>
-                </div>
-              </div>
+          <div>
+            <h1>Configure the game</h1>
+          </div>
+          <div id="numberGames">
+            <h2>Number of rounds </h2>
+            <div>
+              <button
+                onClick={() => {
+                  new Audio(click).play();
+
+                  dataServer.numberGames === 1
+                    ? null
+                    : dispatch(
+                        DATA_SERVER({ numberGames: dataServer.numberGames - 1 })
+                      );
+                }}
+              >
+                {" "}
+                -{" "}
+              </button>
+              <h2>{dataServer.numberGames}</h2>
+              <button
+                onClick={() => {
+                  new Audio(click).play();
+
+                  dataServer.numberGames === 10
+                    ? null
+                    : dispatch(
+                        DATA_SERVER({ numberGames: dataServer.numberGames + 1 })
+                      );
+                }}
+              >
+                {" "}
+                +{" "}
+              </button>
             </div>
+          </div>
+          <div id="timeShadow">
+            <h2>Time for each game</h2>
+            <div>
+              <button
+                onClick={() => {
+                  new Audio(click).play();
+
+                  dataServer.timeShowShadow === 15
+                    ? null
+                    : dispatch(
+                        DATA_SERVER({
+                          timeShowShadow: dataServer.timeShowShadow - 15,
+                        })
+                      );
+                }}
+              >
+                {" "}
+                -{" "}
+              </button>
+              {dataServer.timeShowShadow > 50 ? (
+                handlerTime()
+              ) : (
+                <h2>{dataServer.timeShowShadow}s</h2>
+              )}
+              <button
+                onClick={() => {
+                  new Audio(click).play();
+
+                  dataServer.timeShowShadow === 300
+                    ? null
+                    : dispatch(
+                        DATA_SERVER({
+                          timeShowShadow: dataServer.timeShowShadow + 15,
+                        })
+                      );
+                }}
+              >
+                {" "}
+                +{" "}
+              </button>
+            </div>
+          </div>
+          <div>
+            <div>
+              <h2>Select the generations you will play with</h2>
+            </div>
+            <div>
+              <button slot="151" onClick={handleBtnGeneration}>
+                {" "}
+                1° Generation{" "}
+              </button>
+              <button slot="100" onClick={handleBtnGeneration}>
+                {" "}
+                2° Generation{" "}
+              </button>
+              <button slot="135" onClick={handleBtnGeneration}>
+                {" "}
+                3° Generation{" "}
+              </button>
+              <button slot="107" onClick={handleBtnGeneration}>
+                {" "}
+                4° Generation{" "}
+              </button>
+              <button slot="156" onClick={handleBtnGeneration}>
+                {" "}
+                5° Generation{" "}
+              </button>
+              <button slot="72" onClick={handleBtnGeneration}>
+                {" "}
+                6° Generation{" "}
+              </button>
+              <button slot="88" onClick={handleBtnGeneration}>
+                {" "}
+                7° Generation{" "}
+              </button>
+              <button slot="89" onClick={handleBtnGeneration}>
+                {" "}
+                8° Generation{" "}
+              </button>
+            </div>
+            <div>
+              <button onClick={handleSend}>START</button>
+            </div>
+          </div>
+        </div>
       ) : showCountdown ? (
         showResults ? (
           <div id="panelResults" ref={refPanel}>
@@ -1541,61 +1545,52 @@ const ConfigMulti = () => {
           </div>
         ) : (
           <div id="infPanel" ref={refPanel}>
-          <div>
-            <h2>Round {dataServer.round}</h2>
-            <img src={pokeball} alt="" />
-          </div>
-          <div>
             <div>
-              <h1>Attempts: {countPokemonsSelect}</h1>
+              <h2>Round {dataServer.round}</h2>
+              <img src={pokeball} alt="" />
             </div>
             <div>
-              {dataAttempts.map((attempts, index) => (
-                dataBestTime[index] < dataServer.timeShowShadow ?
-                <div className="green">
-                  <h1 key={attempts}>Round {index + 1}</h1>
-                  <div>
-                  <h2>
-                    {" "}
-                    attempts: {attempts}{" "}
-                  </h2>
-                  {
-                    dataBestTime[index] < 60 ?
-                  <h2>
-                    {" "}
-                    time: {dataBestTime[index]}s{" "}
-                  </h2>: 
-                  <h2>
-                  {" "}
-                  time: {Math.floor(dataBestTime[index] / 60) }m {dataBestTime[index] % 60 }s {" "}
-                </h2>
-                  }
-                  </div>
-                </div> :
-                <div className="red">
-                  <h1 key={attempts}>Round {index + 1}</h1>
-                  <div>
-
-                  <h2>
-                    {" "}
-                    attempts: {attempts}
-                  </h2>
-                  {
-                    dataBestTime[index] < 60 ?
-                  <h2>
-                    {" "}
-                    time: {dataBestTime[index]}s{" "}
-                  </h2>: 
-                  <h2>
-                  {" "}
-                  time: {Math.floor(dataBestTime[index] / 60) }m {dataBestTime[index] % 60 }s {" "}
-                </h2>
-                  }
-                  </div>
-                </div>
-              ))}
+              <div>
+                <h1>Attempts: {countPokemonsSelect}</h1>
+              </div>
+              <div>
+                {dataAttempts.map((attempts, index) =>
+                  dataBestTime[index] < dataServer.timeShowShadow ? (
+                    <div className="green">
+                      <h1 key={attempts}>Round {index + 1}</h1>
+                      <div>
+                        <h2> attempts: {attempts} </h2>
+                        {dataBestTime[index] < 60 ? (
+                          <h2> time: {dataBestTime[index]}s </h2>
+                        ) : (
+                          <h2>
+                            {" "}
+                            time: {Math.floor(dataBestTime[index] / 60)}m{" "}
+                            {dataBestTime[index] % 60}s{" "}
+                          </h2>
+                        )}
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="red">
+                      <h1 key={attempts}>Round {index + 1}</h1>
+                      <div>
+                        <h2> attempts: {attempts}</h2>
+                        {dataBestTime[index] < 60 ? (
+                          <h2> time: {dataBestTime[index]}s </h2>
+                        ) : (
+                          <h2>
+                            {" "}
+                            time: {Math.floor(dataBestTime[index] / 60)}m{" "}
+                            {dataBestTime[index] % 60}s{" "}
+                          </h2>
+                        )}
+                      </div>
+                    </div>
+                  )
+                )}
+              </div>
             </div>
-          </div>
           </div>
         )
       ) : (
@@ -1610,54 +1605,542 @@ const ConfigMulti = () => {
               <h1>Attempts: {countPokemonsSelect}</h1>
             </div>
             <div>
-              {dataAttempts.map((attempts, index) => (
-                dataBestTime[index] < dataServer.timeShowShadow ?
-                <div className="green">
-                  <h1 key={attempts}>Round {index + 1}</h1>
-                  <div>
-                  <h2>
-                    {" "}
-                    attempts: {attempts}{" "}
-                  </h2>
-                  {
-                    dataBestTime[index] < 60 ?
-                  <h2>
-                    {" "}
-                    time: {dataBestTime[index]}s{" "}
-                  </h2>: 
-                  <h2>
-                  {" "}
-                  time: {Math.floor(dataBestTime[index] / 60) }m {dataBestTime[index] % 60 }s {" "}
-                </h2>
-                  }
+              {dataAttempts.map((attempts, index) =>
+                dataBestTime[index] < dataServer.timeShowShadow ? (
+                  <div className="green">
+                    <h1 key={attempts}>Round {index + 1}</h1>
+                    <div>
+                      <h2> attempts: {attempts} </h2>
+                      {dataBestTime[index] < 60 ? (
+                        <h2> time: {dataBestTime[index]}s </h2>
+                      ) : (
+                        <h2>
+                          {" "}
+                          time: {Math.floor(dataBestTime[index] / 60)}m{" "}
+                          {dataBestTime[index] % 60}s{" "}
+                        </h2>
+                      )}
+                    </div>
                   </div>
-                </div> :
-                <div className="red">
-                  <h1 key={attempts}>Round {index + 1}</h1>
-                  <div>
-
-                  <h2>
-                    {" "}
-                    attempts: {attempts}
-                  </h2>
-                  {
-                    dataBestTime[index] < 60 ?
-                  <h2>
-                    {" "}
-                    time: {dataBestTime[index]}s{" "}
-                  </h2>: 
-                  <h2>
-                  {" "}
-                  time: {Math.floor(dataBestTime[index] / 60) }m {dataBestTime[index] % 60 }s {" "}
-                </h2>
-                  }
+                ) : (
+                  <div className="red">
+                    <h1 key={attempts}>Round {index + 1}</h1>
+                    <div>
+                      <h2> attempts: {attempts}</h2>
+                      {dataBestTime[index] < 60 ? (
+                        <h2> time: {dataBestTime[index]}s </h2>
+                      ) : (
+                        <h2>
+                          {" "}
+                          time: {Math.floor(dataBestTime[index] / 60)}m{" "}
+                          {dataBestTime[index] % 60}s{" "}
+                        </h2>
+                      )}
+                    </div>
                   </div>
-                </div>
-              ))}
+                )
+              )}
             </div>
           </div>
-          </div>
+        </div>
       )}
+      {
+        isMobileDevice ?
+        <div id="divPokemonSingle" ref={refPanelPokeball}>
+        <div id="divImgPokemons">
+          {pokeballReady ? (
+            <div>
+              {showImg ? (
+                <div
+                  id="divImgPokemonShow"
+                  style={{ display: "flex", flexDirection: "column" }}
+                >
+                  {practice.active === true && disableBtn === true ? (
+                    <div>
+                      <button
+                      className="is-mobile"
+                        style={{
+                          backgroundColor: "rgba(197, 213, 226, 0.815)",
+                          color: "rgb(61, 91, 126)",
+                        }}
+                        onClick={() => {
+                          dispatch(PRACTICE({ active: true, click: true }));
+                          dispatch(DELETE_ALL_DATA());
+                        }}
+                      >
+                        RELOAD
+                      </button>
+                    </div>
+                  ) : disableBtn === true ? (
+                    <div>
+                      {" "}
+                      
+                      <button
+                      className="is-mobile"
+                        disabled
+                        style={{
+                          cursor: "not-allowed",
+                          color: "white",
+                        }}
+                      >
+                        Waiting
+                      </button>
+                    </div>
+                  ) : (
+                    <div>
+                      {" "}
+                      <button
+                      className="is-mobile"
+                        style={{
+                          color: "white",
+                        }}
+                        onClick={handleSubmit}
+                      >
+                        Surrender
+                      </button>
+                    </div>
+                  )}
+                  {disableBtn ? (
+                    <img
+                      id="imgPokemon"
+                      style={{ filter: "brightness(100%)" }}
+                      src={dbPokemonSelect.sprites.front_default}
+                      alt=""
+                    />
+                  ) : (
+                    <img
+                      id="imgPokemon"
+                      style={{ filter: "brightness(0%)" }}
+                      src={dbPokemonSelect.sprites.front_default}
+                      alt=""
+                    />
+                  )}
+                </div>
+              ) : countShowPokemon === 3 ? ( //cuando son tres llaves las obtenidas
+                <div id="divInicioPokeball">
+                  <div>
+                    {" "}
+                    
+                    <button
+                    className="is-mobile"
+                      onClick={() => {
+                        setShowImg(true);
+                        new Audio(showShadow).play();
+                      }}
+                      style={{ backgroundColor: "rgb(125, 60, 152)" }}
+                    >
+                      Show Shadow
+                      <br />
+                      <img className="is-active key" src={llave} alt="key1" />
+                      <img className="is-active key" src={llave} alt="key2" />
+                      <img className="is-active key" src={llave} alt="key3" />
+                    </button>
+                  </div>
+                  <img
+                    id="imgPokeballShow"
+                    src={pokeball}
+                    width="20vw"
+                    alt=""
+                  />
+                  <div id="divCircle" className="is-mobile"></div>
+                </div>
+              ) : countShowPokemon === 2 ? ( //cuando son dos llaves las obtenidas
+                <div id="divInicioPokeball">
+                  <div>
+                    
+                    <button
+                      disabled
+                      className="is-mobile"
+                      style={{
+                        color: "white",
+                        cursor: "not-allowed",
+                        backgroundColor: "rgb(203, 192, 206)",
+                      }}
+                    >
+                      Show Shadow
+                      <br />
+                      <img className="is-active key" src={llave} alt="key1" />
+                      <img className="is-active key" src={llave} alt="key2" />
+                      <img
+                        className="key"
+                        style={{
+                          filter: "brightness(50%)",
+                        }}
+                        src={llave}
+                        alt="key3"
+                      />
+                    </button>{" "}
+                  </div>
+                  <img
+                    id="imgPokeballShow"
+                    src={pokeball}
+                    width="20vw"
+                    alt=""
+                  />
+                  <div id="divCircle" className="is-mobile"></div>
+                </div>
+              ) : countShowPokemon === 1 ? ( //cuando es una llave las obtenida
+                <div id="divInicioPokeball">
+                  <div>
+                    
+                    <button
+                      disabled
+                      className="is-mobile"
+                      style={{
+                        color: "white",
+                        cursor: "not-allowed",
+                        backgroundColor: "rgb(203, 192, 206)",
+                      }}
+                    >
+                      Show Shadow
+                      <br />
+                      <img className="is-active key" src={llave} alt="key1" />
+                      <img className="is-active key" src={llave} alt="key2" />
+                      <img
+                        className="key"
+                        style={{
+                          filter: "brightness(50%)",
+                        }}
+                        src={llave}
+                        alt="key3"
+                      />
+                    </button>{" "}
+                  </div>
+                  <img
+                    id="imgPokeballShow"
+                    src={pokeball}
+                    width="20vw"
+                    alt=""
+                  />
+                  <div id="divCircle" className="is-mobile"></div>
+                </div>
+              ) : (
+                <div id="divInicioPokeball">
+                  <div>
+                    {" "}
+                    
+                    <button
+                      disabled
+                      className="is-mobile"
+                      style={{
+                        color: "white",
+                        cursor: "not-allowed",
+                        backgroundColor: "rgb(203, 192, 206)",
+                      }}
+                    >
+                      Show Shadow
+                      <br />
+                      <img
+                        className="key"
+                        style={{
+                          filter: "brightness(50%)",
+                        }}
+                        src={llave}
+                        alt="key1"
+                      />
+                      <img
+                        className="key"
+                        style={{
+                          filter: "brightness(50%)",
+                        }}
+                        src={llave}
+                        alt="key2"
+                      />
+                      <img
+                        className="key"
+                        style={{
+                          filter: "brightness(50%)",
+                        }}
+                        src={llave}
+                        alt="key3"
+                      />
+                    </button>
+                  </div>
+                  <img
+                    id="imgPokeballShow"
+                    src={pokeball}
+                    width="20vw"
+                    alt=""
+                  />
+                  <div id="divCircle" className="is-mobile"></div>
+                </div>
+              )}
+            </div>
+          ) : (
+            <div
+              id="divInicioPokeball"
+              style={{ display: "flex", flexDirection: "column" }}
+            >
+              {practice.active === true ? (
+                <div>
+                  
+                  <button
+                    style={{
+                      backgroundColor: "rgba(197, 213, 226, 0.815)",
+                      color: "rgb(61, 91, 126)",
+                    }}
+                    className="is-mobile"
+                    onClick={() => {
+                      dispatch(PRACTICE({ active: true, click: true }));
+                      dispatch(DELETE_ALL_DATA());
+                      setAuxInput("");
+                      setBusquedaPokemon("");
+                      filterPokemon("");
+                      setTimeout(() => {
+                        moveCursorToEnd();
+                      }, 1000);
+                    }}
+                  >
+                    PRACTICE
+                  </button>
+                </div>
+              ) : (
+                <div>
+                  {" "}
+                  <button
+                    style={{
+                      cursor: "not-allowed",
+                    }}
+                    className="is-mobile"
+                  >
+                    Show Pokemon <br />{" "}
+                    <img
+                      className="key"
+                      style={{
+                        filter: "brightness(50%)",
+                      }}
+                      src={llave}
+                      alt="key1"
+                    />
+                    <img
+                      className="key"
+                      style={{
+                        filter: "brightness(50%)",
+                      }}
+                      src={llave}
+                      alt="key2"
+                    />
+                    <img
+                      className="key"
+                      style={{
+                        filter: "brightness(50%)",
+                      }}
+                      src={llave}
+                      alt="key3"
+                    />
+                  </button>
+                </div>
+              )}
+              <img src={pokeball} alt="" />
+            </div>
+          )}
+        </div>
+        <div id="divBuscadorPokemon">
+          <div>
+            <h2 htmlFor="text">Who is this Pokemon?</h2>
+          </div>
+          <div id="divBuscadorPokemons">
+            <div>
+              {showCorrect ? (
+                <div id="divCorrect">
+                  <h2>WIN</h2>
+                </div>
+              ) : disableBtn ? (
+                <div id="divLost">
+                  <h2>TIME OVER</h2>
+                </div>
+              ) : countdown || practice.active === true ? (
+                <input
+                  type="text"
+                  name="busqueda"
+                  placeholder="Name"
+                  value={busquedaPokemon}
+                  onKeyUp={keyUp}
+                  id="buscador"
+                  onChange={handleBusquedaPokemons}
+                  autoComplete="off"
+                />
+              ) : (
+                <input
+                  type="text"
+                  name="busqueda"
+                  value={busquedaPokemon}
+                  placeholder="Name"
+                  onChange={handleBusquedaPokemons}
+                  id="buscador"
+                  disabled="on"
+                />
+              )}
+            </div>
+            <div id="divBtnOpc">
+              {namePokemonSelect.map(({ name }, index) =>
+                disableBtn ? (
+                  <div key={name}></div>
+                ) : (
+                  <div key={name}>
+                    <button
+                      slot={name}
+                      value={name}
+                      translate="no"
+                      onClick={selectNamePokemon}
+                      className="is-mobile"
+                    >
+                      {" "}
+                      {name}{" "}
+                    </button>
+                  </div>
+                )
+              )}
+            </div>
+          </div>
+          <div id="listPokemons" ref={refListPokemon}>
+            {arrPokemons.map(({ name, gen, img, type1, type2, id }) =>
+              name === dbPokemonSelect.name ? (
+                <div className="true" key={id}>
+                  <div>
+                    {gen > pokemonGen ? (
+                      <h1>
+                        {gen}
+                        <img src={arrowDown} alt="" />
+                      </h1>
+                    ) : gen < pokemonGen ? (
+                      <h1>
+                        {gen}
+                        <img src={arrowUp} alt="" />
+                      </h1>
+                    ) : (
+                      <h1 className="is-true">{gen}</h1>
+                    )}
+                  </div>
+                  <div>
+                    <img src={img} alt="" />
+                  </div>
+                  <div translate="no">
+                    <h1
+                      value={name}
+                      slot={name}
+                      translate="no"
+                      onClick={selectNamePokemon}
+                    >
+                      {name}
+                    </h1>
+                  </div>
+                  <div>
+                    {dbPokemonSelect.types.length === 2 ? (
+                      type1 === dbPokemonSelect.types[0].type.name ? (
+                        <h2 className={type1}>{type1}</h2>
+                      ) : type1 === dbPokemonSelect.types[1].type.name ? (
+                        <h2 className={type1}>{type1}</h2>
+                      ) : (
+                        <h2 className="false">{type1}</h2>
+                      )
+                    ) : type1 === dbPokemonSelect.types[0].type.name ? (
+                      <h2 className={type1}>{type1}</h2>
+                    ) : (
+                      <h2 className="false"> {type1}</h2>
+                    )}
+                  </div>
+                  <div>
+                    {type2 == null ? (
+                      <div></div>
+                    ) : dbPokemonSelect.types.length === 2 ? (
+                      type2 === dbPokemonSelect.types[0].type.name ? (
+                        <h2 className={type2}>{type2}</h2>
+                      ) : type2 === dbPokemonSelect.types[1].type.name ? (
+                        <h2 className={type2}>{type2}</h2>
+                      ) : (
+                        <h2 className="false">{type2}</h2>
+                      )
+                    ) : type2 === dbPokemonSelect.types[0].type.name ? (
+                      <h2 className={type2}>{type2}</h2>
+                    ) : (
+                      <h2 className="false"> {type2}</h2>
+                    )}
+                  </div>
+                </div>
+              ) : (
+                <div key={name}>
+                  <div>
+                    {gen > pokemonGen ? (
+                      <h1>
+                        {gen}
+                        <img src={arrowDown} alt="" />
+                      </h1>
+                    ) : gen < pokemonGen ? (
+                      <h1>
+                        {gen}
+                        <img src={arrowUp} alt="" />
+                      </h1>
+                    ) : (
+                      <h1 className="is-true">{gen}</h1>
+                    )}
+                  </div>
+                  <div>
+                    <img src={img} alt="" />
+                  </div>
+                  <div>
+                    <h1
+                      value={name}
+                      slot={name}
+                      translate="no"
+                      onClick={selectNamePokemon}
+                    >
+                      {name}
+                    </h1>
+                  </div>
+                  <div>
+                    {dbPokemonSelect.types.length === 2 ? (
+                      type1 === dbPokemonSelect.types[0].type.name ? (
+                        <h2 className={type1}>{type1}</h2>
+                      ) : type1 === dbPokemonSelect.types[1].type.name ? (
+                        <h2 className={type1}>{type1}</h2>
+                      ) : (
+                        <h2 className="false">{type1}</h2>
+                      )
+                    ) : type1 === dbPokemonSelect.types[0].type.name ? (
+                      <h2 className={type1}>{type1}</h2>
+                    ) : (
+                      <h2 className="false"> {type1}</h2>
+                    )}
+                  </div>
+                  <div>
+                    {type2 == null ? (
+                      <div></div>
+                    ) : dbPokemonSelect.types.length === 2 ? (
+                      type2 === dbPokemonSelect.types[0].type.name ? (
+                        <h2 className={type2}>{type2}</h2>
+                      ) : type2 === dbPokemonSelect.types[1].type.name ? (
+                        <h2 className={type2}>{type2}</h2>
+                      ) : (
+                        <h2 className="false">{type2}</h2>
+                      )
+                    ) : type2 === dbPokemonSelect.types[0].type.name ? (
+                      <h2 className={type2}>{type2}</h2>
+                    ) : (
+                      <h2 className="false"> {type2}</h2>
+                    )}
+                  </div>
+                </div>
+              )
+            )}
+          </div>
+          {arrPokemons.length > 4 ? (
+            <div id="keyArrow">
+              <h1>
+                {" "}
+                <img src={arrowKeyUp} alt="" />{" "}
+              </h1>
+              <h1>
+                {" "}
+                <img src={arrowKeyDown} alt="" />{" "}
+              </h1>
+            </div>
+          ) : (
+            <div></div>
+          )}
+        </div>
+      </div>
+      :
       <div id="divPokemonSingle" ref={refPanelPokeball}>
         <div id="divImgPokemons">
           {pokeballReady ? (
@@ -2222,7 +2705,7 @@ const ConfigMulti = () => {
             <div></div>
           )}
         </div>
-      </div>
+      </div>}
     </div>
   );
 };

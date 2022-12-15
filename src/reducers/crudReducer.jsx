@@ -25,7 +25,7 @@ export const initialState = {
     timeRes: 0,
     hitCounter: 0,
     timeSec: 0,
-    namesMembers: []
+    namesMembers: [],
   },
   showConfig: true,
   showMenu: false,
@@ -40,10 +40,11 @@ export const initialState = {
   dataBestTime: [],
   hidePanelConfig: true,
   gameStarted: false,
-  practice : {
+  practice: {
     active: false,
-    click: false
-  }
+    click: false,
+  },
+  time: 100
 };
 
 const crudReducer = createSlice({
@@ -100,10 +101,10 @@ const crudReducer = createSlice({
         timeRes: 0,
         hitCounter: 0,
         timeSec: 0,
-        namesMembers: []
+        namesMembers: [],
       };
-      state.dataBestTime = []
-      state.dataAttempts = []
+      state.dataBestTime = [];
+      state.dataAttempts = [];
     },
     SHOW_CONFIG: (state, action) => {
       state.showConfig = action.payload;
@@ -127,20 +128,23 @@ const crudReducer = createSlice({
       state.gameStarted = action.payload;
     },
     PRACTICE: (state, action) => {
-      state.practice =Object.assign(state.practice, action.payload);
+      state.practice = Object.assign(state.practice, action.payload);
     },
     DATA_ATTEMPTS: (state, action) => {
-      state.dataAttempts.push(action.payload)
+      state.dataAttempts.push(action.payload);
     },
     DATA_ATTEMPTS_DELETE: (state, action) => {
-      state.dataAttempts = []
+      state.dataAttempts = [];
     },
     DATA_ROUND_TIME: (state, action) => {
-      state.dataBestTime.push(action.payload)
+      state.dataBestTime.push(action.payload);
     },
     DATA_ROUND_DELETE: (state, action) => {
-      state.dataBestTime = []
-  },
+      state.dataBestTime = [];
+    },
+    TIME: (state, action) => {
+      state.time = action.payload;
+    },
   },
 });
 
@@ -163,7 +167,8 @@ export const {
   DELETE_LIST_POKEMON,
   DATA_ROUND_TIME,
   DATA_ATTEMPTS_DELETE,
-  DATA_ROUND_DELETE
+  DATA_ROUND_DELETE,
+  TIME
 } = crudReducer.actions;
 
 export default crudReducer.reducer;
