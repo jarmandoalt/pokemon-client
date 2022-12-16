@@ -461,64 +461,6 @@ img {
     color: whitesmoke;
   }
 
-
-  /*Cuando inicia el juego las 3 etapas de las llaves*/
-
-  /* #divPokemonSingle > div > div > div.single {
-    /* show pokemon antes de empezar 
-    border: none;
-    width: 15vw;
-    height: 8.5vh;
-    font-size: 1.7vw;
-    background-color: #b3b3db;
-    border-radius: 10px;
-  } */
-
-  /* #divPokemonSingle > div > div > div {
-    /* show pokemon antes de empezar o practice en multijugador 
-    border: none;
-    width: 15vw;
-    height: 8.5vh;
-    font-size: 1.7vw;
-    border-radius: 15px;
-    display: flex;
-    margin: auto;
-    flex-direction: column;
-    justify-content: center;
-  } */
-
-  /* #divPokemonSingle > div > div > button > div {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-  } */
-
-  /* #divPokemonSingle > div > div > div > div > button:first-child {
-    /* show pokemon antes de empezar 
-    width: 4vw;
-    height: 1.8vw;
-    color: whitesmoke;
-    font-size: 1.2vw;
-    border-radius: 10px;
-    background-color: #b3b3db;
-    border-style: solid;
-    border-color: black;
-    border-width: 0;
-    border-bottom-width: 3px;
-    margin: auto;
-  }
-
-  #divPokemonSingle > div > div > div > div > button:last-child {
-    border: none;
-    margin: auto;
-    width: 15vw;
-    height: 10vh;
-    font-size: 1.5vw;
-    background-color: rgb(193, 138, 207);
-    border-radius: 15px;
-    color: whitesmoke;
-  } */
-
   #divCorrect {
     width: 50vw;
     margin: auto;
@@ -2145,22 +2087,22 @@ img {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 90vw;
+    width: 95vw !important;
+    margin-top: 13.5vh;
+    margin-left: 2.5vw !important;
     z-index: -1;
-    margin: auto;
   }
 
   #divPokemonSingle.is-hidePanel {
-    z-index: 2;
+    z-index: 10;
   }
 
-  #divPage > div:lfirt-child > div {
-    margin: auto;
+  #divPokemonSingle.is-multi {
+    z-index: -5;
   }
 
   #divPokemonSingle > div:first-child {
     margin: auto;
-    margin-top: 5vh;
     display: flex;
     flex-direction: column;
     height: 22vh;
@@ -2168,55 +2110,107 @@ img {
 
   /*pokeball inicio*/
   #divPokemonSingle > div > div > img {
-    width: 25vw;
+    width: 35vw;
     margin: auto;
-    margin-top: vh;
-    height: 25vw;
+    margin-top: -3vh;
+    height: 35vw;
   }
 
   /*pokeball after */
   #divPokemonSingle > div > div > div > img {
-    width: 25vw;
+    width: 35vw;
     margin: auto;
-    margin-top: 1vh;
-    height: 25vw;
+    margin-top: -3vh;
+    height: 35vw;
   }
 
-  @media screen and (max-width: 410px) {
-    /*pokeball inicio*/
-    #divPokemonSingle > div > div > img {
-      width: 35vw;
-      margin: auto;
-      margin-top: 1vh;
-      height: 35vw;
-    }
-
-    /*pokeball after */
-    #divPokemonSingle > div > div > div > img {
-      width: 35vw;
-      margin: auto;
-      margin-top: 1vh;
-      height: 35vw;
-    }
+  /*** Banner Y pokeball antes de empezar el juego***/
+  #divInicioPokeball {
+    display: flex;
+    flex-direction: column;
   }
 
-  #divPokemonSingle > div > div > button {
-    width: 34vw;
-    height: 7.5vh;
-    margin: auto;
+  #divInicioPokeball > div:first-child  {
+    display: flex;
+    flex-direction: column;
+    height: 12vh;
+  }
+
+  #divInicioPokeball > div:first-child > button:first-child {
+    position: absolute;
+    width: 10vw;
+    height: 4vh;
+    color: whitesmoke;
+    border-radius: 3px;
+    background-color: #b3b3db;
+    border-style: solid;
+    border-color: black;
+    border-width: 0;
+    border-bottom-width: 2px;
+    border-right-width: 1px;
+    margin-left: 15vw;
+    margin-bottom: 4vh;
+  }
+  
+  #divInicioPokeball > div:first-child > button:last-child {
     border: none;
-    font-size: 3.5vw;
-    background-color: rgb(203, 192, 206);
-    border-radius: 4px;
+    margin: auto;
+    width: 40vw;
+    height: 6vh;
+    background-color: rgb(193, 138, 207);
+    border-radius: 10px;
     color: whitesmoke;
   }
 
-  #btn {
+  #divInicioPokeball > div:first-child > button:last-child.is-mobile {
+    border: none;
     margin: auto;
+    width: 40vw;
+    height: 6vh;
+    margin-left: -2vw;
+    margin-top: 2.5vh;
+    background-color: rgb(193, 138, 207);
+    border-radius: 10px;
+    color: whitesmoke;
+  }
+
+  /*Despues de las tres llaves, la sombra y el reload */
+
+  #divImgPokemonShow > div {
+    display: flex;
+    flex-direction: column;
+    height: 13vh;
+  }
+
+  #divImgPokemonShow > div > button:first-child {
+    position: absolute;
+    width: 13vw;
+    height: 4vh;
+    color: whitesmoke;
+    border-radius: 3px;
+    background-color: #b3b3db;
+    border-style: solid;
+    border-color: black;
+    border-width: 0;
+    border-right-width: 1px;
+    border-bottom-width: 2px;
+    margin-bottom: 4vh;
+    margin-left: 15vw;
+
+  }
+
+  #divImgPokemonShow > div > button:last-child {
+    border: none;
+    margin: auto;
+    width: 40vw;
+    height: 6vh;
+    background-color: rgb(193, 138, 207);
+    border-radius: 10px;
+    color: whitesmoke;
   }
 
   #divCorrect {
-    width: 90vw;
+    width: 50vw;
     margin: auto;
   }
 
@@ -2225,7 +2219,7 @@ img {
     text-align: center;
     font-size: 90vw;
     color: rgb(44, 155, 44);
-    font-size: 4vw;
+    font-size: 7vw;
   }
 
   #divLost {
@@ -2238,41 +2232,11 @@ img {
     text-align: center;
     font-size: 90vw;
     color: rgb(204, 84, 29);
-    font-size: 4vw;
+    font-size: 7vw;
   }
 
   #imgPokemon {
-    width: 20vw;
-    filter: brightness(0%);
-  }
-
-  #imgPokemon.is-correct {
-    filter: brightness(100%);
-  }
-
-  #divImgShow {
-    width: 50vw;
-    display: flex;
-    flex-direction: column;
-  }
-
-  #divImgShow > button {
-    margin: auto;
-    border: none;
-    width: 34vw;
-    height: 7.5vh;
-    font-size: 3.8vw;
-    background-color: rgb(193, 138, 207);
-    border-radius: 4px;
-    color: whitesmoke;
-  }
-
-  #divImgPokemonShow > button {
-    border: none;
-    width: 34vw;
-    height: 7.5vh;
-    font-size: 3.8vw;
-    border-radius: 10px;
+    width: 13vw;
   }
 
   #divImgPokemonShow > img {
@@ -2282,8 +2246,8 @@ img {
   #imgPokeballShow {
     margin: auto;
     position: relative;
-    width: 10vw;
-    height: 10vw;
+    width: 8vw;
+    height: 8vw;
     animation: pokeball 3s infinite linear;
   }
 
@@ -2315,35 +2279,28 @@ img {
     position: relative;
     background-color: red;
     z-index: 1;
-    top: -15.1vw;
-    left: 22.5vw;
+    top: -21.3vw;
+    left: 16.7vw;
     border-radius: 50%;
-    width: 5vw;
-    height: 5vw;
+    width: 6.8vw;
+    height: 6.8vw;
     animation: pulse 3s infinite linear;
   }
 
-  .key {
-    width: 3vw !important;
+  #divCircle.is-mobile {
+    position: relative;
+    background-color: red;
+    z-index: 1;
+    top: -21.3vw;
+    left: 14vw;
+    border-radius: 50%;
+    width: 6.8vw;
+    height: 6.8vw;
+    animation: pulse 3s infinite linear;
   }
-
-  @media screen and (max-width: 410px) {
-    #divCircle {
-      position: relative;
-      background-color: red;
-      z-index: 1;
-      top: -21.1vw;
-      left: 22vw;
-      border-radius: 50%;
-      width: 6.5vw;
-      height: 6.5vw;
-      animation: pulse 3s infinite linear;
-    }
-
     .key {
       width: 5vw !important;
     }
-  }
 
   @keyframes pulse {
     10% {
@@ -2373,8 +2330,9 @@ img {
   }
 
   #divBuscadorPokemon {
-    width: 90vw;
-    margin-top: 4.5vh;
+    position: fixed;
+    top: 37.5vh;
+    width: 95vw;
     height: auto;
   }
 
@@ -2391,37 +2349,20 @@ img {
   }
 
   #divBuscadorPokemons {
-    width: 90vw;
-    margin: auto;
+    width: 95vw;
   }
 
   #divBuscadorPokemons > div > input {
+    position: fixed;
+    top: 43vh;
+    left: 18vw;
+    margin: auto;
     border: none;
-    width: 45vw;
+    width: 60vw;
     text-align: center;
-    height: 4vh;
+    height: 5vh;
     margin: auto;
-    font-size: 3.8vw;
     border-radius: 3px;
-  }
-
-  #divBtnOpc {
-    width: 70vw;
-    margin: auto;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-  }
-
-  #divBtnOpc > button {
-    width: 20vw;
-    color: whitesmoke;
-    margin-top: 2vh;
-    height: 7vh;
-    font-size: 3.2vw;
-    border-radius: 10px;
-    background-color: rgba(121, 95, 122, 0.63);
-    border: none;
   }
 
   #divBuscadorPokemons > div {
@@ -2431,12 +2372,11 @@ img {
   }
 
   #divBuscadorPokemons > div:last-child {
-    width: 90vw;
+    width: 60vw;
     margin: auto;
   }
 
   #divBuscadorPokemons > div > div > button {
-    background-color: rgb(126, 173, 180);
     border-radius: 3px;
     border: none;
     font-size: 1.1vw;
@@ -2444,13 +2384,70 @@ img {
     cursor: pointer;
   }
 
-  #listPokemons {
-    position: relative;
+  #divBtnOpc {
+    width: 95vw !important;
+    margin-top: 5vh !important;
+    margin: auto;
     display: flex;
-    margin-top: 2vh;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+
+  #divBtnOpc > div {
+    margin-right: 0.2vw;
+    height: 3vh;
+    width: 26vw;
+    margin-top: 4vh;
+  }
+
+  #divBtnOpc > div > button:first-child {
+    position: absolute;
+    width: 6vw;
+    height: 6vw;
+    color: whitesmoke;
+    border-radius: 3px;
+    font-size: 3vw;
+    background-color: #aaaac7;
+    border-style: solid;
+    border-color: black;
+    border-width: 0;
+    border-bottom-width: 3px;
+    border-right-width: 2px;
+    margin-left: 11vw;
+    margin-top: -2vh;
+  }
+
+  #divBtnOpc > div > button:last-child {
+    color: whitesmoke;
+    background-color: #b3b3db;
+    width: 28vw;
+    border-radius: 10px;
+    height: 4vh;
+    font-size: 4vw;
+    margin-left: 0vw;
+    border: none;
+  }
+  
+  #listPokemons {
+    position: fixed;
+    display: flex;
+    top: 65vh;
+    width: 98vw;
+    margin-left: -1.5vw;
+    overflow: auto;
+    scroll-behavior: smooth;
+    scrollbar-color: #b3b3db rgb(227, 232, 233);
+    scrollbar-width: thin;
+    min-height: 10vh;
+    max-height: 38vh;
     flex-direction: column-reverse;
     z-index: -1;
   }
+
+
+ #listPokemons::-webkit-scrollbar-track {
+    border-radius: 10px;  
+}
 
   #listPokemons > div {
     display: flex;
@@ -2458,12 +2455,16 @@ img {
     flex-direction: row;
     background-color: rgb(213, 219, 219);
     height: 8vh;
-    margin: auto;
     margin-top: 1vh;
-    width: 90vw;
-    justify-content: space-around;
+    width: 98vw;
+    justify-content: space-evenly;
     border-radius: 5px;
   }
+
+  #divInicioPokeball > button > img {
+    width: 2vw;
+    margin-top: 0.5vh;
+  } 
 
   #listPokemons > div.true {
     background-color: rgb(214, 241, 198);
@@ -2472,15 +2473,15 @@ img {
   #listPokemons > div > div:first-child {
     display: flex;
     border: rgb(133, 139, 138) solid 1px;
-    width: 7vw;
+    width: 8vw;
     border-radius: 50%;
-    height: 7vw;
+    height: 8vw;
     align-items: center;
   }
 
   #listPokemons > div > div:first-child > h1 {
     color: gray;
-    font-size: 3vw;
+    font-size: 4vw;
     margin: auto;
   }
 
@@ -2489,12 +2490,41 @@ img {
   }
 
   #listPokemons > div > div:first-child > h1 > img {
-    width: 2.5vw;
+    width: 2vw;
   }
 
   #listPokemons > div > div > h1 {
-    font-size: 3.5vw;
-    color: rgb(142, 119, 151);
+    font-size: 4.5vw;
+    color: rgb(112, 107, 114);
+  }
+
+  #keyArrow {
+    position: fixed;
+    display: flex;
+    top: 68vh;
+    flex-direction: column;
+    margin-left: -53vw;
+    height: 30vh;
+    width: 3vw;
+    justify-content: space-between;
+  }
+
+  #keyArrow > h1 {
+    width: 1.7vw;
+    height: 1.7vw;
+    color: whitesmoke;
+    font-size: 1.3vw;
+    border-radius: 3px;
+    background-color: #b3b3db;
+    border-style: solid;
+    border-color: black;
+    border-width: 0;
+    border-bottom-width: 3px;
+    display: flex;
+  }
+
+  #keyArrow > h1 > img {
+    margin: auto;
   }
 
   /******** Styles Types *********/
@@ -2708,13 +2738,22 @@ img {
     border-radius: 30%;
     text-decoration: line-through;
   }
+  #room {
+    width: .5vw;
+    height: .5vh;
+  }
+
+  #panelPrincipal {
+    width: 1vw;
+  }
 
   /*********** Multijugador **************/
   #header {
+    position: absolute;
     background-color: rgba(52, 66, 90, 0.781);
     width: 90vw;
     margin-left: 5vw;
-    margin-top: 1vh;
+    top: 1vh;
     border-radius: 5px;
   }
 
@@ -2727,48 +2766,29 @@ img {
 
   #headerMulti > div {
     display: flex;
-    width: 30vw;
-    height: 5.5vh;
+    width: 35vw;
     margin: auto;
     flex-direction: column;
     justify-content: center;
     background-color: rgba(180, 163, 199, 0.568);
-    margin-bottom: 0.2vh;
-    margin-top: 0.2vh;
+    margin-bottom: 0.3vh;
+    margin-top: 0.3vh;
     border-radius: 3px;
   }
 
   #headerMulti > div > h1 {
-    font-size: 2.8vw;
+    font-size: 3.5vw;
     margin: auto;
     color: lavender;
   }
 
   /******** Menu Exit ********/
-
-  #divBtnExit {
-    position: fixed;
-    bottom: 13vh;
-    left: 82vw;
-    z-index: 100;
-  }
-
-  #divBtnExit > button {
-    width: 11vw;
-    height: 11vw;
-    background-color: rgba(194, 157, 169, 0.856);
-    border: none;
-    border-radius: 3px;
-    color: whitesmoke;
-    font-size: 4.5vw;
-  }
-
   #divMenu {
-    position: fixed;
-    width: 30vw;
-    top: 57vh;
+    position: absolute;
+    width: 50vw;
+    top: 52vh;
     background-color: rgba(162, 167, 180, 0.87);
-    margin-left: 63vw;
+    margin-left: 42vw;
     border-radius: 5px;
     display: flex;
     flex-direction: column;
@@ -2802,10 +2822,10 @@ img {
   }
 
   #divMenu > div > div > h1 {
-    font-size: 4vw;
+    font-size: 7vw;
     margin: auto;
-    margin-top: 1vh;
-    margin-bottom: 1vh;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
     color: rgb(158, 116, 167);
   }
 
@@ -2813,22 +2833,32 @@ img {
     border: none;
     border-radius: 3px;
     background-color: rgba(206, 200, 200, 0.61);
-    color: rgb(80, 75, 75);
-    padding: 5px 10px;
+    color: rgb(75, 48, 48);
+    padding: 10px 20px;
     margin-bottom: 1vh;
   }
 
   /****** Configuracion Multijugador *********/
   #configMulti {
+    position: absolute;
     width: 80vw;
-    margin-top: 2vh;
+    top: 12vh;
     background-color: rgba(52, 66, 90, 0.781);
     margin-left: 10vw;
     border-radius: 5px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    transform: translate(100vw, 0);
+    z-index: 888;
+    transition: transform 0.5s ease;
     align-items: center;
+  }
+
+  #configMulti.is-active {
+    transform: translate(0, 0);
+    z-index: -1;
+    transition: transform 0.5s ease;
   }
 
   #configMulti > div {
@@ -2838,7 +2868,7 @@ img {
   }
 
   #configMulti > div > h1 {
-    font-size: 3.5vw;
+    font-size: 6vw;
     color: rgb(186, 201, 214) !important;
   }
 
@@ -2846,25 +2876,25 @@ img {
   #numberGames > h2 {
     color: whitesmoke;
     margin: auto;
-    font-size: 2.5vw;
-    margin-top: 1vh;
+    font-size: 5vw;
+    margin-top: 2vh;
   }
 
   #numberGames > div {
     margin: auto;
     width: 40vw;
-    height: 3vh;
+    height: 5vh;
     display: flex;
     align-items: center;
   }
 
   #numberGames > div > button {
-    width: 5vw;
-    height: 5vw;
+    width: 10vw;
+    height: 10vw;
     border: none;
     border-radius: 4px;
     margin: auto;
-    font-size: 2.5vw;
+    font-size: 3vw;
     margin-bottom: 0.5vh;
     color: rgb(218, 218, 218);
     background-color: rgba(164, 168, 189, 0.726);
@@ -2873,7 +2903,7 @@ img {
   #numberGames > div > h2 {
     color: whitesmoke;
     margin: auto;
-    font-size: 4vw;
+    font-size: 6vw;
     width: 30vw;
     text-align: center;
   }
@@ -2882,25 +2912,25 @@ img {
   #timeShadow > h2 {
     color: whitesmoke;
     margin: auto;
-    font-size: 2.5vw;
+    font-size: 5vw;
     margin-top: 2vh;
   }
 
   #timeShadow > div {
     margin: auto;
-    width: 40vw;
-    height: 3.5vh;
+    width: 60vw;
+    height: 5vh;
     display: flex;
     align-items: center;
   }
 
   #timeShadow > div > button {
-    width: 5vw;
-    height: 5vw;
+    width: 10vw;
+    height: 10vw;
     border: none;
     border-radius: 4px;
     margin: auto;
-    font-size: 2.5vw;
+    font-size: 3vw;
     margin-bottom: 0.5vh;
     color: rgb(218, 218, 218);
     background-color: rgba(164, 168, 189, 0.726);
@@ -2909,7 +2939,7 @@ img {
   #timeShadow > div > div > h2 {
     color: whitesmoke;
     margin: auto;
-    font-size: 4vw;
+    font-size: 6vw;
     width: 30vw;
     text-align: center;
   }
@@ -2917,7 +2947,7 @@ img {
   #timeShadow > div > h2 {
     color: whitesmoke;
     margin: auto;
-    font-size: 4vw;
+    font-size: 6vw;
     width: 30vw;
     text-align: center;
   }
@@ -2938,7 +2968,7 @@ img {
   }
 
   #configMulti > div:last-child > div > h2 {
-    font-size: 3vw;
+    font-size: 4.5vw;
     width: 70vw;
     margin-left: 5vw;
     margin-top: 3vh;
@@ -2948,11 +2978,11 @@ img {
 
   #configMulti > div:last-child > div > button {
     width: 32vw;
-    height: 8vh;
+    height: 7vh;
     border: none;
     border-radius: 4px;
     margin: auto;
-    font-size: 3vw;
+    font-size: 4vw;
     margin-bottom: 0.5vh;
     color: rgb(218, 218, 218);
     background-color: rgba(164, 168, 189, 0.726);
@@ -2960,12 +2990,12 @@ img {
 
   #configMulti > div:last-child > div > button:first-child {
     width: 32vw;
-    height: 8vh;
+    height: 7vh;
     border: none;
     border-radius: 4px;
     margin: auto;
     color: whitesmoke;
-    font-size: 3.5vw;
+    font-size: 4vw;
     margin-bottom: 0.5vh;
     background-color: rgb(129, 179, 212);
   }
@@ -2977,9 +3007,9 @@ img {
 
   #configMulti > div:last-child > div:last-child > button {
     width: 45vw;
-    height: 4vh;
+    height: 3.3vh;
     margin-top: 1vh;
-    font-size: 3.5vw;
+    font-size: 4.2vw;
     color: whitesmoke;
     background-color: rgb(171, 118, 192);
     border: none;
@@ -2991,24 +3021,28 @@ img {
     background-color: rgb(171, 118, 192);
   }
 
-  #waitMulti {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 70vw;
-    margin-left: 15vw;
-    background-color: rgba(52, 66, 90, 0.781);
-    border-radius: 5px;
-    height: 40vw;
-    margin-top: 30vh;
+  #divBtnExit {
+    position: fixed;
+    top: 73vh;
+    left: 73vw;
+    height: 20vh;
+    margin: auto;
+    width: 10vw;
+    z-index: 2;
   }
 
-  #waitMulti > h2 {
-    text-align: center;
-    font-size: 4vw;
+  #divBtnExit > button {
+    position: relative;
+    color: rgb(61, 91, 126);
     margin: auto;
-    animation: pulse 3s infinite linear;
-    color: whitesmoke;
+    background-color: rgba(197, 213, 226, 0.815);
+    cursor: pointer;
+    margin-top: 1vh;
+    width: 18vw;
+    border-radius: 10%;
+    height: 5.5vh;
+    font-size: 3vw;
+    border: none;
   }
 
   @keyframes pulse {
@@ -3096,30 +3130,393 @@ img {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    width: 25vw;
+    width: 45vw;
   }
 
   #divMenuMembers > div > div > h1 {
-    font-size: 3.5vw;
+    font-size: 6vw;
     margin: auto;
     color: aliceblue;
   }
 
   #divMenuMembers > div > div > div > h1 {
-    font-size: 3vw;
+    font-size: 5vw;
     color: rgb(85, 89, 90);
   }
 
   #divMenuMembers > div > div > div > button {
     border: none;
-    width: 5vw;
-    height: 5vw;
-    font-size: 2.5vw;
+    width: 6vw;
+    height: 6vw;
     text-align: center;
     border-radius: 50%;
     color: whitesmoke;
     background-color: rgb(158, 85, 99);
   }
+
+  #results {
+    background-color: rgba(52, 66, 90, 0.781);
+    width: 90vw;
+    margin-left: 5vw;
+    margin-top: 4vh;
+    height: 65vh;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    z-index: -100;
+  }
+
+  #panelAux {
+    background-color: rgb(227, 232, 233);
+    height: 30vh;
+    z-index: 999;
+    width: 100vw;
+  }
+
+  #results > div > button {
+    margin: auto;
+    color: aliceblue;
+    margin-top: 58vh;
+    font-size: 8vw;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    background-color: rgba(35, 39, 58, 0.445);
+    transition: margin-top 1s ease;
+  }
+
+  #results.is-active > div > button {
+    margin: auto;
+    color: aliceblue;
+    margin-top: 20vh;
+    font-size: 8vw;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    background-color: rgba(35, 39, 58, 0.445);
+    transition: margin-top 1s ease;
+  }
+
+  #results > div {
+    display: flex;
+    flex-direction: row;
+    width: 85vw;
+    margin-left: 2.5vw;
+  }
+
+  #results > div:last-child {
+    z-index: -1;
+    transition: z-index 0.1s ease-in;
+  }
+
+  #results.is-active > div:last-child {
+    z-index: 1;
+    transition: z-index 0.8s ease-in;
+  }
+
+  #results > div > div {
+    display: flex;
+    margin: auto;
+    width: 85vw;
+  }
+
+  #results > div > div:last-child {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+  }
+
+  #results > div > div > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  #results > div > div > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(35, 39, 58, 0.445);
+  }
+
+  #results > div > div > div:nth-child(2) {
+    border-radius: 3px 3px 0 0;
+  }
+
+  #results > div > div > div:last-child {
+    border-radius: 0 0 3px 3px;
+  }
+
+  #results > div > div > div:first-child {
+    display: flex;
+    margin-top: 5vh;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 3px;
+    background-color: rgba(35, 39, 58, 0.445);
+    margin-bottom: 2vh;
+  }
+
+  #results > div > div > div > div {
+    width: 80vw;
+    margin-left: 1vw;
+  }
+
+  #results > div > div > div > div > h2 {
+    color: aliceblue;
+    text-align: center;
+    width: 18vw;
+    padding: 0 2px;
+    font-size: 4vw;
+  }
+
+  #results > div > div > div > div:first-child > h2 {
+    color: aliceblue;
+    width: 18vw;
+  }
+
+  #results > div > div > div:first-child > div > h2 {
+    color: rgb(187, 169, 186);
+  }
+
+  #infPanel {
+    position: absolute;
+    width: 96vw;
+    left: 2vw;
+    top: 13vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  #infPanel.is-active {
+    transform: translate(180%, 0);
+    z-index: -1;
+    transition: transform 0.5s ease;
+  }
+
+  #infPanel > div {
+    margin: auto;
+    position: relative;
+  }
+
+
+/*   Esperando a Admin */
+#infPanel > div:first-child {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 96vw;
+  background-color: rgba(52, 66, 90, 0.781);
+  border-radius: 5px;
+  height: 30vw;
+}
+
+#infPanel > div:first-child > h2 {
+  text-align: center;
+  font-size: 4vw;
+  margin: auto;
+  animation: pulse 3s infinite linear;
+  color: whitesmoke;
+}
+
+@keyframes pulse {
+  10% {
+    opacity: 10%;
+  }
+  21% {
+    opacity: 21%;
+  }
+  32% {
+    opacity: 32%;
+  }
+  45% {
+    opacity: 55%;
+  }
+  55% {
+    opacity: 75%;
+  }
+  65% {
+    opacity: 100%;
+  }
+  85% {
+    opacity: 100%;
+  }
+  100% {
+    opacity: 100%;
+  }
+}
+
+#infPanel > div:first-child > img {
+  width: 15vw;
+  margin: auto;
+  animation: rotar 3s infinite linear;
+}
+
+#infPanel > div:last-child {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 1.5vh;
+  background-color: rgba(52, 66, 90, 0.781);
+  width: 96vw;
+  border-radius: 5px;
+}
+
+#infPanel > div:last-child > div {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/*"RESUME"*/
+#infPanel > div:last-child > div > h1 {
+  margin: auto;
+  padding: 1vh;
+  font-size: 6vw;
+}
+
+#infPanel > div:last-child > div:first-child {
+  margin: auto;
+  margin-top: 3vh;
+  height: 3vh;
+}
+
+#infPanel > div:last-child > div:first-child > h1 {
+  color: whitesmoke;
+  font-size: 5vw;
+}
+
+#infPanel > div:last-child > div > div {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#infPanel > div:last-child > div:last-child {
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-top: 3vh;
+}
+
+#infPanel > div:last-child > div:last-child > div {
+  width: 30vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 1vh;
+  border-radius: 3px;
+}
+
+#infPanel > div:last-child > div > div.green > h1 {
+  font-size: 5vw;
+  color: whitesmoke;
+  width: 30vw;
+  background-color: #4b7458;
+  margin: auto;
+  text-align: center;
+  border-radius: 3px 3px 0 0 ;
+}
+
+#infPanel > div:last-child > div > div.red > h1 {
+  font-size: 4vw;
+  color: whitesmoke;
+  width: 30vw;
+  background-color: #ad9d9d;
+  margin: auto;
+  text-align: center;
+  border-radius: 3px 3px 0 0 ;
+}
+
+#infPanel > div:last-child > div > div.green > div {
+  background-color: rgba( 75, 116, 88, .5);
+  margin-top: .3vh;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0 0 3px 3px;
+}
+
+#infPanel > div:last-child > div > div.red > div {
+  background-color: rgba(140, 133, 133 , 0.2);
+  margin-top: .3vh;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0 0 3px 3px;
+}
+
+#infPanel > div:last-child > div > div.green > div > h2 {
+  margin: auto;
+  font-size: 3.5vw;
+  color: lavender;
+}
+
+#infPanel > div:last-child > div > div.red > div > h2 {
+  margin: auto;
+  font-size: 3.5vw;
+  color: lavender;
+}
+
+#waitMulti {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 96vw;
+  height: 40vw;
+  left: 2vw;
+  top: 13vh;
+  background-color: rgba(52, 66, 90, 0.781);
+  border-radius: 5px;
+  z-index: -1;
+  transform: translate(150%, 0);
+}
+
+#waitMulti.is-active {
+  transform: translate(0, 0);
+  z-index: 100;
+}
+
+#waitMulti > h2 {
+  text-align: center;
+  font-size: 4vw;
+  margin: auto;
+  animation: pulse 3s infinite linear;
+  color: whitesmoke;
+}
+
+@keyframes pulse {
+  10% {
+    opacity: 10%;
+  }
+  21% {
+    opacity: 21%;
+  }
+  32% {
+    opacity: 32%;
+  }
+  45% {
+    opacity: 55%;
+  }
+  55% {
+    opacity: 75%;
+  }
+  65% {
+    opacity: 100%;
+  }
+  85% {
+    opacity: 100%;
+  }
+  100% {
+    opacity: 100%;
+  }
+}
+
+#waitMulti > img {
+  width: 15vw;
+  margin: auto;
+  animation: rotar 3s infinite linear;
+}
 }
 
 @media screen and (min-width: 577px) and (max-width: 799px) {
