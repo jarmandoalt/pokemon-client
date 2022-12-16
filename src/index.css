@@ -3690,7 +3690,7 @@ img {
 }
 
 
-@media screen and (min-width: 800px) and (max-width: 2600px) {
+@media screen and (min-width: 800px) and (max-width: 5000px) {
   /******** div Mulijugador *********/
   #divPage > div:last-child > div:first-child {
     position: fixed;
@@ -4038,6 +4038,23 @@ img {
     height: 10vw;
   }
 
+  @media screen and (min-width: 800px) and (max-width: 1400px) {
+/*pokeball inicio*/
+#divPokemonSingle > div > div > img {
+  width: 10vw;
+  margin: auto;
+  margin-top: -2.5vh;
+  height: 10vw;
+}
+
+/*pokeball after */
+#divPokemonSingle > div > div > div > img {
+  width: 10vw;
+  margin: auto;
+  margin-top: -2.5vh;
+  height: 10vw;
+}
+  }
 
   /*** Banner Y pokeball antes de empezar el juego***/
   #divInicioPokeball {
@@ -4083,7 +4100,7 @@ img {
     #divInicioPokeball > div:first-child  {
       display: flex;
       flex-direction: column;
-      height: 10vh;
+      height: 13vh;
     }
 
     #divInicioPokeball > div:first-child > button:first-child {
