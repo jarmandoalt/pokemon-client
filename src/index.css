@@ -3690,7 +3690,7 @@ img {
 }
 
 
-@media screen and (min-width: 800px) and (max-width: 1800px) {
+@media screen and (min-width: 800px) and (max-width: 2600px) {
   /******** div Mulijugador *********/
   #divPage > div:last-child > div:first-child {
     position: fixed;
@@ -4048,7 +4048,7 @@ img {
   #divInicioPokeball > div:first-child  {
     display: flex;
     flex-direction: column;
-    height: 15vh;
+    height: 16vh;
   }
 
   #divInicioPokeball > div:first-child > button:first-child {
@@ -4065,7 +4065,7 @@ img {
     border-bottom-width: 3px;
     border-right-width: 1px;
     margin-left: 5.5vw;
-    margin-bottom: 2.2vh;
+    margin-bottom: 1.5vh;
   }
   
   #divInicioPokeball > div:first-child > button:last-child {
@@ -4100,7 +4100,7 @@ img {
       border-bottom-width: 3px;
       border-right-width: 1px;
       margin-left: 5.5vw;
-      margin-bottom: 2.2vh;
+      margin-bottom: 2vh;
     }
     
     #divInicioPokeball > div:first-child > button:last-child {
