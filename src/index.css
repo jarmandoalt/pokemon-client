@@ -4019,7 +4019,7 @@ img {
     margin: auto;
     display: flex;
     flex-direction: column;
-    height: 22vh;
+    height: 25vh;
   }
 
   /*pokeball inicio*/
@@ -4043,7 +4043,7 @@ img {
 #divPokemonSingle > div > div > img {
   width: 10vw;
   margin: auto;
-  margin-top: -2.5vh;
+  margin-top: 1vh;
   height: 10vw;
 }
 
@@ -4051,7 +4051,7 @@ img {
 #divPokemonSingle > div > div > div > img {
   width: 10vw;
   margin: auto;
-  margin-top: -2.5vh;
+  margin-top: 1vh;
   height: 10vw;
 }
   }
@@ -4089,7 +4089,7 @@ img {
     border: none;
     margin: auto;
     width: 15vw;
-    height: 10vh;
+    height: 12vh;
     font-size: 1.5vw;
     background-color: rgb(193, 138, 207);
     border-radius: 15px;
@@ -4106,7 +4106,7 @@ img {
     #divInicioPokeball > div:first-child > button:first-child {
       position: absolute;
       width: 4.5vw;
-      height: 2.5vw;
+      height: 1.8vw;
       color: whitesmoke;
       font-size: 1.2vw;
       border-radius: 3px;
@@ -4124,7 +4124,7 @@ img {
       border: none;
       margin: auto;
       width: 15vw;
-      height: 6vh;
+      height: 10vh;
       font-size: 1.5vw;
       background-color: rgb(193, 138, 207);
       border-radius: 15px;
@@ -4384,18 +4384,18 @@ img {
   @media screen and (min-width: 800px) and (max-width: 1400px) {
     #divBtnOpc > div {
       margin-right: 0.2vw;
-      height: 5vh;
-      border-radius: 15px;
-      width: 10vw;
-      margin-top: 3vh;
+    height: 5vh;
+    border-radius: 15px;
+    width: 10vw;
+    margin-top: 3vh;
     }
   
     #divBtnOpc > div > button:first-child {
       position: absolute;
-      width: 2.3vw;
-      height: 2.3vw;
+      width: 1.5vw;
+      height: 1.5vw;
       color: whitesmoke;
-      font-size: 1.5vw;
+      font-size: 1vw;
       border-radius: 3px;
       background-color: #aaaac7;
       border-style: solid;
@@ -4437,7 +4437,7 @@ img {
     #listPokemons {
       position: fixed;
       display: flex;
-      top: 52vh;
+      top: 68vh;
       width: 52vw;
       overflow: auto;
       scroll-behavior: smooth;
@@ -4518,7 +4518,7 @@ img {
     #keyArrow {
       position: fixed;
       display: flex;
-      top: 51vh;
+      top: 68vh;
       flex-direction: column;
       margin-left: 53vw;
       height: 30vh;
@@ -4547,8 +4547,8 @@ img {
 
   @media screen and (min-width: 800px) and (max-width: 1400px) {
     #keyArrow > h1 {
-      width: 2vw;
-      height: 2vw;
+      width: 1.3vw;
+      height: 1.3vw;
       color: whitesmoke;
       font-size: 1.3vw;
       border-radius: 3px;

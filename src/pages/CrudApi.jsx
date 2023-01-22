@@ -1882,6 +1882,7 @@ const CrudApi = () => {
                       type="text"
                       placeholder="Player"
                       name="name"
+                      autoComplete="off"
                       onChange={handlerServer}
                       value={dataServer.nameCreator}
                     />
@@ -1928,6 +1929,7 @@ const CrudApi = () => {
                         type="text"
                         name="nameServer"
                         onChange={handlerServer}
+                        autoComplete="off"
                         value={dataServer.nameServer}
                         placeholder="Key Server"
                       />
@@ -1946,6 +1948,7 @@ const CrudApi = () => {
                       name="nameServer"
                       onChange={handlerServer}
                       value={dataServer.nameServer}
+                      autoComplete="off"
                       placeholder="Key Server"
                     />
                     <button slot="1" onClick={sendServer}>
