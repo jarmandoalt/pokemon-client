@@ -4038,24 +4038,6 @@ img {
     height: 10vw;
   }
 
-  @media screen and (min-width: 800px) and (max-width: 1400px) {
-/*pokeball inicio*/
-#divPokemonSingle > div > div > img {
-  width: 10vw;
-  margin: auto;
-  margin-top: 1vh;
-  height: 10vw;
-}
-
-/*pokeball after */
-#divPokemonSingle > div > div > div > img {
-  width: 10vw;
-  margin: auto;
-  margin-top: 1vh;
-  height: 10vw;
-}
-  }
-
   /*** Banner Y pokeball antes de empezar el juego***/
   #divInicioPokeball {
     display: flex;
@@ -4095,43 +4077,6 @@ img {
     border-radius: 15px;
     color: whitesmoke;
   }
-
-  @media screen and (min-width: 800px) and (max-width: 1400px) {
-    #divInicioPokeball > div:first-child  {
-      display: flex;
-      flex-direction: column;
-      height: 16vh;
-    }
-
-    #divInicioPokeball > div:first-child > button:first-child {
-      position: absolute;
-      width: 4.5vw;
-      height: 1.8vw;
-      color: whitesmoke;
-      font-size: 1.2vw;
-      border-radius: 3px;
-      background-color: #b3b3db;
-      border-style: solid;
-      border-color: black;
-      border-width: 0;
-      border-bottom-width: 3px;
-      border-right-width: 1px;
-      margin-left: 5.5vw;
-      margin-bottom: 2vh;
-    }
-    
-    #divInicioPokeball > div:first-child > button:last-child {
-      border: none;
-      margin: auto;
-      width: 15vw;
-      height: 10vh;
-      font-size: 1.5vw;
-      background-color: rgb(193, 138, 207);
-      border-radius: 15px;
-      color: whitesmoke;
-    }
-  }
-
   /*Despues de las tres llaves, la sombra y el reload */
 
   #divImgPokemonShow > div {
@@ -4284,14 +4229,6 @@ img {
     height: auto;
   }
 
-  @media screen and (min-width: 800px) and (max-width: 1400px) {
-    #divBuscadorPokemon {
-      width: 50vw;
-      margin-top: 2vh;
-      height: auto;
-    }
-  }
-
   #divBuscadorPokemon > div > h2 {
     text-align: center;
     font-size: 1.5vw;
@@ -4381,43 +4318,6 @@ img {
     border: none;
   }
 
-  @media screen and (min-width: 800px) and (max-width: 1400px) {
-    #divBtnOpc > div {
-      margin-right: 0.2vw;
-    height: 5vh;
-    border-radius: 15px;
-    width: 10vw;
-    margin-top: 3vh;
-    }
-  
-    #divBtnOpc > div > button:first-child {
-      position: absolute;
-      width: 1.5vw;
-      height: 1.5vw;
-      color: whitesmoke;
-      font-size: 1vw;
-      border-radius: 3px;
-      background-color: #aaaac7;
-      border-style: solid;
-      border-color: black;
-      border-width: 0;
-      border-bottom-width: 3px;
-      border-right-width: 2px;
-      margin-left: 4.1vw;
-      margin-top: -2vh;
-    }
-  
-    #divBtnOpc > div > button:last-child {
-      color: whitesmoke;
-      font-size: 1.3vw;
-      background-color: #b3b3db;
-      width: 10vw;
-      border-radius: 10px;
-      height: 5vh;
-      border: none;
-    }
-  }
-
   #listPokemons {
     position: fixed;
     display: flex;
@@ -4431,23 +4331,6 @@ img {
     max-height: 38vh;
     flex-direction: column-reverse;
     z-index: -1;
-  }
-
-  @media screen and (min-width: 800px) and (max-width: 1400px) {
-    #listPokemons {
-      position: fixed;
-      display: flex;
-      top: 68vh;
-      width: 52vw;
-      overflow: auto;
-      scroll-behavior: smooth;
-      scrollbar-color: #b3b3db rgb(227, 232, 233);
-      scrollbar-width: thin;
-      min-height: 20vh;
-      max-height: 38vh;
-      flex-direction: column-reverse;
-      z-index: -1;
-    }
   }
 
  #listPokemons::-webkit-scrollbar-track {
@@ -4514,19 +4397,6 @@ img {
     justify-content: space-between;
   }
 
-  @media screen and (min-width: 800px) and (max-width: 1400px) {
-    #keyArrow {
-      position: fixed;
-      display: flex;
-      top: 68vh;
-      flex-direction: column;
-      margin-left: 53vw;
-      height: 30vh;
-      width: 3vw;
-      justify-content: space-between;
-    }
-  }
-
   #keyArrow > h1 {
     width: 1.7vw;
     height: 1.7vw;
@@ -4544,23 +4414,7 @@ img {
   #keyArrow > h1 > img {
     margin: auto;
   }
-
-  @media screen and (min-width: 800px) and (max-width: 1400px) {
-    #keyArrow > h1 {
-      width: 1.3vw;
-      height: 1.3vw;
-      color: whitesmoke;
-      font-size: 1.3vw;
-      border-radius: 3px;
-      background-color: #b3b3db;
-      border-style: solid;
-      border-color: black;
-      border-width: 0;
-      border-bottom-width: 3px;
-      display: flex;
-    }
-  }
-
+  
   /******** Styles Types *********/
   .flying {
     color: rgb(243, 233, 233);
