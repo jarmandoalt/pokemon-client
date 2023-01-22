@@ -3918,6 +3918,7 @@ img {
     color: whitesmoke;
     height: 4vh;
     background-color: rgb(171, 118, 192);
+    box-shadow: 2px 2px 1px 1px rgba(0, 0, 255, .2);
   }
 
   #divPage > div:last-child > div > div > form > div > button.is-active {
@@ -4414,7 +4415,7 @@ img {
   #keyArrow > h1 > img {
     margin: auto;
   }
-  
+
   /******** Styles Types *********/
   .flying {
     color: rgb(243, 233, 233);
