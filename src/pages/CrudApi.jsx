@@ -603,7 +603,7 @@ const CrudApi = () => {
 
   const handleBusquedaPokemons = (e) => {
     setBusquedaPokemon(e.target.value);
-      filterPokemon(e.target.value);
+    filterPokemon(e.target.value);
   };
 
   const filterPokemon = (terminoBusqueda) => {
@@ -875,14 +875,20 @@ const CrudApi = () => {
       refSingleGame.current.classList.add("is-active");
       refMultiGame.current.classList.remove("is-active");
     }
-    /* if (createOrUnit) {
-      refJoin.current.classList.add("is-active");
-      refCreate.current.classList.remove("is-active");
+    if (hidePanel) {
+      refBtnMenu.current.classList.toggle("is-active");
+      refPanel.current.classList.add("is-hidePanel");
+      setTimeout(() => {
+        refPanelPokeball.current.classList.add("is-hidePanel");
+      }, 500);
     } else {
-      refJoin.current.classList.remove("is-active");
-      refCreate.current.classList.add("is-active");
-    } */
-    setCreateOrUnit(false)
+      refBtnMenu.current.classList.toggle("is-active");
+      refPanelPokeball.current.classList.remove("is-hidePanel");
+      setTimeout(() => {
+        refPanel.current.classList.remove("is-hidePanel");
+      }, 200);
+    }
+    setCreateOrUnit(false);
   }, []);
 
   return (
@@ -898,14 +904,13 @@ const CrudApi = () => {
                     style={{ display: "flex", flexDirection: "column" }}
                   >
                     {disableBtn ? (
-                      <div className="is-mobile" >
+                      <div className="is-mobile">
                         <button
                           style={{
                             color: "rgb(61, 91, 126)",
                             backgroundColor: "rgb(197, 213, 226)",
                           }}
                           onClick={handleReload}
-                          
                         >
                           RELOAD
                         </button>
@@ -949,7 +954,6 @@ const CrudApi = () => {
                           new Audio(showShadow).play();
                         }}
                         style={{ backgroundColor: "rgb(125, 60, 152)" }}
-                        
                       >
                         Show Shadow
                         <br />
@@ -971,7 +975,6 @@ const CrudApi = () => {
                     <div className="is-mobile">
                       <button
                         disabled
-                        
                         style={{
                           color: "white",
                           cursor: "not-allowed",
@@ -1005,7 +1008,6 @@ const CrudApi = () => {
                     <div className="is-mobile">
                       <button
                         disabled
-                        
                         style={{
                           color: "white",
                           cursor: "not-allowed",
@@ -1046,7 +1048,6 @@ const CrudApi = () => {
                     <div className="is-mobile">
                       {" "}
                       <button
-                        
                         disabled
                         style={{
                           color: "white",
@@ -1098,7 +1099,6 @@ const CrudApi = () => {
                   {" "}
                   <button
                     disabled
-                    
                     style={{
                       color: "white",
                       cursor: "not-allowed",
