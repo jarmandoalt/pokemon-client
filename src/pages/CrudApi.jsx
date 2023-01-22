@@ -867,23 +867,22 @@ const CrudApi = () => {
     }
   };
 
-  /* useEffect(() => {
-    console.log("booro");
-    if (modeGame === true) {
+  useEffect(() => {
+    if (modeGame) {
       refSingleGame.current.classList.remove("is-active");
       refMultiGame.current.classList.add("is-active");
     } else {
       refSingleGame.current.classList.add("is-active");
       refMultiGame.current.classList.remove("is-active");
     }
-    if (createOrUnit === true) {
+    if (createOrUnit) {
       refJoin.current.classList.add("is-active");
       refCreate.current.classList.remove("is-active");
     } else {
       refJoin.current.classList.remove("is-active");
       refCreate.current.classList.add("is-active");
     }
-  }, []); */
+  }, []);
 
   return (
     <div id="divPage">
