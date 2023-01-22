@@ -2119,35 +2119,35 @@ img {
 
   /*pokeball inicio*/
   #divPokemonSingle > div > div > img {
-    width: 30vw;
+    width: 15vh;
     margin: auto;
-    margin-top: -5vh;
-    height: 30vw;
+    margin-top: -3vh;
+    height: 15vh;
   }
 
   /*pokeball after */
   #divPokemonSingle > div > div > div > img {
-    width: 30vw;
+    width: 15vh;
     margin: auto;
-    margin-top: -5vh;
-    height: 30vw;
+    margin-top: -3vh;
+    height: 15vh;
   }
 
   @media screen and (min-width: 401px) and (max-width: 799px) {
     /*pokeball inicio*/
     #divPokemonSingle > div > div > img {
-      width: 30vw;
+      width: 18vh;
       margin: auto;
-      margin-top: -5vh;
-      height: 30vw;
+      margin-top: -3vh;
+      height: 18vh;
     }
 
     /*pokeball after */
     #divPokemonSingle > div > div > div > img {
-      width: 30vw;
+      width: 18vh;
       margin: auto;
-      margin-top: -5vh;
-      height: 30vw;
+      margin-top: -3vh;
+      height: 18vh;
     }
   }
 
@@ -2167,7 +2167,7 @@ img {
     display: flex;
     flex-direction: column;
     height: 12vh;
-    margin-left: -5vw;
+    margin-left: -10vw;
   }
 
   @media screen and (min-width: 401px) and (max-width: 799px) {
@@ -2175,7 +2175,7 @@ img {
       display: flex;
       flex-direction: column;
       height: 12vh;
-      margin-left: -5vw;
+      margin-left: -8.5vw;
     }
   }
 
@@ -2199,7 +2199,7 @@ img {
     border: none;
     margin: auto;
     width: 40vw;
-    height: 6vh;
+    height: 7.5vh;
     background-color: rgb(193, 138, 207);
     border-radius: 10px;
     color: whitesmoke;
@@ -2209,7 +2209,7 @@ img {
     border: none;
     margin: auto;
     width: 40vw;
-    height: 6vh;
+    height: 7.5vh;
     margin-left: -2vw;
     margin-top: 2.5vh;
     background-color: rgb(193, 138, 207);
@@ -2238,7 +2238,7 @@ img {
       border: none;
       margin: auto;
       width: 40vw;
-      height: 6vh;
+      height: 7.5vh;
       background-color: rgb(193, 138, 207);
       border-radius: 10px;
       color: whitesmoke;
@@ -2248,7 +2248,7 @@ img {
       border: none;
       margin: auto;
       width: 40vw;
-      height: 6vh;
+      height: 7.5vh;
       margin-top: 2.5vh;
       background-color: rgb(193, 138, 207);
       border-radius: 10px;
@@ -2291,7 +2291,7 @@ img {
     border: none;
     margin: auto;
     width: 40vw;
-    height: 6vh;
+    height: 7.5vh;
     background-color: rgb(193, 138, 207);
     border-radius: 10px;
     color: whitesmoke;
@@ -2367,11 +2367,11 @@ img {
     position: relative;
     background-color: red;
     z-index: 1;
-    top: -18.2vw;
-    left: 17.3vw;
+    top: -9.1vh;
+      left: 9.2vw;
     border-radius: 50%;
-    width: 5.8vw;
-    height: 5.8vw;
+    width: 3vh;
+    height: 3vh;
     animation: pulse 3s infinite linear;
   }
 
@@ -2379,16 +2379,16 @@ img {
     position: relative;
     background-color: red;
     z-index: 1;
-    top: -18vw;
-    left: 12.2vw;
+    top: -9.1vh;
+      left: 9.2vw;
     border-radius: 50%;
-    width: 5.5vw;
-    height: 5.5vw;
+    width: 3vh;
+    height: 3vh;
     animation: pulse 3s infinite linear;
   }
 
   .key {
-    width: 6vw !important;
+    width: 3vh !important;
   }
 
   @media screen and (min-width: 401px) and (max-width: 799px) {
@@ -2396,11 +2396,11 @@ img {
       position: relative;
       background-color: red;
       z-index: 1;
-      top: -12.1vw;
-      left: 10.5vw;
+      top: -11vh;
+      left: 8.9vw;
       border-radius: 50%;
-      width: 4vw;
-      height: 4vw;
+      width: 3.5vh;
+      height: 3.5vh;
       animation: pulse 3s infinite linear;
     }
 
@@ -2408,15 +2408,15 @@ img {
       position: relative;
       background-color: red;
       z-index: 1;
-      top: -18.4vw;
-      left: 12vw;
+      top: -11vh;
+      left: 8.9vw;
       border-radius: 50%;
-      width: 6vw;
-      height: 6vw;
+      width: 3.5vh;
+      height: 3.5vh;
       animation: pulse 3s infinite linear;
     }
     .key {
-      width: 4.5vw !important;
+      width: 3vh !important;
     }
   }
 
@@ -2449,7 +2449,7 @@ img {
 
   #divBuscadorPokemon {
     position: fixed;
-    top: 25.5vh;
+    top: 26.5vh;
     width: 95vw;
     height: auto;
   }
@@ -2457,7 +2457,7 @@ img {
   @media screen and (min-width: 401px) and (max-width: 799px) {
     #divBuscadorPokemon {
       position: fixed;
-      top: 29.5vh;
+      top: 31vh;
       width: 95vw;
       height: auto;
     }
@@ -2465,26 +2465,26 @@ img {
 
   #divBuscadorPokemon > div > h2 {
     text-align: center;
-    font-size: 4.5vw;
+    font-size: 2.5vh;
     color: rgb(39, 121, 175);
   }
 
   #divBuscadorPokemon > div > h3 {
     text-align: center;
-    font-size: 4.5vw;
+    font-size: 2.5vh;
     color: rgba(180, 163, 11, 0.658);
   }
 
   @media screen and (min-width: 401px) and (max-width: 799px) {
     #divBuscadorPokemon > div > h2 {
       text-align: center;
-      font-size: 4vw;
+      font-size: 3vh;
       color: rgb(39, 121, 175);
     }
 
     #divBuscadorPokemon > div > h3 {
       text-align: center;
-      font-size: 4vw;
+      font-size: 3vh;
       color: rgba(180, 163, 11, 0.658);
     }
   }
@@ -2495,7 +2495,7 @@ img {
 
   #divBuscadorPokemons > div > input {
     position: fixed;
-    top: 33vh;
+    top: 34vh;
     left: 18vw;
     margin: auto;
     border: none;
@@ -2509,7 +2509,7 @@ img {
   @media screen and (min-width: 401px) and (max-width: 799px) {
     #divBuscadorPokemons > div > input {
       position: fixed;
-      top: 37vh;
+      top: 39vh;
       left: 22vw;
       margin: auto;
       border: none;
@@ -2587,7 +2587,7 @@ img {
   #listPokemons {
     position: fixed;
     display: flex;
-    top: 55vh;
+    top: 58vh;
     width: 98vw;
     margin-left: -1.5vw;
     overflow: auto;
