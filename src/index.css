@@ -4100,7 +4100,7 @@ img {
     #divInicioPokeball > div:first-child  {
       display: flex;
       flex-direction: column;
-      height: 25vh;
+      height: 16vh;
     }
 
     #divInicioPokeball > div:first-child > button:first-child {
