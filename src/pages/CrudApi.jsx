@@ -868,6 +868,7 @@ const CrudApi = () => {
   };
 
   useEffect(() => {
+    console.log("booro");
     if (modeGame === true) {
       refSingleGame.current.classList.remove("is-active");
       refMultiGame.current.classList.add("is-active");
