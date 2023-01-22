@@ -819,7 +819,12 @@ const CrudApi = () => {
     } else {
       if (e.target.slot === "1") {
         dispatch(
-          DATA_SERVER({ adminId: socket.id, id: socket.id, myNumber: 1,numberGames: 0 })
+          DATA_SERVER({
+            adminId: socket.id,
+            id: socket.id,
+            myNumber: 1,
+            numberGames: 0,
+          })
         );
         let buscadorArk = serversArk.includes(dataServer.nameServer);
         if (buscadorArk === true) {
@@ -830,7 +835,7 @@ const CrudApi = () => {
                 dataServer,
                 member: 1,
                 namesMembers: dataServer.name,
-                numberGames: 0
+                numberGames: 0,
               });
               navigate("/home/room");
               socket.emit("create", {
@@ -861,6 +866,23 @@ const CrudApi = () => {
       }
     }
   };
+
+  useEffect(() => {
+    if (modeGame === true) {
+      refSingleGame.current.classList.remove("is-active");
+      refMultiGame.current.classList.add("is-active");
+    } else {
+      refSingleGame.current.classList.add("is-active");
+      refMultiGame.current.classList.remove("is-active");
+    }
+    if (createOrUnit === true) {
+      refJoin.current.classList.add("is-active");
+      refCreate.current.classList.remove("is-active");
+    } else {
+      refJoin.current.classList.remove("is-active");
+      refCreate.current.classList.add("is-active");
+    }
+  }, []);
 
   return (
     <div id="divPage">
@@ -926,7 +948,6 @@ const CrudApi = () => {
                         onClick={() => {
                           setShowImg(true);
                           new Audio(showShadow).play();
-                          
                         }}
                         style={{ backgroundColor: "rgb(125, 60, 152)" }}
                         className="is-mobile"
@@ -1026,7 +1047,7 @@ const CrudApi = () => {
                     <div>
                       {" "}
                       <button
-                      className="is-mobile"
+                        className="is-mobile"
                         disabled
                         style={{
                           color: "white",
