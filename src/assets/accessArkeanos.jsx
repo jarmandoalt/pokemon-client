@@ -997,7 +997,6 @@ let serversArk = [
 "Arkeanos-ijxre",
 "Arkeanos-gpd5p",
 "Arkeanos-vwyh6",
-"Arkeanos-z5uuf",
-"Arkeanos-nhjit"]
+"Arkeanos-z5uuf",]
 
 export default serversArk

@@ -1,8 +1,8 @@
 import socket from "../socket/socket";
 import Axios from "axios";
 
-const baseUrl = "https://server-who-is-this-pokmeon.onrender.com/v1";
-//const baseUrl = "http://localhost:5052/v1";
+//const baseUrl = "https://server-who-is-this-pokmeon.onrender.com/v1";
+const baseUrl = "http://localhost:5052/v1";
 
 export async function getServer() {
   try {
@@ -65,6 +65,23 @@ export async function updateNameServer (name) {
     }
 }
 
+export async function updateNumberGames (name, number) {
+  console.log(name,number);
+  try {
+    const response = await Axios({
+      url: `${baseUrl}/serverUpdateNumberGames`,
+      method: "PUT",
+      params: {
+        name: name,
+        number: number
+      },
+    });
+    return response;
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 export async function deleteServer(name) {
   try {
     const response = await Axios({
@@ -90,7 +107,8 @@ export async function saveServer(productData) {
         generations: productData.dataServer.generations,
         creatorId: socket.id,
         countMembers: productData.member,
-        namesMembers: productData.namesMembers
+        namesMembers: productData.namesMembers,
+        numberGames: productData.numberGames
       },
     });
 

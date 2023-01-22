@@ -8,7 +8,7 @@ import {
   DELETE_ALL_DATA,
   HIDEPANEL,
 } from "../reducers/crudReducer";
-import { deleteServer, updateCountMembers } from "../services/routes";
+import { deleteServer, updateCountMembers, getServerName } from "../services/routes";
 import click from "../assets/click.mp3";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
@@ -170,6 +170,28 @@ const ShowMenu = () => {
         namesMembers: dataServer.namesMemebers,
       });
     }
+  };
+
+  useEffect(() => {
+    let intervalCheck  = setInterval( async () => {
+      let auxCheck = await checkServer()
+      console.log(auxCheck);
+      if (auxCheck < 1) {
+        clearInterval(intervalCheck)
+      }
+    }, 300000);
+  }, [])
+  
+
+  const checkServer = async () => {
+    const check = await getServerName(dataServer.nameServer)
+    console.log(check.data.server.length);
+    if (check.data.server.length < 1) {
+      exitServer()
+    } else {
+      console.log("aun adentro");
+    }
+    return check.data.server.length
   };
 
   return (

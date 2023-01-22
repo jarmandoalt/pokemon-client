@@ -14,6 +14,7 @@ import WaitMember from "../compMulti/WaitMember";
 import ShowMenu from "../compMulti/ShowMenu";
 import click from "../assets/click.mp3";
 import moment from "moment";
+import { getServerName } from "../services/routes";
 
 const Room = () => {
   const [nameServer, setNameServer] = useState(""),
@@ -119,7 +120,6 @@ const Room = () => {
   /* Actualizando los datos internos de los miembros */
   const updateDataServer = (dataServerAdmin) => {
     if (dataServer.id === dataServer.adminId) {
-      dispatch(TIME(Number(moment().format("HH"))));
     } else {
       let auxmyNumber = 0;
       if (dataServerAdmin.nameMember1 == dataServer.name) {

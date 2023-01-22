@@ -14,14 +14,16 @@ import {
   DATA_ATTEMPTS,
   DATA_ATTEMPTS_DELETE,
   DATA_ROUND_DELETE,
-  PRACTICE,
-  TIME,
+  PRACTICE
 } from "../reducers/crudReducer.jsx";
 import {
   getPokemonList,
   getPokemon,
   getPokemonSelect,
 } from "../services/routesPokemon";
+import {
+  updateNumberGames
+} from "../services/routes";
 import pokeball from "../assets/pokeball.png";
 import socket from "../socket/socket";
 import arrowUp from "../assets/arrow-up.svg";
@@ -53,7 +55,6 @@ const ConfigMulti = () => {
     hidePanelConfig = useSelector((state) => state.hidePanelConfig),
     dataGame = useSelector((state) => state.dataGame),
     countdown = useSelector((state) => state.countdown),
-    time = useSelector((state) => state.time),
     dispatch = useDispatch(),
     STATUS = {
       STARTED: "Started",
@@ -654,7 +655,6 @@ const ConfigMulti = () => {
 
   //Reiniciar datos de partida y mandar socket de comienzo de partida en equipo
   const handleSend = async (aux) => {
-    dispatch(TIME(Number(moment().format("HH"))));
     dispatch(DELETE_ALL_DATA());
     setBusquedaPokemon("");
     setNamePokemonSelect([]);
@@ -754,7 +754,8 @@ const ConfigMulti = () => {
     dispatch(SHOW_CONFIG(false));
 
     setTimeout(() => {
-      dispatch(DATA_SERVER({ round: dataServer.round + 1 }));
+      dispatch(DATA_SERVER({ round: dataServer.round + 1, numberGames: dataServer.numberGames + 1}));
+      updateNumberGames(dataServer.nameServer, dataServer.numberGames + 1)
     }, 200);
     handleTimeStart(); //comenzar countdown
 

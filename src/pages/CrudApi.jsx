@@ -819,7 +819,7 @@ const CrudApi = () => {
     } else {
       if (e.target.slot === "1") {
         dispatch(
-          DATA_SERVER({ adminId: socket.id, id: socket.id, myNumber: 1 })
+          DATA_SERVER({ adminId: socket.id, id: socket.id, myNumber: 1,numberGames: 0 })
         );
         let buscadorArk = serversArk.includes(dataServer.nameServer);
         if (buscadorArk === true) {
@@ -830,6 +830,7 @@ const CrudApi = () => {
                 dataServer,
                 member: 1,
                 namesMembers: dataServer.name,
+                numberGames: 0
               });
               navigate("/home/room");
               socket.emit("create", {
@@ -954,7 +955,7 @@ const CrudApi = () => {
                         style={{
                           color: "white",
                           cursor: "not-allowed",
-                          backgroundColor: "rgb(203, 192, 206)",
+                          backgroundColor: "rgb(203, 192, 2fctrl06)",
                         }}
                       >
                         Show Shadow
@@ -1309,7 +1310,7 @@ const CrudApi = () => {
                   >
                     {disableBtn ? (
                       <div>
-                        <button onClick={handleReload}>Ctrl</button>
+                        <button onClick={handleReload}>---</button>
                         <button
                           style={{
                             color: "rgb(61, 91, 126)",
@@ -1551,7 +1552,7 @@ const CrudApi = () => {
                     }}
                   >
                     {" "}
-                    Ctrl{" "}
+                    ---{" "}
                   </button>
                   <button
                     disabled
