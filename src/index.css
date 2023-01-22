@@ -436,6 +436,13 @@ img {
     height: 13vh;
   }
 
+  #divImgPokemonShow > div.is-mobile {
+    display: flex;
+    flex-direction: column;
+    height: 13vh;
+    margin-left: -2vw;
+  }
+
   #divImgPokemonShow > div > button:first-child {
     position: absolute;
     width: 13vw;
@@ -2255,6 +2262,13 @@ img {
     display: flex;
     flex-direction: column;
     height: 13vh;
+  }
+
+  #divImgPokemonShow > div.is-mobile {
+    display: flex;
+    flex-direction: column;
+    height: 13vh;
+    margin-left: -5vw;
   }
 
   #divImgPokemonShow > div > button:first-child {

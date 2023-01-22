@@ -602,8 +602,8 @@ const CrudApi = () => {
   };
 
   const handleBusquedaPokemons = (e) => {
-    /* setBusquedaPokemon(e.target.value);
-      filterPokemon(e.target.value); */
+    setBusquedaPokemon(e.target.value);
+      filterPokemon(e.target.value);
   };
 
   const filterPokemon = (terminoBusqueda) => {
@@ -918,7 +918,6 @@ const CrudApi = () => {
                             cursor: "pointer",
                             backgroundColor: "rgb(203, 192, 206)",
                           }}
-                          className="is-mobile"
                         >
                           Surrender
                         </button>
@@ -1160,7 +1159,6 @@ const CrudApi = () => {
                     ref={refInputPokemon}
                     value={busquedaPokemon}
                     id="buscador"
-                    onKeyUp={keyUp}
                     onChange={handleBusquedaPokemons}
                     autoComplete="off"
                   />
