@@ -2179,6 +2179,15 @@ img {
     }
   }
 
+  @media screen and (min-height: 500px) and (max-height: 1999px) {
+    #divInicioPokeball > div:first-child.is-mobile {
+      display: flex;
+      flex-direction: column;
+      height: 12vh;
+      margin-left: -4vw;
+    }
+  }
+
   #divInicioPokeball > div:first-child > button:first-child {
     position: absolute;
     width: 10vw;

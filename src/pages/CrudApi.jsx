@@ -964,7 +964,7 @@ const CrudApi = () => {
                       width="20vw"
                       alt=""
                     />
-                    <div id="divCircle" className="is-mobile"></div>
+                    {/* <div id="divCircle" className="is-mobile"></div> */}
                   </div>
                 ) : countShowPokemon === 2 ? ( //cuando son dos llaves las obtenidas
                   <div id="divInicioPokeball" className="is-mobile">
@@ -998,7 +998,7 @@ const CrudApi = () => {
                       width="20vw"
                       alt=""
                     />
-                    <div id="divCircle" className="is-mobile"></div>
+                    {/* <div id="divCircle" className="is-mobile"></div> */}
                   </div>
                 ) : countShowPokemon === 1 ? ( //cuando es una llave las obtenida
                   <div id="divInicioPokeball" className="is-mobile">
@@ -1039,7 +1039,7 @@ const CrudApi = () => {
                       width="20vw"
                       alt=""
                     />
-                    <div id="divCircle" className="is-mobile"></div>
+                    {/* <div id="divCircle" className="is-mobile"></div> */}
                   </div>
                 ) : (
                   <div id="divInicioPokeball" className="is-mobile">
@@ -1088,7 +1088,7 @@ const CrudApi = () => {
                       width="20vw"
                       alt=""
                     />
-                    <div id="divCircle" className="is-mobile"></div>
+                    {/* <div id="divCircle" className="is-mobile"></div> */}
                   </div>
                 )}
               </div>
