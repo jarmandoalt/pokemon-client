@@ -340,7 +340,7 @@ img {
     align-items: center;
     justify-content: center;
     width: 95vw !important;
-    margin-top: 13.5vh;
+    margin-top: 4.5vh;
     margin-left: 2.5vw !important;
     z-index: -1;
   }
@@ -364,7 +364,7 @@ img {
   #divPokemonSingle > div > div > img {
     width: 35vw;
     margin: auto;
-    margin-top: -3vh;
+    margin-top: -5vh;
     height: 35vw;
   }
 
@@ -372,7 +372,7 @@ img {
   #divPokemonSingle > div > div > div > img {
     width: 35vw;
     margin: auto;
-    margin-top: -3vh;
+    margin-top: -5vh;
     height: 35vw;
   }
 
@@ -382,10 +382,24 @@ img {
     flex-direction: column;
   }
 
-  #divInicioPokeball > div:first-child  {
+  #divInicioPokeball.is-mobile {
+    display: flex;
+    flex-direction: column;
+    margin-left: -2vw !important;
+  }
+
+  #divInicioPokeball > div:first-child {
     display: flex;
     flex-direction: column;
     height: 12vh;
+  }
+
+  #divInicioPokeball > div:first-child.is-mobile {
+    display: flex;
+    margin: auto;
+    flex-direction: column;
+    height: 12vh;
+    margin-left: -2vw !important;
   }
 
   #divInicioPokeball > div:first-child > button:first-child {
@@ -403,24 +417,12 @@ img {
     margin-left: 15vw;
     margin-bottom: 4vh;
   }
-  
+
   #divInicioPokeball > div:first-child > button:last-child {
     border: none;
     margin: auto;
     width: 40vw;
     height: 6vh;
-    background-color: rgb(193, 138, 207);
-    border-radius: 10px;
-    color: whitesmoke;
-  }
-
-  #divInicioPokeball > div:first-child > button:last-child.is-mobile {
-    border: none;
-    margin: auto;
-    width: 40vw;
-    height: 6vh;
-    margin-left: -2vw;
-    margin-top: 2.5vh;
     background-color: rgb(193, 138, 207);
     border-radius: 10px;
     color: whitesmoke;
@@ -448,7 +450,6 @@ img {
     border-bottom-width: 2px;
     margin-bottom: 4vh;
     margin-left: 15vw;
-
   }
 
   #divImgPokemonShow > div > button:last-child {
@@ -579,12 +580,12 @@ img {
   }
 
   .key {
-    width: 5vw !important;
+    width: 7vw !important;
   }
 
   #divBuscadorPokemon {
     position: fixed;
-    top: 37.5vh;
+    top: 25.5vh;
     width: 95vw;
     height: auto;
   }
@@ -607,7 +608,7 @@ img {
 
   #divBuscadorPokemons > div > input {
     position: fixed;
-    top: 43vh;
+    top: 30vh;
     left: 18vw;
     margin: auto;
     border: none;
@@ -680,11 +681,11 @@ img {
     margin-left: 0vw;
     border: none;
   }
-  
+
   #listPokemons {
     position: fixed;
     display: flex;
-    top: 65vh;
+    top: 50vh;
     width: 98vw;
     margin-left: -1.5vw;
     overflow: auto;
@@ -697,10 +698,9 @@ img {
     z-index: -1;
   }
 
-
- #listPokemons::-webkit-scrollbar-track {
-    border-radius: 10px;  
-}
+  #listPokemons::-webkit-scrollbar-track {
+    border-radius: 10px;
+  }
 
   #listPokemons > div {
     display: flex;
@@ -717,7 +717,7 @@ img {
   #divInicioPokeball > button > img {
     width: 2vw;
     margin-top: 0.5vh;
-  } 
+  }
 
   #listPokemons > div.true {
     background-color: rgb(214, 241, 198);
@@ -993,8 +993,8 @@ img {
   }
 
   #room {
-    width: .5vw;
-    height: .5vh;
+    width: 0.5vw;
+    height: 0.5vh;
   }
 
   #panelPrincipal {
@@ -1545,7 +1545,7 @@ img {
     display: flex;
     flex-direction: column;
   }
-  
+
   #infPanel.is-active {
     transform: translate(180%, 0);
     z-index: -1;
@@ -1557,225 +1557,223 @@ img {
     position: relative;
   }
 
-
-/*   Esperando a Admin */
-#infPanel > div:first-child {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 96vw;
-  background-color: rgba(52, 66, 90, 0.781);
-  border-radius: 5px;
-  height: 30vw;
-}
-
-#infPanel > div:first-child > h2 {
-  text-align: center;
-  font-size: 4vw;
-  margin: auto;
-  animation: pulse 3s infinite linear;
-  color: whitesmoke;
-}
-
-@keyframes pulse {
-  10% {
-    opacity: 10%;
+  /*   Esperando a Admin */
+  #infPanel > div:first-child {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 96vw;
+    background-color: rgba(52, 66, 90, 0.781);
+    border-radius: 5px;
+    height: 30vw;
   }
-  21% {
-    opacity: 21%;
+
+  #infPanel > div:first-child > h2 {
+    text-align: center;
+    font-size: 4vw;
+    margin: auto;
+    animation: pulse 3s infinite linear;
+    color: whitesmoke;
   }
-  32% {
-    opacity: 32%;
+
+  @keyframes pulse {
+    10% {
+      opacity: 10%;
+    }
+    21% {
+      opacity: 21%;
+    }
+    32% {
+      opacity: 32%;
+    }
+    45% {
+      opacity: 55%;
+    }
+    55% {
+      opacity: 75%;
+    }
+    65% {
+      opacity: 100%;
+    }
+    85% {
+      opacity: 100%;
+    }
+    100% {
+      opacity: 100%;
+    }
   }
-  45% {
-    opacity: 55%;
+
+  #infPanel > div:first-child > img {
+    width: 15vw;
+    margin: auto;
+    animation: rotar 3s infinite linear;
   }
-  55% {
-    opacity: 75%;
+
+  #infPanel > div:last-child {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 1.5vh;
+    background-color: rgba(52, 66, 90, 0.781);
+    width: 96vw;
+    border-radius: 5px;
   }
-  65% {
-    opacity: 100%;
+
+  #infPanel > div:last-child > div {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
-  85% {
-    opacity: 100%;
+
+  /*"RESUME"*/
+  #infPanel > div:last-child > div > h1 {
+    margin: auto;
+    padding: 1vh;
+    font-size: 6vw;
   }
-  100% {
-    opacity: 100%;
+
+  #infPanel > div:last-child > div:first-child {
+    margin: auto;
+    margin-top: 3vh;
+    height: 3vh;
   }
-}
 
-#infPanel > div:first-child > img {
-  width: 15vw;
-  margin: auto;
-  animation: rotar 3s infinite linear;
-}
-
-#infPanel > div:last-child {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin-top: 1.5vh;
-  background-color: rgba(52, 66, 90, 0.781);
-  width: 96vw;
-  border-radius: 5px;
-}
-
-#infPanel > div:last-child > div {
-  margin: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-/*"RESUME"*/
-#infPanel > div:last-child > div > h1 {
-  margin: auto;
-  padding: 1vh;
-  font-size: 6vw;
-}
-
-#infPanel > div:last-child > div:first-child {
-  margin: auto;
-  margin-top: 3vh;
-  height: 3vh;
-}
-
-#infPanel > div:last-child > div:first-child > h1 {
-  color: whitesmoke;
-  font-size: 5vw;
-}
-
-#infPanel > div:last-child > div > div {
-  margin: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-#infPanel > div:last-child > div:last-child {
-  flex-direction: row;
-  flex-wrap: wrap;
-  margin-top: 3vh;
-}
-
-#infPanel > div:last-child > div:last-child > div {
-  width: 30vw;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin-bottom: 1vh;
-  border-radius: 3px;
-}
-
-#infPanel > div:last-child > div > div.green > h1 {
-  font-size: 5vw;
-  color: whitesmoke;
-  width: 30vw;
-  background-color: #4b7458;
-  margin: auto;
-  text-align: center;
-  border-radius: 3px 3px 0 0 ;
-}
-
-#infPanel > div:last-child > div > div.red > h1 {
-  font-size: 4vw;
-  color: whitesmoke;
-  width: 30vw;
-  background-color: #ad9d9d;
-  margin: auto;
-  text-align: center;
-  border-radius: 3px 3px 0 0 ;
-}
-
-#infPanel > div:last-child > div > div.green > div {
-  background-color: rgba( 75, 116, 88, .5);
-  margin-top: .3vh;
-  display: flex;
-  flex-direction: column;
-  border-radius: 0 0 3px 3px;
-}
-
-#infPanel > div:last-child > div > div.red > div {
-  background-color: rgba(140, 133, 133 , 0.2);
-  margin-top: .3vh;
-  display: flex;
-  flex-direction: column;
-  border-radius: 0 0 3px 3px;
-}
-
-#infPanel > div:last-child > div > div.green > div > h2 {
-  margin: auto;
-  font-size: 3.5vw;
-  color: lavender;
-}
-
-#infPanel > div:last-child > div > div.red > div > h2 {
-  margin: auto;
-  font-size: 3.5vw;
-  color: lavender;
-}
-
-#waitMulti {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 96vw;
-  height: 40vw;
-  left: 2vw;
-  top: 13vh;
-  background-color: rgba(52, 66, 90, 0.781);
-  border-radius: 5px;
-  z-index: -1;
-  transform: translate(150%, 0);
-}
-
-#waitMulti.is-active {
-  transform: translate(0, 0);
-  z-index: 100;
-}
-
-#waitMulti > h2 {
-  text-align: center;
-  font-size: 4vw;
-  margin: auto;
-  animation: pulse 3s infinite linear;
-  color: whitesmoke;
-}
-
-@keyframes pulse {
-  10% {
-    opacity: 10%;
+  #infPanel > div:last-child > div:first-child > h1 {
+    color: whitesmoke;
+    font-size: 5vw;
   }
-  21% {
-    opacity: 21%;
-  }
-  32% {
-    opacity: 32%;
-  }
-  45% {
-    opacity: 55%;
-  }
-  55% {
-    opacity: 75%;
-  }
-  65% {
-    opacity: 100%;
-  }
-  85% {
-    opacity: 100%;
-  }
-  100% {
-    opacity: 100%;
-  }
-}
 
-#waitMulti > img {
-  width: 15vw;
-  margin: auto;
-  animation: rotar 3s infinite linear;
-}
+  #infPanel > div:last-child > div > div {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 
+  #infPanel > div:last-child > div:last-child {
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 3vh;
+  }
+
+  #infPanel > div:last-child > div:last-child > div {
+    width: 30vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 1vh;
+    border-radius: 3px;
+  }
+
+  #infPanel > div:last-child > div > div.green > h1 {
+    font-size: 5vw;
+    color: whitesmoke;
+    width: 30vw;
+    background-color: #4b7458;
+    margin: auto;
+    text-align: center;
+    border-radius: 3px 3px 0 0;
+  }
+
+  #infPanel > div:last-child > div > div.red > h1 {
+    font-size: 4vw;
+    color: whitesmoke;
+    width: 30vw;
+    background-color: #ad9d9d;
+    margin: auto;
+    text-align: center;
+    border-radius: 3px 3px 0 0;
+  }
+
+  #infPanel > div:last-child > div > div.green > div {
+    background-color: rgba(75, 116, 88, 0.5);
+    margin-top: 0.3vh;
+    display: flex;
+    flex-direction: column;
+    border-radius: 0 0 3px 3px;
+  }
+
+  #infPanel > div:last-child > div > div.red > div {
+    background-color: rgba(140, 133, 133, 0.2);
+    margin-top: 0.3vh;
+    display: flex;
+    flex-direction: column;
+    border-radius: 0 0 3px 3px;
+  }
+
+  #infPanel > div:last-child > div > div.green > div > h2 {
+    margin: auto;
+    font-size: 3.5vw;
+    color: lavender;
+  }
+
+  #infPanel > div:last-child > div > div.red > div > h2 {
+    margin: auto;
+    font-size: 3.5vw;
+    color: lavender;
+  }
+
+  #waitMulti {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 96vw;
+    height: 40vw;
+    left: 2vw;
+    top: 13vh;
+    background-color: rgba(52, 66, 90, 0.781);
+    border-radius: 5px;
+    z-index: -1;
+    transform: translate(150%, 0);
+  }
+
+  #waitMulti.is-active {
+    transform: translate(0, 0);
+    z-index: 100;
+  }
+
+  #waitMulti > h2 {
+    text-align: center;
+    font-size: 4vw;
+    margin: auto;
+    animation: pulse 3s infinite linear;
+    color: whitesmoke;
+  }
+
+  @keyframes pulse {
+    10% {
+      opacity: 10%;
+    }
+    21% {
+      opacity: 21%;
+    }
+    32% {
+      opacity: 32%;
+    }
+    45% {
+      opacity: 55%;
+    }
+    55% {
+      opacity: 75%;
+    }
+    65% {
+      opacity: 100%;
+    }
+    85% {
+      opacity: 100%;
+    }
+    100% {
+      opacity: 100%;
+    }
+  }
+
+  #waitMulti > img {
+    width: 15vw;
+    margin: auto;
+    animation: rotar 3s infinite linear;
+  }
 }
 
 @media screen and (min-width: 321px) and (max-width: 799px) {
@@ -2027,7 +2025,7 @@ img {
     height: 20vh;
     margin: auto;
     width: 10vw;
-    z-index: 2;
+    z-index: 85;
   }
 
   #divBtnHide > div {
@@ -2092,7 +2090,7 @@ img {
     align-items: center;
     justify-content: center;
     width: 95vw !important;
-    margin-top: 13.5vh;
+    margin-top: 3.5vh;
     margin-left: 2.5vw !important;
     z-index: -1;
   }
@@ -2116,7 +2114,7 @@ img {
   #divPokemonSingle > div > div > img {
     width: 30vw;
     margin: auto;
-    margin-top: -3vh;
+    margin-top: -5vh;
     height: 30vw;
   }
 
@@ -2124,26 +2122,26 @@ img {
   #divPokemonSingle > div > div > div > img {
     width: 30vw;
     margin: auto;
-    margin-top: -3vh;
+    margin-top: -5vh;
     height: 30vw;
   }
 
   @media screen and (min-width: 401px) and (max-width: 799px) {
     /*pokeball inicio*/
-  #divPokemonSingle > div > div > img {
-    width: 20vw;
-    margin: auto;
-    margin-top: -3vh;
-    height: 20vw;
-  }
+    #divPokemonSingle > div > div > img {
+      width: 30vw;
+      margin: auto;
+      margin-top: -5vh;
+      height: 30vw;
+    }
 
-  /*pokeball after */
-  #divPokemonSingle > div > div > div > img {
-    width: 20vw;
-    margin: auto;
-    margin-top: -3vh;
-    height: 20vw;
-  }
+    /*pokeball after */
+    #divPokemonSingle > div > div > div > img {
+      width: 30vw;
+      margin: auto;
+      margin-top: -5vh;
+      height: 30vw;
+    }
   }
 
   /*** Banner Y pokeball antes de empezar el juego***/
@@ -2152,10 +2150,26 @@ img {
     flex-direction: column;
   }
 
-  #divInicioPokeball > div:first-child  {
+  #divInicioPokeball > div:first-child {
     display: flex;
     flex-direction: column;
     height: 12vh;
+  }
+
+  #divInicioPokeball > div:first-child.is-mobile {
+    display: flex;
+    flex-direction: column;
+    height: 12vh;
+    margin-left: -5vw;
+  }
+
+  @media screen and (min-width: 401px) and (max-width: 799px) {
+    #divInicioPokeball > div:first-child.is-mobile {
+      display: flex;
+      flex-direction: column;
+      height: 12vh;
+      margin-left: -5vw;
+    }
   }
 
   #divInicioPokeball > div:first-child > button:first-child {
@@ -2173,7 +2187,7 @@ img {
     margin-left: 15vw;
     margin-bottom: 4vh;
   }
-  
+
   #divInicioPokeball > div:first-child > button:last-child {
     border: none;
     margin: auto;
@@ -2199,7 +2213,7 @@ img {
   @media screen and (min-width: 401px) and (max-width: 799px) {
     #divInicioPokeball > div:first-child > button:first-child {
       position: absolute;
-      width: 8vw;
+      width: 12vw;
       height: 3.5vh;
       color: whitesmoke;
       border-radius: 3px;
@@ -2212,23 +2226,22 @@ img {
       margin-left: 8.5vw;
       margin-bottom: 4vh;
     }
-    
+
     #divInicioPokeball > div:first-child > button:last-child {
       border: none;
       margin: auto;
-      width: 25vw;
+      width: 40vw;
       height: 6vh;
       background-color: rgb(193, 138, 207);
       border-radius: 10px;
       color: whitesmoke;
     }
-  
+
     #divInicioPokeball > div:first-child > button:last-child.is-mobile {
       border: none;
       margin: auto;
-      width: 25vw;
+      width: 40vw;
       height: 6vh;
-      margin-left: -2vw;
       margin-top: 2.5vh;
       background-color: rgb(193, 138, 207);
       border-radius: 10px;
@@ -2258,7 +2271,6 @@ img {
     border-bottom-width: 2px;
     margin-bottom: 4vh;
     margin-left: 15vw;
-
   }
 
   #divImgPokemonShow > div > button:last-child {
@@ -2353,45 +2365,46 @@ img {
     position: relative;
     background-color: red;
     z-index: 1;
-    top: -21.3vw;
-    left: 14vw;
+    top: -18vw;
+    left: 12.2vw;
     border-radius: 50%;
-    width: 5vw;
-    height: 5vw;
+    width: 5.5vw;
+    height: 5.5vw;
     animation: pulse 3s infinite linear;
   }
-    .key {
-      width: 5vw !important;
+
+  .key {
+    width: 6vw !important;
+  }
+
+  @media screen and (min-width: 401px) and (max-width: 799px) {
+    #divCircle {
+      position: relative;
+      background-color: red;
+      z-index: 1;
+      top: -12.1vw;
+      left: 10.5vw;
+      border-radius: 50%;
+      width: 4vw;
+      height: 4vw;
+      animation: pulse 3s infinite linear;
     }
 
-    @media screen and (min-width: 401px) and (max-width: 799px) {
-      #divCircle {
-        position: relative;
-        background-color: red;
-        z-index: 1;
-        top: -12.1vw;
-        left: 10.5vw;
-        border-radius: 50%;
-        width: 4vw;
-        height: 4vw;
-        animation: pulse 3s infinite linear;
-      }
-    
-      #divCircle.is-mobile {
-        position: relative;
-        background-color: red;
-        z-index: 1;
-        top: -12.1vw;
-        left: 10.5vw;
-        border-radius: 50%;
-        width: 4vw;
-        height: 4vw;
-        animation: pulse 3s infinite linear;
-      }
-        .key {
-          width: 3vw !important;
-        }
+    #divCircle.is-mobile {
+      position: relative;
+      background-color: red;
+      z-index: 1;
+      top: -18.4vw;
+      left: 12vw;
+      border-radius: 50%;
+      width: 6vw;
+      height: 6vw;
+      animation: pulse 3s infinite linear;
     }
+    .key {
+      width: 4.5vw !important;
+    }
+  }
 
   @keyframes pulse {
     10% {
@@ -2422,7 +2435,7 @@ img {
 
   #divBuscadorPokemon {
     position: fixed;
-    top: 37.5vh;
+    top: 25.5vh;
     width: 95vw;
     height: auto;
   }
@@ -2430,7 +2443,7 @@ img {
   @media screen and (min-width: 401px) and (max-width: 799px) {
     #divBuscadorPokemon {
       position: fixed;
-      top: 37.5vh;
+      top: 29.5vh;
       width: 95vw;
       height: auto;
     }
@@ -2451,13 +2464,13 @@ img {
   @media screen and (min-width: 401px) and (max-width: 799px) {
     #divBuscadorPokemon > div > h2 {
       text-align: center;
-      font-size: 3vw;
+      font-size: 4vw;
       color: rgb(39, 121, 175);
     }
-  
+
     #divBuscadorPokemon > div > h3 {
       text-align: center;
-      font-size: 3vw;
+      font-size: 4vw;
       color: rgba(180, 163, 11, 0.658);
     }
   }
@@ -2468,7 +2481,7 @@ img {
 
   #divBuscadorPokemons > div > input {
     position: fixed;
-    top: 43vh;
+    top: 33vh;
     left: 18vw;
     margin: auto;
     border: none;
@@ -2482,11 +2495,11 @@ img {
   @media screen and (min-width: 401px) and (max-width: 799px) {
     #divBuscadorPokemons > div > input {
       position: fixed;
-      top: 44vh;
-      left: 32vw;
+      top: 37vh;
+      left: 22vw;
       margin: auto;
       border: none;
-      width: 35vw;
+      width: 55vw;
       text-align: center;
       height: 4vh;
       margin: auto;
@@ -2515,7 +2528,7 @@ img {
 
   #divBtnOpc {
     width: 95vw !important;
-    margin-top: 5vh !important;
+    margin-top: 8vh !important;
     margin: auto;
     display: flex;
     flex-wrap: wrap;
@@ -2556,11 +2569,11 @@ img {
     margin-left: 0vw;
     border: none;
   }
-  
+
   #listPokemons {
     position: fixed;
     display: flex;
-    top: 65vh;
+    top: 55vh;
     width: 98vw;
     margin-left: -1.5vw;
     overflow: auto;
@@ -2576,7 +2589,7 @@ img {
   @media screen and (min-width: 401px) and (max-width: 799px) {
     #divBtnOpc > div {
       margin-right: 0.2vw;
-      height: 6vh;
+      height: 5vh;
       width: 26vw;
       margin-top: 2vh;
     }
@@ -2597,22 +2610,22 @@ img {
       margin-left: 9.5vw;
       margin-top: -3vh;
     }
-  
+
     #divBtnOpc > div > button:last-child {
       color: whitesmoke;
       background-color: #b3b3db;
-      width: 23vw;
+      width: 25vw;
       border-radius: 10px;
       height: 4.3vh;
-      font-size: 3vw;
+      font-size: 3.5vw;
       margin-left: 0vw;
       border: none;
     }
   }
 
- #listPokemons::-webkit-scrollbar-track {
-    border-radius: 10px;  
-}
+  #listPokemons::-webkit-scrollbar-track {
+    border-radius: 10px;
+  }
 
   #listPokemons > div {
     display: flex;
@@ -2629,7 +2642,7 @@ img {
   #divInicioPokeball > button > img {
     width: 2vw;
     margin-top: 0.5vh;
-  } 
+  }
 
   #listPokemons > div.true {
     background-color: rgb(214, 241, 198);
@@ -2905,8 +2918,8 @@ img {
   }
 
   #room {
-    width: .5vw;
-    height: .5vh;
+    width: 0.5vw;
+    height: 0.5vh;
   }
 
   #panelPrincipal {
@@ -3457,7 +3470,7 @@ img {
     display: flex;
     flex-direction: column;
   }
-  
+
   #infPanel.is-active {
     transform: translate(180%, 0);
     z-index: -1;
@@ -3469,226 +3482,224 @@ img {
     position: relative;
   }
 
-
-/*   Esperando a Admin */
-#infPanel > div:first-child {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 96vw;
-  background-color: rgba(52, 66, 90, 0.781);
-  border-radius: 5px;
-  height: 30vw;
-}
-
-#infPanel > div:first-child > h2 {
-  text-align: center;
-  font-size: 4vw;
-  margin: auto;
-  animation: pulse 3s infinite linear;
-  color: whitesmoke;
-}
-
-@keyframes pulse {
-  10% {
-    opacity: 10%;
+  /*   Esperando a Admin */
+  #infPanel > div:first-child {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 96vw;
+    background-color: rgba(52, 66, 90, 0.781);
+    border-radius: 5px;
+    height: 30vw;
   }
-  21% {
-    opacity: 21%;
+
+  #infPanel > div:first-child > h2 {
+    text-align: center;
+    font-size: 4vw;
+    margin: auto;
+    animation: pulse 3s infinite linear;
+    color: whitesmoke;
   }
-  32% {
-    opacity: 32%;
+
+  @keyframes pulse {
+    10% {
+      opacity: 10%;
+    }
+    21% {
+      opacity: 21%;
+    }
+    32% {
+      opacity: 32%;
+    }
+    45% {
+      opacity: 55%;
+    }
+    55% {
+      opacity: 75%;
+    }
+    65% {
+      opacity: 100%;
+    }
+    85% {
+      opacity: 100%;
+    }
+    100% {
+      opacity: 100%;
+    }
   }
-  45% {
-    opacity: 55%;
+
+  #infPanel > div:first-child > img {
+    width: 15vw;
+    margin: auto;
+    animation: rotar 3s infinite linear;
   }
-  55% {
-    opacity: 75%;
+
+  #infPanel > div:last-child {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 1.5vh;
+    background-color: rgba(52, 66, 90, 0.781);
+    width: 96vw;
+    border-radius: 5px;
   }
-  65% {
-    opacity: 100%;
+
+  #infPanel > div:last-child > div {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
-  85% {
-    opacity: 100%;
+
+  /*"RESUME"*/
+  #infPanel > div:last-child > div > h1 {
+    margin: auto;
+    padding: 1vh;
+    font-size: 6vw;
   }
-  100% {
-    opacity: 100%;
+
+  #infPanel > div:last-child > div:first-child {
+    margin: auto;
+    margin-top: 3vh;
+    height: 3vh;
   }
-}
 
-#infPanel > div:first-child > img {
-  width: 15vw;
-  margin: auto;
-  animation: rotar 3s infinite linear;
-}
-
-#infPanel > div:last-child {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin-top: 1.5vh;
-  background-color: rgba(52, 66, 90, 0.781);
-  width: 96vw;
-  border-radius: 5px;
-}
-
-#infPanel > div:last-child > div {
-  margin: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-/*"RESUME"*/
-#infPanel > div:last-child > div > h1 {
-  margin: auto;
-  padding: 1vh;
-  font-size: 6vw;
-}
-
-#infPanel > div:last-child > div:first-child {
-  margin: auto;
-  margin-top: 3vh;
-  height: 3vh;
-}
-
-#infPanel > div:last-child > div:first-child > h1 {
-  color: whitesmoke;
-  font-size: 5vw;
-}
-
-#infPanel > div:last-child > div > div {
-  margin: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-#infPanel > div:last-child > div:last-child {
-  flex-direction: row;
-  flex-wrap: wrap;
-  margin-top: 3vh;
-}
-
-#infPanel > div:last-child > div:last-child > div {
-  width: 30vw;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin-bottom: 1vh;
-  border-radius: 3px;
-}
-
-#infPanel > div:last-child > div > div.green > h1 {
-  font-size: 5vw;
-  color: whitesmoke;
-  width: 30vw;
-  background-color: #4b7458;
-  margin: auto;
-  text-align: center;
-  border-radius: 3px 3px 0 0 ;
-}
-
-#infPanel > div:last-child > div > div.red > h1 {
-  font-size: 4vw;
-  color: whitesmoke;
-  width: 30vw;
-  background-color: #ad9d9d;
-  margin: auto;
-  text-align: center;
-  border-radius: 3px 3px 0 0 ;
-}
-
-#infPanel > div:last-child > div > div.green > div {
-  background-color: rgba( 75, 116, 88, .5);
-  margin-top: .3vh;
-  display: flex;
-  flex-direction: column;
-  border-radius: 0 0 3px 3px;
-}
-
-#infPanel > div:last-child > div > div.red > div {
-  background-color: rgba(140, 133, 133 , 0.2);
-  margin-top: .3vh;
-  display: flex;
-  flex-direction: column;
-  border-radius: 0 0 3px 3px;
-}
-
-#infPanel > div:last-child > div > div.green > div > h2 {
-  margin: auto;
-  font-size: 3.5vw;
-  color: lavender;
-}
-
-#infPanel > div:last-child > div > div.red > div > h2 {
-  margin: auto;
-  font-size: 3.5vw;
-  color: lavender;
-}
-
-#waitMulti {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 96vw;
-  height: 40vw;
-  left: 2vw;
-  top: 13vh;
-  background-color: rgba(52, 66, 90, 0.781);
-  border-radius: 5px;
-  z-index: -1;
-  transform: translate(150%, 0);
-}
-
-#waitMulti.is-active {
-  transform: translate(0, 0);
-  z-index: 100;
-}
-
-#waitMulti > h2 {
-  text-align: center;
-  font-size: 4vw;
-  margin: auto;
-  animation: pulse 3s infinite linear;
-  color: whitesmoke;
-}
-
-@keyframes pulse {
-  10% {
-    opacity: 10%;
+  #infPanel > div:last-child > div:first-child > h1 {
+    color: whitesmoke;
+    font-size: 5vw;
   }
-  21% {
-    opacity: 21%;
+
+  #infPanel > div:last-child > div > div {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
-  32% {
-    opacity: 32%;
+
+  #infPanel > div:last-child > div:last-child {
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 3vh;
   }
-  45% {
-    opacity: 55%;
+
+  #infPanel > div:last-child > div:last-child > div {
+    width: 30vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 1vh;
+    border-radius: 3px;
   }
-  55% {
-    opacity: 75%;
+
+  #infPanel > div:last-child > div > div.green > h1 {
+    font-size: 5vw;
+    color: whitesmoke;
+    width: 30vw;
+    background-color: #4b7458;
+    margin: auto;
+    text-align: center;
+    border-radius: 3px 3px 0 0;
   }
-  65% {
-    opacity: 100%;
+
+  #infPanel > div:last-child > div > div.red > h1 {
+    font-size: 4vw;
+    color: whitesmoke;
+    width: 30vw;
+    background-color: #ad9d9d;
+    margin: auto;
+    text-align: center;
+    border-radius: 3px 3px 0 0;
   }
-  85% {
-    opacity: 100%;
+
+  #infPanel > div:last-child > div > div.green > div {
+    background-color: rgba(75, 116, 88, 0.5);
+    margin-top: 0.3vh;
+    display: flex;
+    flex-direction: column;
+    border-radius: 0 0 3px 3px;
   }
-  100% {
-    opacity: 100%;
+
+  #infPanel > div:last-child > div > div.red > div {
+    background-color: rgba(140, 133, 133, 0.2);
+    margin-top: 0.3vh;
+    display: flex;
+    flex-direction: column;
+    border-radius: 0 0 3px 3px;
+  }
+
+  #infPanel > div:last-child > div > div.green > div > h2 {
+    margin: auto;
+    font-size: 3.5vw;
+    color: lavender;
+  }
+
+  #infPanel > div:last-child > div > div.red > div > h2 {
+    margin: auto;
+    font-size: 3.5vw;
+    color: lavender;
+  }
+
+  #waitMulti {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 96vw;
+    height: 40vw;
+    left: 2vw;
+    top: 13vh;
+    background-color: rgba(52, 66, 90, 0.781);
+    border-radius: 5px;
+    z-index: -1;
+    transform: translate(150%, 0);
+  }
+
+  #waitMulti.is-active {
+    transform: translate(0, 0);
+    z-index: 100;
+  }
+
+  #waitMulti > h2 {
+    text-align: center;
+    font-size: 4vw;
+    margin: auto;
+    animation: pulse 3s infinite linear;
+    color: whitesmoke;
+  }
+
+  @keyframes pulse {
+    10% {
+      opacity: 10%;
+    }
+    21% {
+      opacity: 21%;
+    }
+    32% {
+      opacity: 32%;
+    }
+    45% {
+      opacity: 55%;
+    }
+    55% {
+      opacity: 75%;
+    }
+    65% {
+      opacity: 100%;
+    }
+    85% {
+      opacity: 100%;
+    }
+    100% {
+      opacity: 100%;
+    }
+  }
+
+  #waitMulti > img {
+    width: 15vw;
+    margin: auto;
+    animation: rotar 3s infinite linear;
   }
 }
-
-#waitMulti > img {
-  width: 15vw;
-  margin: auto;
-  animation: rotar 3s infinite linear;
-}
-}
-
 
 @media screen and (min-width: 800px) and (max-width: 5000px) {
   /******** div Mulijugador *********/
@@ -3918,7 +3929,7 @@ img {
     color: whitesmoke;
     height: 4vh;
     background-color: rgb(171, 118, 192);
-    box-shadow: 2px 2px 1px 1px rgba(0, 0, 255, .2);
+    box-shadow: 2px 2px 1px 1px rgba(0, 0, 255, 0.2);
   }
 
   #divPage > div:last-child > div > div > form > div > button.is-active {
@@ -4045,7 +4056,7 @@ img {
     flex-direction: column;
   }
 
-  #divInicioPokeball > div:first-child  {
+  #divInicioPokeball > div:first-child {
     display: flex;
     flex-direction: column;
     height: 16vh;
@@ -4067,7 +4078,7 @@ img {
     margin-left: 5.5vw;
     margin-bottom: 1.5vh;
   }
-  
+
   #divInicioPokeball > div:first-child > button:last-child {
     border: none;
     margin: auto;
@@ -4101,7 +4112,6 @@ img {
     border-bottom-width: 3px;
     margin-bottom: 2.2vh;
     margin-left: 5.5vw;
-
   }
 
   #divImgPokemonShow > div > button:last-child {
@@ -4334,9 +4344,9 @@ img {
     z-index: -1;
   }
 
- #listPokemons::-webkit-scrollbar-track {
-    border-radius: 10px;  
-}
+  #listPokemons::-webkit-scrollbar-track {
+    border-radius: 10px;
+  }
 
   #listPokemons > div {
     display: flex;
@@ -4353,7 +4363,7 @@ img {
   #divInicioPokeball > button > img {
     width: 2vw;
     margin-top: 0.5vh;
-  } 
+  }
 
   #listPokemons > div.true {
     background-color: rgb(214, 241, 198);
@@ -4629,8 +4639,8 @@ img {
   }
 
   #room {
-    width: .5vw;
-    height: .5vh;
+    width: 0.5vw;
+    height: 0.5vh;
   }
 
   #panelPrincipal {
@@ -4677,7 +4687,7 @@ img {
     position: absolute;
     width: 14vw;
     top: 65vh;
-    left: 80vw ;
+    left: 80vw;
     background-color: rgba(162, 167, 180, 0.87);
     border-radius: 5px;
     display: flex;
@@ -4725,8 +4735,8 @@ img {
     background-color: rgba(206, 200, 200, 0.61);
     color: rgb(80, 75, 75);
     padding: 10px 20px;
-    margin-bottom: .5vh;
-    margin-top: .5vh;
+    margin-bottom: 0.5vh;
+    margin-top: 0.5vh;
   }
 
   /****** Configuracion Multijugador *********/
@@ -4801,7 +4811,7 @@ img {
     color: rgba(52, 66, 90, 0.781) !important;
     margin: auto;
     font-size: 1.1vw;
-    margin-top: .8vh;
+    margin-top: 0.8vh;
   }
 
   #timeShadow > div {
@@ -4862,7 +4872,6 @@ img {
     margin-top: 2vh;
     text-align: center;
     color: rgba(52, 66, 90, 0.781) !important;
-
   }
 
   #configMulti > div:last-child > div > button {
@@ -4934,8 +4943,6 @@ img {
     font-size: 1vw;
     border: none;
   }
-
-  
 
   @keyframes rotar {
     10% {
@@ -5137,7 +5144,7 @@ img {
 
   #results > div > div > div > div {
     width: 21vw;
-    margin-left: .5vw;
+    margin-left: 0.5vw;
   }
 
   #results > div > div > div > div > h2 {
@@ -5145,7 +5152,7 @@ img {
     text-align: center;
     width: 2.8vw;
     padding: 0 2px;
-    font-size: .9vw;
+    font-size: 0.9vw;
   }
 
   #results > div > div > div > div:first-child > h2 {
@@ -5165,7 +5172,7 @@ img {
     display: flex;
     flex-direction: column;
   }
-  
+
   #infPanel.is-active {
     transform: translate(180%, 0);
     z-index: -1;
@@ -5177,218 +5184,216 @@ img {
     position: relative;
   }
 
-
-/*   Esperando a Admin */
-#infPanel > div:first-child {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 22vw;
-  background-color: rgba(52, 66, 90, 0.781);
-  border-radius: 5px;
-  height: 10vw;
-}
-
-#infPanel > div:first-child > h2 {
-  text-align: center;
-  font-size: 1.1vw;
-  margin: auto;
-  animation: pulse 3s infinite linear;
-  color: whitesmoke;
-}
-
-@keyframes pulse {
-  10% {
-    opacity: 10%;
+  /*   Esperando a Admin */
+  #infPanel > div:first-child {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 22vw;
+    background-color: rgba(52, 66, 90, 0.781);
+    border-radius: 5px;
+    height: 10vw;
   }
-  21% {
-    opacity: 21%;
+
+  #infPanel > div:first-child > h2 {
+    text-align: center;
+    font-size: 1.1vw;
+    margin: auto;
+    animation: pulse 3s infinite linear;
+    color: whitesmoke;
   }
-  32% {
-    opacity: 32%;
+
+  @keyframes pulse {
+    10% {
+      opacity: 10%;
+    }
+    21% {
+      opacity: 21%;
+    }
+    32% {
+      opacity: 32%;
+    }
+    45% {
+      opacity: 55%;
+    }
+    55% {
+      opacity: 75%;
+    }
+    65% {
+      opacity: 100%;
+    }
+    85% {
+      opacity: 100%;
+    }
+    100% {
+      opacity: 100%;
+    }
   }
-  45% {
-    opacity: 55%;
+
+  #infPanel > div:first-child > img {
+    width: 4vw;
+    margin: auto;
+    animation: rotar 3s infinite linear;
   }
-  55% {
-    opacity: 75%;
+
+  #infPanel > div:last-child {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 1.5vh;
+    background-color: rgba(52, 66, 90, 0.781);
+    width: 22vw;
+    border-radius: 5px;
   }
-  65% {
-    opacity: 100%;
+
+  #infPanel > div:last-child > div {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
-  85% {
-    opacity: 100%;
+
+  /*"RESUME"*/
+  #infPanel > div:last-child > div > h1 {
+    margin: auto;
+    padding: 1vh;
+    font-size: 1.4vw;
   }
-  100% {
-    opacity: 100%;
+
+  #infPanel > div:last-child > div:first-child {
+    margin: auto;
+    margin-top: 3vh;
+    height: 3vh;
   }
-}
 
-#infPanel > div:first-child > img {
-  width: 4vw;
-  margin: auto;
-  animation: rotar 3s infinite linear;
-}
+  #infPanel > div:last-child > div:first-child > h1 {
+    color: whitesmoke;
+  }
 
-#infPanel > div:last-child {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin-top: 1.5vh;
-  background-color: rgba(52, 66, 90, 0.781);
-  width: 22vw;
-  border-radius: 5px;
-}
+  #infPanel > div:last-child > div > div {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 
-#infPanel > div:last-child > div {
-  margin: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
+  #infPanel > div:last-child > div:last-child {
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 3vh;
+  }
 
-/*"RESUME"*/
-#infPanel > div:last-child > div > h1 {
-  margin: auto;
-  padding: 1vh;
-  font-size: 1.4vw;
-}
+  #infPanel > div:last-child > div:last-child > div {
+    width: 10vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 2vh;
+    border-radius: 3px;
+    margin-right: 1px;
+  }
 
-#infPanel > div:last-child > div:first-child {
-  margin: auto;
-  margin-top: 3vh;
-  height: 3vh;
-}
+  #infPanel > div:last-child > div > div.green > h1 {
+    font-size: 1.3vw;
+    color: whitesmoke;
+    width: 10vw;
+    background-color: #4b7458;
 
-#infPanel > div:last-child > div:first-child > h1 {
-  color: whitesmoke;
-}
+    margin: auto;
+    text-align: center;
+    border-radius: 3px 3px 0 0;
+  }
 
-#infPanel > div:last-child > div > div {
-  margin: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
+  #infPanel > div:last-child > div > div.red > h1 {
+    font-size: 1.3vw;
+    color: whitesmoke;
+    width: 10vw;
+    background-color: #ad9d9d;
+    margin: auto;
+    text-align: center;
+    border-radius: 3px 3px 0 0;
+  }
 
-#infPanel > div:last-child > div:last-child {
-  flex-direction: row;
-  flex-wrap: wrap;
-  margin-top: 3vh;
-}
+  #infPanel > div:last-child > div > div.green > div {
+    background-color: rgba(75, 116, 88, 0.5);
+    margin-top: 0.3vh;
+    display: flex;
+    flex-direction: column;
+    border-radius: 0 0 3px 3px;
+  }
 
-#infPanel > div:last-child > div:last-child > div {
-  width: 10vw;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin-bottom: 2vh;
-  border-radius: 3px;
-  margin-right: 1px;
-}
+  #infPanel > div:last-child > div > div.red > div {
+    background-color: rgba(140, 133, 133, 0.2);
+    margin-top: 0.3vh;
+    display: flex;
+    flex-direction: column;
+    border-radius: 0 0 3px 3px;
+  }
 
-#infPanel > div:last-child > div > div.green > h1 {
-  font-size: 1.3vw;
-  color: whitesmoke;
-  width: 10vw;
-  background-color: #4b7458;
+  #infPanel > div:last-child > div > div.green > div > h2 {
+    margin: auto;
+    font-size: 1.3vw;
+    color: lavender;
+  }
 
-  margin: auto;
-  text-align: center;
-  border-radius: 3px 3px 0 0 ;
-}
+  #infPanel > div:last-child > div > div.red > div > h2 {
+    margin: auto;
+    font-size: 1.3vw;
+    color: lavender;
+  }
 
-#infPanel > div:last-child > div > div.red > h1 {
-  font-size: 1.3vw;
-  color: whitesmoke;
-  width: 10vw;
-  background-color: #ad9d9d;
-  margin: auto;
-  text-align: center;
-  border-radius: 3px 3px 0 0 ;
-}
-
-#infPanel > div:last-child > div > div.green > div {
-  background-color: rgba( 75, 116, 88, .5);
-  margin-top: .3vh;
-  display: flex;
-  flex-direction: column;
-  border-radius: 0 0 3px 3px;
-}
-
-#infPanel > div:last-child > div > div.red > div {
-  background-color: rgba(140, 133, 133 , 0.2);
-  margin-top: .3vh;
-  display: flex;
-  flex-direction: column;
-  border-radius: 0 0 3px 3px;
-}
-
-#infPanel > div:last-child > div > div.green > div > h2 {
-  margin: auto;
-  font-size: 1.3vw;
-  color: lavender;
-}
-
-#infPanel > div:last-child > div > div.red > div > h2 {
-  margin: auto;
-  font-size: 1.3vw;
-  color: lavender;
-}
-
-#waitMulti {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 22vw;
-  width: 22vw;
+  #waitMulti {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 22vw;
+    width: 22vw;
     left: 76vw;
     top: 15vh;
-  background-color: rgba(52, 66, 90, 0.781);
-  border-radius: 5px;
-  height: 10vw;
-}
+    background-color: rgba(52, 66, 90, 0.781);
+    border-radius: 5px;
+    height: 10vw;
+  }
 
-#waitMulti > h2 {
-  text-align: center;
-  font-size: 1.1vw;
-  margin: auto;
-  animation: pulse 3s infinite linear;
-  color: whitesmoke;
-}
+  #waitMulti > h2 {
+    text-align: center;
+    font-size: 1.1vw;
+    margin: auto;
+    animation: pulse 3s infinite linear;
+    color: whitesmoke;
+  }
 
-@keyframes pulse {
-  10% {
-    opacity: 10%;
+  @keyframes pulse {
+    10% {
+      opacity: 10%;
+    }
+    21% {
+      opacity: 21%;
+    }
+    32% {
+      opacity: 32%;
+    }
+    45% {
+      opacity: 55%;
+    }
+    55% {
+      opacity: 75%;
+    }
+    65% {
+      opacity: 100%;
+    }
+    85% {
+      opacity: 100%;
+    }
+    100% {
+      opacity: 100%;
+    }
   }
-  21% {
-    opacity: 21%;
-  }
-  32% {
-    opacity: 32%;
-  }
-  45% {
-    opacity: 55%;
-  }
-  55% {
-    opacity: 75%;
-  }
-  65% {
-    opacity: 100%;
-  }
-  85% {
-    opacity: 100%;
-  }
-  100% {
-    opacity: 100%;
-  }
-}
 
-#waitMulti > img {
-  width: 4vw;
-  margin: auto;
-  animation: rotar 3s infinite linear;
-}
-
+  #waitMulti > img {
+    width: 4vw;
+    margin: auto;
+    animation: rotar 3s infinite linear;
+  }
 }

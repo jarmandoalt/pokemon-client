@@ -898,20 +898,20 @@ const CrudApi = () => {
                     style={{ display: "flex", flexDirection: "column" }}
                   >
                     {disableBtn ? (
-                      <div>
+                      <div className="is-mobile" >
                         <button
                           style={{
                             color: "rgb(61, 91, 126)",
                             backgroundColor: "rgb(197, 213, 226)",
                           }}
                           onClick={handleReload}
-                          className="is-mobile"
+                          
                         >
                           RELOAD
                         </button>
                       </div>
                     ) : (
-                      <div>
+                      <div className="is-mobile">
                         <button
                           style={{
                             color: "white",
@@ -919,7 +919,6 @@ const CrudApi = () => {
                             backgroundColor: "rgb(203, 192, 206)",
                           }}
                           className="is-mobile"
-                          onClick={handleSubmit}
                         >
                           Surrender
                         </button>
@@ -942,8 +941,8 @@ const CrudApi = () => {
                     )}
                   </div>
                 ) : countShowPokemon === 3 ? ( //cuando son tres llaves las obtenidas
-                  <div id="divInicioPokeball">
-                    <div>
+                  <div id="divInicioPokeball" className="is-mobile">
+                    <div className="is-mobile">
                       {" "}
                       <button
                         onClick={() => {
@@ -951,7 +950,7 @@ const CrudApi = () => {
                           new Audio(showShadow).play();
                         }}
                         style={{ backgroundColor: "rgb(125, 60, 152)" }}
-                        className="is-mobile"
+                        
                       >
                         Show Shadow
                         <br />
@@ -969,11 +968,11 @@ const CrudApi = () => {
                     <div id="divCircle" className="is-mobile"></div>
                   </div>
                 ) : countShowPokemon === 2 ? ( //cuando son dos llaves las obtenidas
-                  <div id="divInicioPokeball">
-                    <div>
+                  <div id="divInicioPokeball" className="is-mobile">
+                    <div className="is-mobile">
                       <button
                         disabled
-                        className="is-mobile"
+                        
                         style={{
                           color: "white",
                           cursor: "not-allowed",
@@ -1003,11 +1002,11 @@ const CrudApi = () => {
                     <div id="divCircle" className="is-mobile"></div>
                   </div>
                 ) : countShowPokemon === 1 ? ( //cuando es una llave las obtenida
-                  <div id="divInicioPokeball">
-                    <div>
+                  <div id="divInicioPokeball" className="is-mobile">
+                    <div className="is-mobile">
                       <button
                         disabled
-                        className="is-mobile"
+                        
                         style={{
                           color: "white",
                           cursor: "not-allowed",
@@ -1044,11 +1043,11 @@ const CrudApi = () => {
                     <div id="divCircle" className="is-mobile"></div>
                   </div>
                 ) : (
-                  <div id="divInicioPokeball">
-                    <div>
+                  <div id="divInicioPokeball" className="is-mobile">
+                    <div className="is-mobile">
                       {" "}
                       <button
-                        className="is-mobile"
+                        
                         disabled
                         style={{
                           color: "white",
@@ -1095,12 +1094,12 @@ const CrudApi = () => {
                 )}
               </div>
             ) : (
-              <div id="divInicioPokeball">
-                <div>
+              <div id="divInicioPokeball" className="is-mobile">
+                <div className="is-mobile">
                   {" "}
                   <button
                     disabled
-                    className="is-mobile"
+                    
                     style={{
                       color: "white",
                       cursor: "not-allowed",
