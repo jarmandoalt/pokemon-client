@@ -3794,8 +3794,8 @@ img {
     border: none;
     border-radius: 4px;
     margin: auto;
-    color: rgb(231, 227, 227);
-    font-size: 0.8vw;
+    color: #e7e3e3;
+    font-size: 1vw;
     background-color: rgba(164, 168, 189, 0.726);
   }
 

@@ -882,6 +882,7 @@ const CrudApi = () => {
       refJoin.current.classList.remove("is-active");
       refCreate.current.classList.add("is-active");
     } */
+    setCreateOrUnit(false)
   }, []);
 
   return (
