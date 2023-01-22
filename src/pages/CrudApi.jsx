@@ -875,13 +875,13 @@ const CrudApi = () => {
       refSingleGame.current.classList.add("is-active");
       refMultiGame.current.classList.remove("is-active");
     }
-    if (createOrUnit) {
+    /* if (createOrUnit) {
       refJoin.current.classList.add("is-active");
       refCreate.current.classList.remove("is-active");
     } else {
       refJoin.current.classList.remove("is-active");
       refCreate.current.classList.add("is-active");
-    }
+    } */
   }, []);
 
   return (
