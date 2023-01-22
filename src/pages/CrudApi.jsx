@@ -867,7 +867,7 @@ const CrudApi = () => {
     }
   };
 
-  useEffect(() => {
+  /* useEffect(() => {
     console.log("booro");
     if (modeGame === true) {
       refSingleGame.current.classList.remove("is-active");
@@ -883,7 +883,7 @@ const CrudApi = () => {
       refJoin.current.classList.remove("is-active");
       refCreate.current.classList.add("is-active");
     }
-  }, []);
+  }, []); */
 
   return (
     <div id="divPage">
