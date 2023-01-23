@@ -606,6 +606,11 @@ const CrudApi = () => {
     filterPokemon(e.target.value);
   };
 
+  const handleBusquedaPokemonsAux = (e) => {
+    /* setBusquedaPokemon(e.target.value);
+    filterPokemon(e.target.value); */
+  };
+
   const filterPokemon = (terminoBusqueda) => {
     let resultFilter = dbPokemon1.filter((element) => {
       if (
@@ -1636,7 +1641,7 @@ const CrudApi = () => {
                     value={busquedaPokemon}
                     id="buscador"
                     onKeyUp={keyUp}
-                    onChange={handleBusquedaPokemons}
+                    onChange={handleBusquedaPokemonsAux}
                     autoComplete="off"
                   />
                 )}
